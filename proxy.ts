@@ -6,7 +6,9 @@ const { auth } = NextAuth({ providers: [Google] })
 
 export default auth((req) => {
   if (!req.auth) {
-    return NextResponse.redirect(new URL("/login", req.url))
+    const isRoot = req.nextUrl.pathname === "/";
+    if (isRoot) return NextResponse.next();
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 })
 

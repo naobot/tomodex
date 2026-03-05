@@ -1,0 +1,166 @@
+"use client";
+
+import { useTransition } from "react";
+import Link from "next/link";
+import { updatePerson } from "./actions";
+import ContactSection from "./ContactSection";
+import AddressSection from "./AddressSection";
+import NotesSection from "./NotesSection";
+import CustomAttrSection from "./CustomAttrSection";
+import type { SerialisedPerson } from "./types";
+
+// Month names for birthday display — birthMonth is 1-indexed
+const MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+
+function formatBirthday(
+  day: number | null,
+  month: number | null,
+  year: number | null
+): string | null {
+  if (!day && !month && !year) return null;
+  const parts: string[] = [];
+  if (month) parts.push(MONTHS[month - 1]);
+  if (day) parts.push(String(day));
+  if (year) parts.push(String(year));
+  return parts.join(" ");
+}
+
+type Props = {
+  person: SerialisedPerson;
+};
+
+export default function PersonDetail({ person }: Props) {
+  const [isPending, startTransition] = useTransition();
+
+  const birthday = formatBirthday(
+    person.birthDay,
+    person.birthMonth,
+    person.birthYear
+  );
+
+  return (
+    <main className="mx-auto max-w-2xl px-4 py-10 space-y-10">
+      {/* Back link */}
+      <Link
+        href="/people"
+        className="text-sm text-indigo-600 hover:underline"
+      >
+        ← All people
+      </Link>
+
+      {/* Header / core fields */}
+      <section className="space-y-4">
+        <h1 className="text-3xl font-bold text-gray-900">
+          {person.displayName}
+        </h1>
+        {person.fullName && (
+          <p className="text-gray-500 text-sm">{person.fullName}</p>
+        )}
+        {birthday && (
+          <p className="text-sm text-gray-500">🎂 {birthday}</p>
+        )}
+
+        {/* Edit core fields */}
+        <details className="rounded border border-gray-200 p-3">
+          <summary className="cursor-pointer text-sm text-indigo-600 select-none">
+            Edit details
+          </summary>
+          <form
+            action={(fd) =>
+              startTransition(() => updatePerson(person.id, fd))
+            }
+            className="mt-3 space-y-3"
+          >
+            <div className="flex gap-2">
+              <label className="flex-1 space-y-1">
+                <span className="text-xs text-gray-500">Display name *</span>
+                <input
+                  name="displayName"
+                  defaultValue={person.displayName}
+                  required
+                  className="w-full rounded border border-gray-300 px-2 py-1 text-sm"
+                />
+              </label>
+              <label className="flex-1 space-y-1">
+                <span className="text-xs text-gray-500">Full name</span>
+                <input
+                  name="fullName"
+                  defaultValue={person.fullName ?? ""}
+                  className="w-full rounded border border-gray-300 px-2 py-1 text-sm"
+                />
+              </label>
+            </div>
+            <div className="flex gap-2">
+              <label className="space-y-1">
+                <span className="text-xs text-gray-500">Birth day</span>
+                <input
+                  name="birthDay"
+                  type="number"
+                  min={1}
+                  max={31}
+                  defaultValue={person.birthDay ?? ""}
+                  className="w-20 rounded border border-gray-300 px-2 py-1 text-sm"
+                />
+              </label>
+              <label className="space-y-1">
+                <span className="text-xs text-gray-500">Birth month</span>
+                <input
+                  name="birthMonth"
+                  type="number"
+                  min={1}
+                  max={12}
+                  defaultValue={person.birthMonth ?? ""}
+                  className="w-20 rounded border border-gray-300 px-2 py-1 text-sm"
+                />
+              </label>
+              <label className="space-y-1">
+                <span className="text-xs text-gray-500">Birth year</span>
+                <input
+                  name="birthYear"
+                  type="number"
+                  min={1900}
+                  max={new Date().getFullYear()}
+                  defaultValue={person.birthYear ?? ""}
+                  className="w-24 rounded border border-gray-300 px-2 py-1 text-sm"
+                />
+              </label>
+            </div>
+            <button
+              type="submit"
+              disabled={isPending}
+              className="rounded bg-indigo-600 px-4 py-1.5 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
+            >
+              Save
+            </button>
+          </form>
+        </details>
+      </section>
+
+      <hr className="border-gray-100" />
+
+      <ContactSection
+        personId={person.id}
+        phoneNumbers={person.phoneNumbers}
+        emailAddresses={person.emailAddresses}
+      />
+
+      <hr className="border-gray-100" />
+
+      <AddressSection personId={person.id} addresses={person.addresses} />
+
+      <hr className="border-gray-100" />
+
+      <NotesSection personId={person.id} notes={person.notes} />
+
+      <hr className="border-gray-100" />
+
+      <CustomAttrSection
+        personId={person.id}
+        customAttributes={person.customAttributes}
+      />
+    </main>
+  );
+}
