@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
@@ -25,6 +26,12 @@ export default async function PeoplePage() {
 
   return (
     <main className="mx-auto max-w-xl px-4 py-10">
+      <Link
+        href="/"
+        className="mb-6 inline-block text-sm text-indigo-600 hover:underline"
+      >
+        ← Back
+      </Link>
       <h1 className="mb-6 text-2xl font-bold text-gray-900">Friends</h1>
       <PersonList people={serialisedPeople} />
     </main>

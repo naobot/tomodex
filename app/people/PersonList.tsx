@@ -2,6 +2,7 @@
 
 import { useRef, useTransition } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { addPerson } from "./actions";
 
 type PersonSummary = {
@@ -18,6 +19,7 @@ export default function PersonList({ people }: Props) {
   const [isPending, startTransition] = useTransition();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const router = useRouter();
 
   function openModal() {
     dialogRef.current?.showModal();
@@ -30,8 +32,9 @@ export default function PersonList({ people }: Props) {
 
   function handleSubmit(formData: FormData) {
     startTransition(async () => {
-      await addPerson(formData);
+      const { id } = await addPerson(formData);
       closeModal();
+      router.push(`/people/${id}`);
     });
   }
 
@@ -113,7 +116,7 @@ export default function PersonList({ people }: Props) {
                 placeholder="e.g. Sarah Jane Smith"
                 className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
               />
-              <p className="text-xs text-gray-400">Optional.</p>
+              <p className="text-xs text-gray-400">(Optional)</p>
             </label>
 
             <div className="flex justify-end gap-2 pt-2">
