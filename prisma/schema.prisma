@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -14,10 +8,18 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  // --- for NextAuth ---
+  emailVerified DateTime?
+  image         String?
+  // --------------------------
+  createdAt     DateTime  @default(now())
+
+  // --- for NextAuth ---
+  accounts Account[]
+  // --------------------------
 
   people           Person[]
   notes            Note[]
@@ -26,6 +28,33 @@ model User {
   emailAddresses   EmailAddress[]
   addresses        Address[]
 }
+
+// --- for NextAuth ---
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+}
+// --------------------------
 
 model Person {
   id          String   @id @default(cuid())
@@ -67,7 +96,7 @@ model PhoneNumber {
   owner     User    @relation(fields: [ownerId], references: [id])
   personId  String
   person    Person  @relation(fields: [personId], references: [id], onDelete: Cascade)
-  label     String? // e.g. "mobile", "home", "work"
+  label     String?
   number    String
 }
 
@@ -98,7 +127,7 @@ model CustomAttribute {
   owner     User     @relation(fields: [ownerId], references: [id])
   personId  String
   person    Person   @relation(fields: [personId], references: [id], onDelete: Cascade)
-  key       String   // e.g. "favourite tea", "how we met"
+  key       String
   value     String
   createdAt DateTime @default(now())
 }
