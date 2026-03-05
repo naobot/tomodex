@@ -26,7 +26,8 @@ model User {
   customAttributes CustomAttribute[]
   phoneNumbers     PhoneNumber[]
   emailAddresses   EmailAddress[]
-  addresses        Address[]
+  mailingAddresses MailingAddress[]
+  locations        Location[]
 }
 
 // --- for NextAuth ---
@@ -70,7 +71,8 @@ model Person {
 
   phoneNumbers     PhoneNumber[]
   emailAddresses   EmailAddress[]
-  addresses        Address[]
+  mailingAddresses MailingAddress[]
+  location         Location?
   notes            Note[]
   customAttributes CustomAttribute[]
 
@@ -79,7 +81,8 @@ model Person {
   @@index([birthMonth])
 }
 
-model Address {
+// Renamed from Address — freeform postal/mailing address for letters and packages
+model MailingAddress {
   id             String  @id @default(cuid())
   ownerId        String
   owner          User    @relation(fields: [ownerId], references: [id])
@@ -87,7 +90,17 @@ model Address {
   person         Person  @relation(fields: [personId], references: [id], onDelete: Cascade)
   label          String?
   mailingAddress String
-  country        String?
+}
+
+// One per person — where they currently live
+model Location {
+  id       String  @id @default(cuid())
+  ownerId  String
+  owner    User    @relation(fields: [ownerId], references: [id])
+  personId String  @unique  // @unique enforces the one-to-one at the database level
+  person   Person  @relation(fields: [personId], references: [id], onDelete: Cascade)
+  city     String?
+  country  String?
 }
 
 model PhoneNumber {

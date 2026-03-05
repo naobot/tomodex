@@ -13,12 +13,18 @@ export type SerialisedEmailAddress = {
   address: string;
 };
 
-export type SerialisedAddress = {
+export type SerialisedMailingAddress = {
   id: string;
   label: string | null;
   mailingAddress: string;
-  country: string | null;
 };
+
+// Location is one-or-none per person — null means not set yet
+export type SerialisedLocation = {
+  id: string;
+  city: string | null;
+  country: string | null;
+} | null;
 
 export type SerialisedNote = {
   id: string;
@@ -45,7 +51,8 @@ export type SerialisedPerson = {
   updatedAt: string;
   phoneNumbers: SerialisedPhoneNumber[];
   emailAddresses: SerialisedEmailAddress[];
-  addresses: SerialisedAddress[];
+  mailingAddresses: SerialisedMailingAddress[];
+  location: SerialisedLocation;
   notes: SerialisedNote[];
   customAttributes: SerialisedCustomAttribute[];
 };

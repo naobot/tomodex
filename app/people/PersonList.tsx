@@ -1,14 +1,13 @@
 "use client";
 
-import { useTransition } from "react";
-import { addPerson, deletePerson } from "./actions";
+import { useRef, useTransition } from "react";
+import Link from "next/link";
+import { addPerson } from "./actions";
 
-// A plain serialisable shape — Prisma model types aren't safe to pass
-// across the server/client boundary directly (they may contain Dates, etc.)
 type PersonSummary = {
   id: string;
   displayName: string;
-  createdAt: string; // ISO string — Dates are serialised before crossing the boundary
+  updatedAt: string;
 };
 
 type Props = {
@@ -17,62 +16,125 @@ type Props = {
 
 export default function PersonList({ people }: Props) {
   const [isPending, startTransition] = useTransition();
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  function handleDelete(personId: string) {
+  function openModal() {
+    dialogRef.current?.showModal();
+  }
+
+  function closeModal() {
+    dialogRef.current?.close();
+    formRef.current?.reset();
+  }
+
+  function handleSubmit(formData: FormData) {
     startTransition(async () => {
-      await deletePerson(personId);
+      await addPerson(formData);
+      closeModal();
     });
   }
 
   return (
-    <div className="space-y-6">
-      {/* Add person form — Server Action wired directly to the form action */}
-      <form
-        action={addPerson}
-        className="flex gap-2"
-      >
-        <input
-          type="text"
-          name="displayName"
-          placeholder="Add a person…"
-          required
-          className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-        />
-        <button
-          type="submit"
-          disabled={isPending}
-          className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
-        >
-          Add
-        </button>
-      </form>
-
-      {/* People list */}
-      {people.length === 0 ? (
+    <>
+      {/* List header */}
+      <div className="mb-4 flex items-center justify-between">
         <p className="text-sm text-gray-500">
-          No people yet. Add someone above to get started.
+          {people.length === 0
+            ? "No friends yet."
+            : `${people.length} friend${people.length === 1 ? "" : "s"}`}
+        </p>
+        <button
+          onClick={openModal}
+          className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+        >
+          + Add Friend
+        </button>
+      </div>
+
+      {/* Friends list */}
+      {people.length === 0 ? (
+        <p className="text-sm text-gray-400">
+          Add your first friend to get started.
         </p>
       ) : (
         <ul className="divide-y divide-gray-100 rounded-md border border-gray-200">
           {people.map((person) => (
-            <li
-              key={person.id}
-              className="flex items-center justify-between px-4 py-3"
-            >
-              <span className="text-sm font-medium text-gray-900">
-                {person.displayName}
-              </span>
-              <button
-                onClick={() => handleDelete(person.id)}
-                disabled={isPending}
-                className="text-xs text-red-500 hover:text-red-700 disabled:opacity-40"
+            <li key={person.id}>
+              <Link
+                href={`/people/${person.id}`}
+                className="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition-colors"
               >
-                Remove
-              </button>
+                <span className="text-sm font-medium text-gray-900">
+                  {person.displayName}
+                </span>
+                <span className="text-xs text-gray-400">→</span>
+              </Link>
             </li>
           ))}
         </ul>
       )}
-    </div>
+
+      {/* Add Friend modal */}
+      <dialog
+        ref={dialogRef}
+        className="rounded-xl border border-gray-200 p-0 shadow-xl backdrop:bg-black/30 w-full max-w-md"
+        onClose={closeModal}
+      >
+        <div className="px-6 py-5">
+          <h2 className="mb-4 text-lg font-semibold text-gray-900">
+            Add a Friend
+          </h2>
+          <form ref={formRef} action={handleSubmit} className="space-y-4">
+            <label className="block space-y-1">
+              <span className="text-sm font-medium text-gray-700">
+                Display name <span className="text-red-500">*</span>
+              </span>
+              <input
+                name="displayName"
+                type="text"
+                required
+                autoFocus
+                placeholder="e.g. Sarah"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              />
+              <p className="text-xs text-gray-400">
+                How their name appears throughout the app.
+              </p>
+            </label>
+
+            <label className="block space-y-1">
+              <span className="text-sm font-medium text-gray-700">
+                Full name
+              </span>
+              <input
+                name="fullName"
+                type="text"
+                placeholder="e.g. Sarah Jane Smith"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              />
+              <p className="text-xs text-gray-400">Optional.</p>
+            </label>
+
+            <div className="flex justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={closeModal}
+                className="rounded-md border border-gray-300 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={isPending}
+                className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+              >
+                {isPending ? "Adding…" : "Add Friend"}
+              </button>
+            </div>
+          </form>
+        </div>
+      </dialog>
+    </>
   );
 }

@@ -1,26 +1,185 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600&family=Nunito+Sans:wght@300;400;500;600&display=swap');
+
+/* ==========================================================================
+   TOMODEX DESIGN TOKENS
+   Inspired by Mac OS X Aqua — platinum variant.
+   Primitive tokens (raw values) are prefixed --primitive-.
+   Semantic tokens (purposeful names) reference primitives via var().
+   Components should only ever reference semantic tokens.
+   ========================================================================== */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+  /* --------------------------------------------------------------------------
+     PRIMITIVES — colour
+  -------------------------------------------------------------------------- */
+  --primitive-white:        #ffffff;
+  --primitive-off-white:    #fafaf8;
+  --primitive-bg:           #f2f2f0;
+  --primitive-bg-inset:     #e8e8e5;
+
+  --primitive-black:        #1e1e1c;
+  --primitive-grey-60:      #5a5a56;
+  --primitive-grey-40:      #9a9a94;
+
+  --primitive-platinum-30:  #c8c8c4;
+  --primitive-platinum-40:  #b0b0aa;
+  --primitive-platinum-55:  #909088;
+
+  --primitive-highlight:    rgba(255, 255, 255, 0.62);
+  --primitive-gloss:        rgba(255, 255, 255, 0.28);
+  --primitive-shadow-tint:  rgba(0, 0, 0, 0.12);
+  --primitive-shadow-soft:  rgba(0, 0, 0, 0.06);
+
+  /* --------------------------------------------------------------------------
+     PRIMITIVES — spacing (base unit: 4px)
+  -------------------------------------------------------------------------- */
+  --primitive-space-1:  4px;
+  --primitive-space-2:  8px;
+  --primitive-space-3:  12px;
+  --primitive-space-4:  16px;
+  --primitive-space-6:  24px;
+  --primitive-space-8:  32px;
+  --primitive-space-12: 48px;
+  --primitive-space-16: 64px;
+
+  /* --------------------------------------------------------------------------
+     PRIMITIVES — radius
+  -------------------------------------------------------------------------- */
+  --primitive-radius-sm: 6px;
+  --primitive-radius-md: 10px;
+  --primitive-radius-lg: 16px;
+
+  /* --------------------------------------------------------------------------
+     PRIMITIVES — typography
+  -------------------------------------------------------------------------- */
+  --primitive-font-ui:      'Nunito Sans', system-ui, sans-serif;
+  --primitive-font-display: 'Nunito', system-ui, sans-serif;
+
+  --primitive-size-xs:  0.72rem;   /* 11.5px */
+  --primitive-size-sm:  0.8125rem; /* 13px   */
+  --primitive-size-md:  0.9375rem; /* 15px   */
+  --primitive-size-lg:  1.125rem;  /* 18px   */
+  --primitive-size-xl:  1.375rem;  /* 22px   */
+  --primitive-size-2xl: 1.75rem;   /* 28px   */
+  --primitive-size-3xl: 2.25rem;   /* 36px   */
+
+  /* --------------------------------------------------------------------------
+     PRIMITIVES — motion
+  -------------------------------------------------------------------------- */
+  --primitive-ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --primitive-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --primitive-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* subtle overshoot */
+
+  --primitive-duration-fast:    120ms;
+  --primitive-duration-default: 200ms;
+  --primitive-duration-slow:    320ms;
+
+  /* ==========================================================================
+     SEMANTIC TOKENS — what components actually reference
+     ========================================================================== */
+
+  /* Colour — backgrounds */
+  --color-bg:            var(--primitive-bg);
+  --color-bg-inset:      var(--primitive-bg-inset);
+  --color-surface:       var(--primitive-off-white);
+  --color-surface-raised:var(--primitive-white);
+
+  /* Colour — text */
+  --color-text:          var(--primitive-black);
+  --color-text-secondary:var(--primitive-grey-60);
+  --color-text-faint:    var(--primitive-grey-40);
+
+  /* Colour — borders */
+  --color-border:        var(--primitive-platinum-30);
+  --color-border-strong: var(--primitive-platinum-40);
+
+  /* Colour — accent (platinum) */
+  --color-accent:        var(--primitive-platinum-55);
+  --color-accent-hover:  var(--primitive-platinum-40);
+
+  /* Colour — Aqua gloss effects */
+  --color-highlight:     var(--primitive-highlight);
+  --color-gloss:         var(--primitive-gloss);
+
+  /* Spacing */
+  --space-xs:  var(--primitive-space-1);
+  --space-sm:  var(--primitive-space-2);
+  --space-md:  var(--primitive-space-4);
+  --space-lg:  var(--primitive-space-6);
+  --space-xl:  var(--primitive-space-8);
+  --space-2xl: var(--primitive-space-12);
+  --space-3xl: var(--primitive-space-16);
+
+  /* Padding presets for common UI surfaces */
+  --padding-card:   var(--primitive-space-8) var(--primitive-space-8);
+  --padding-panel:  var(--primitive-space-6) var(--primitive-space-6);
+  --padding-inset:  var(--primitive-space-3) var(--primitive-space-4);
+  --padding-btn:    var(--primitive-space-2) var(--primitive-space-6);
+
+  /* Radius */
+  --radius-sm: var(--primitive-radius-sm);
+  --radius-md: var(--primitive-radius-md);
+  --radius-lg: var(--primitive-radius-lg);
+
+  /* Typography */
+  --font-ui:      var(--primitive-font-ui);
+  --font-display: var(--primitive-font-display);
+
+  --text-xs:  var(--primitive-size-xs);
+  --text-sm:  var(--primitive-size-sm);
+  --text-md:  var(--primitive-size-md);
+  --text-lg:  var(--primitive-size-lg);
+  --text-xl:  var(--primitive-size-xl);
+  --text-2xl: var(--primitive-size-2xl);
+  --text-3xl: var(--primitive-size-3xl);
+
+  /* Shadows — layered for the Aqua depth quality */
+  --shadow-sm:
+    0 1px 2px var(--primitive-shadow-tint),
+    0 0 0 1px var(--primitive-shadow-soft);
+
+  --shadow-md:
+    0 2px 4px var(--primitive-shadow-tint),
+    0 6px 16px var(--primitive-shadow-soft),
+    inset 0 1px 0 var(--color-highlight);
+
+  --shadow-lg:
+    0 4px 8px var(--primitive-shadow-tint),
+    0 16px 40px var(--primitive-shadow-soft),
+    inset 0 1px 0 var(--color-highlight);
+
+  /* The inset highlight — single-pixel top edge gloss, signature Aqua detail */
+  --gloss-edge: inset 0 1px 0 var(--color-highlight);
+
+  /* Motion */
+  --ease-out:    var(--primitive-ease-out);
+  --ease-in-out: var(--primitive-ease-in-out);
+  --ease-spring: var(--primitive-ease-spring);
+
+  --duration-fast:    var(--primitive-duration-fast);
+  --duration-default: var(--primitive-duration-default);
+  --duration-slow:    var(--primitive-duration-slow);
+
+  --transition-default: var(--duration-default) var(--ease-out);
+  --transition-fast:    var(--duration-fast) var(--ease-out);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ==========================================================================
+   BASE STYLES
+   ========================================================================== */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  font-size: var(--text-md);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

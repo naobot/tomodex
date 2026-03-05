@@ -18,7 +18,8 @@ export default async function PersonPage({ params }: Props) {
     include: {
       phoneNumbers: true,
       emailAddresses: true,
-      addresses: true,
+      mailingAddresses: true,
+      location: true,
       notes: { orderBy: { updatedAt: "desc" } },
       customAttributes: { orderBy: { createdAt: "asc" } },
     },

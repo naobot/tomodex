@@ -106,27 +106,59 @@ export async function deleteEmailAddress(personId: string, emailId: string) {
 }
 
 // ---------------------------------------------------------------------------
-// Addresses
+// Location (one-to-one — upsert rather than add/delete)
 // ---------------------------------------------------------------------------
 
-export async function addAddress(personId: string, formData: FormData) {
+export async function upsertLocation(personId: string, formData: FormData) {
   const ownerId = await requireOwnership(personId);
 
-  const mailingAddress = (formData.get("mailingAddress") as string)?.trim();
-  if (!mailingAddress) throw new Error("Mailing address is required");
-  const label = (formData.get("label") as string)?.trim() || null;
+  const city = (formData.get("city") as string)?.trim() || null;
   const country = (formData.get("country") as string)?.trim() || null;
 
-  await prisma.address.create({
-    data: { personId, ownerId, mailingAddress, label, country },
+  // upsert: create if no location exists yet, update if one does.
+  // The @unique on personId means there can never be two rows for the same person.
+  await prisma.location.upsert({
+    where: { personId },
+    create: { personId, ownerId, city, country },
+    update: { city, country },
   });
 
   revalidatePerson(personId);
 }
 
-export async function deleteAddress(personId: string, addressId: string) {
+export async function clearLocation(personId: string) {
   await requireOwnership(personId);
-  await prisma.address.delete({ where: { id: addressId } });
+
+  // deleteMany is safe here — if no location exists yet it's a no-op,
+  // unlike delete which throws on a missing record
+  await prisma.location.deleteMany({ where: { personId } });
+  revalidatePerson(personId);
+}
+
+// ---------------------------------------------------------------------------
+// Mailing addresses
+// ---------------------------------------------------------------------------
+
+export async function addMailingAddress(personId: string, formData: FormData) {
+  const ownerId = await requireOwnership(personId);
+
+  const mailingAddress = (formData.get("mailingAddress") as string)?.trim();
+  if (!mailingAddress) throw new Error("Mailing address is required");
+  const label = (formData.get("label") as string)?.trim() || null;
+
+  await prisma.mailingAddress.create({
+    data: { personId, ownerId, mailingAddress, label },
+  });
+
+  revalidatePerson(personId);
+}
+
+export async function deleteMailingAddress(
+  personId: string,
+  mailingAddressId: string
+) {
+  await requireOwnership(personId);
+  await prisma.mailingAddress.delete({ where: { id: mailingAddressId } });
   revalidatePerson(personId);
 }
 

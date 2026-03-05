@@ -4,7 +4,8 @@ import { useTransition } from "react";
 import Link from "next/link";
 import { updatePerson } from "./actions";
 import ContactSection from "./ContactSection";
-import AddressSection from "./AddressSection";
+import LocationSection from "./LocationSection";
+import MailingAddressSection from "./MailingAddressSection";
 import NotesSection from "./NotesSection";
 import CustomAttrSection from "./CustomAttrSection";
 import type { SerialisedPerson } from "./types";
@@ -149,7 +150,14 @@ export default function PersonDetail({ person }: Props) {
 
       <hr className="border-gray-100" />
 
-      <AddressSection personId={person.id} addresses={person.addresses} />
+      <LocationSection personId={person.id} location={person.location} />
+
+      <hr className="border-gray-100" />
+
+      <MailingAddressSection
+        personId={person.id}
+        mailingAddresses={person.mailingAddresses}
+      />
 
       <hr className="border-gray-100" />
 
