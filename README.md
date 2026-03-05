@@ -148,9 +148,53 @@ generated/
 
 ---
 
+## Setting Up Your Own Credentials (for Contributors)
+
+Each developer needs their own Supabase database and Google OAuth credentials for local development. This keeps everyone's test data isolated and avoids sharing secrets. Both are free and take about 15 minutes to set up.
+
+### Supabase
+
+1. Go to [supabase.com](https://supabase.com/) and create a free account
+2. Click **New project**, give it a name (e.g. `tomodex-dev`), and choose a region close to you
+3. Once the project is ready, go to **Settings → Database**
+4. Under **Connection string**, select the **URI** tab and copy the string — it looks like:
+   ```
+   postgresql://postgres:[YOUR-PASSWORD]@db.xxxx.supabase.co:5432/postgres
+   ```
+5. Paste this as your `DATABASE_URL` in `.env`
+6. Run `npx prisma db push` to create the tables in your new database
+
+### Google OAuth
+
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/) and create a new project
+2. Navigate to **APIs & Services → OAuth consent screen**
+   - Choose **External** as the user type
+   - Fill in the required app name and contact email fields
+   - You can leave everything else blank for local development
+   - Add your own Google account as a **test user** on the final step
+3. Navigate to **APIs & Services → Credentials**
+   - Click **Create Credentials → OAuth client ID**
+   - Choose **Web application** as the application type
+   - Under **Authorised redirect URIs**, add:
+     ```
+     http://localhost:3000/api/auth/callback/google
+     ```
+   - Click **Create**
+4. Copy the **Client ID** and **Client Secret** into your `.env` as `AUTH_GOOGLE_ID` and `AUTH_GOOGLE_SECRET`
+
+### Generate an AUTH_SECRET
+
+```bash
+npx auth secret
+```
+
+This generates a secure random string and writes it to your `.env` automatically.
+
+---
+
 ## Contributing
 
-Contributions are welcome! A few guidelines:
+This is still under development and I'm not expecting public contributors at the moment. However, if I do in the future, here are some general guidelines on contributing:
 
 - Follow the existing file and component naming conventions (PascalCase components, kebab-case routes)
 - All new database tables should include an `ownerId` column scoped to the `User` model
