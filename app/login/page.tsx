@@ -1,10 +1,9 @@
-import { SignInButton } from "@/components/auth/SignInButton"
+import Header from "@/components/ui/Header"
 
 export default function LoginPage() {
   return (
     <main>
-      <h1>Tomodex</h1>
-      <SignInButton />
+      <Header isLoggedIn={false} />
     </main>
   )
 }

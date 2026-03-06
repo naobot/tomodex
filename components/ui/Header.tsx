@@ -1,6 +1,5 @@
 // import styles from "./Card.module.css";
-import { signIn, signOut } from "next-auth/react";
-import Button from "./Button";
+import { AuthButton } from "../auth/AuthButton";
 
 type HeaderProps = {
   isLoggedIn: boolean;
@@ -13,21 +12,7 @@ export default function Header({ isLoggedIn }: HeaderProps) {
         <h1 className="text-sm uppercase text-pixel">Tomodex</h1>
       </div>
       <div>
-        {isLoggedIn ? (
-          <Button
-            className='text-pixel text-sm'
-            onClick={() => signOut({ callbackUrl: "/" })}
-          >
-            Sign out
-          </Button>
-        ) : (
-          <Button
-            className='text-pixel text-sm'
-            onClick={() => signIn("google")}
-          >
-            Sign in
-          </Button>
-        )}
+        <AuthButton isLoggedIn />
       </div>
     </div>
   );
