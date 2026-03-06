@@ -67,6 +67,7 @@ export const easing = {
 } as const;
 
 export const font = {
-  ui:      "'Nunito Sans', system-ui, sans-serif",
-  display: "'Nunito', system-ui, sans-serif",
+  ui:      "'Lexend Giga', system-ui, sans-serif",
+  display:      "'Lexend Giga', system-ui, sans-serif",
+  pixel: "'Bitcount Single Grid', system-ui, monospace",
 } as const;
