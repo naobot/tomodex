@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { signIn, signOut } from "next-auth/react";
 import styles from "./HomeCard.module.css";
 import Card from "@/components/ui/Card";
-import Button from "@/components/ui/Button";
+import Header from "@/components/ui/Header";
 
 type Props = {
   isLoggedIn: boolean;
@@ -38,28 +37,7 @@ const actions = [
 export default function HomeCard({ isLoggedIn }: Props) {
   return (
     <Card className="w-sm m-auto p-8px">
-      <div className="w-full flex justify-between items-center">
-        <div>
-          <h1 className="text-sm uppercase text-pixel">Tomodex</h1>
-        </div>
-        <div>
-          {isLoggedIn ? (
-            <Button
-              className='text-pixel text-sm'
-              onClick={() => signOut({ callbackUrl: "/" })}
-            >
-              Sign out
-            </Button>
-          ) : (
-            <Button
-              className='text-pixel text-sm'
-              onClick={() => signIn("google")}
-            >
-              Sign in
-            </Button>
-          )}
-        </div>
-      </div>
+        <Header isLoggedIn />
 
         <ul className="my-4">
           {actions.map((action, i) => {
