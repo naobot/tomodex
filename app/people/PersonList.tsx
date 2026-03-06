@@ -82,7 +82,7 @@ export default function PersonList({ people }: Props) {
       {/* Add Friend modal */}
       <dialog
         ref={dialogRef}
-        className="rounded-xl border border-gray-200 p-0 shadow-xl backdrop:bg-black/30 w-full max-w-md"
+        className="rounded-xl border border-gray-200 p-0 shadow-xl backdrop:bg-black/30 w-full max-w-md m-auto"
         onClose={closeModal}
       >
         <div className="px-6 py-5">
@@ -100,7 +100,7 @@ export default function PersonList({ people }: Props) {
                 required
                 autoFocus
                 placeholder="e.g. Sarah"
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-300"
               />
               <p className="text-xs text-gray-400">
                 How their name appears throughout the app.
@@ -115,26 +115,26 @@ export default function PersonList({ people }: Props) {
                 name="fullName"
                 type="text"
                 placeholder="e.g. Sarah Jane Smith"
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-300"
               />
               <p className="text-xs text-gray-400">(Optional)</p>
             </label>
 
             <div className="flex justify-end gap-2 pt-2">
-              <button
+              <Button
                 type="button"
                 onClick={closeModal}
-                className="rounded-md border border-gray-300 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50"
+                className="text-sm text-pixel"
               >
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
                 type="submit"
                 disabled={isPending}
-                className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
+                className="text-sm text-pixel disabled:opacity-50"
               >
                 {isPending ? "Adding…" : "Add Friend"}
-              </button>
+              </Button>
             </div>
           </form>
         </div>

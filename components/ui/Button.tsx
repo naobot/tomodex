@@ -12,7 +12,12 @@ interface ButtonProps {
 
 export default function Button({ children, onClick, className = "", disabled, type }: ButtonProps) {
   return (
-    <button className={`${styles.root} ${className}`.trim()} onClick={onClick} disabled type={type}>
+    <button
+      className={`${styles.root} ${className}`.trim()}
+      onClick={onClick}
+      disabled={disabled}
+      type={type}
+    >
       {children}
     </button>
   );
