@@ -1,3 +1,7 @@
+.root {
+  max-width: min(90%, 520px);
+}
+
 .BarMenuItem {
   background: none;
   color: var(--primitive-grey-40);

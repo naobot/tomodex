@@ -55,7 +55,7 @@
      PRIMITIVES — typography
   -------------------------------------------------------------------------- */
   --primitive-font-ui:      'Lexend Giga', system-ui, sans-serif;
-  --primitive-font-display: 'Legend Giga', system-ui, sans-serif;
+  --primitive-font-display: 'Lexend Giga', system-ui, sans-serif;
   --primitive-font-pixel:   'Bitcount Grid Single', system-ui, monospace;
 
   --primitive-size-xs:  0.72rem;   /* 11.5px */

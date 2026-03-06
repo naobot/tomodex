@@ -1,0 +1,26 @@
+.cloudContainer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.cloudContainer * {
+  pointer-events: auto;
+}
+
+.nameLabel {
+  display: block;
+  font-size: 4rem;
+  font-family: var(--font-display);
+  color: var(--color-text);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  filter: blur(3px);
+  transition: filter 0.3s ease, opacity 0.3s ease;
+  user-select: none;
+}
+
+.nameLabel:hover {
+  filter: blur(0px);
+}

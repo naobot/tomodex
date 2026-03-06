@@ -47,3 +47,25 @@ export async function getPeopleGridForUser(userId: string): Promise<PersonGridIt
 
   return people;
 }
+
+export type FriendsCloudPerson = {
+  id: string;
+  displayName: string;
+};
+
+export async function getFriendsCloudForUser(
+  userId: string
+): Promise<FriendsCloudPerson[]> {
+  const people = await prisma.person.findMany({
+    where: { ownerId: userId },
+    select: { id: true, displayName: true },
+  });
+
+  // Fisher-Yates shuffle, then take first 20
+  for (let i = people.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [people[i], people[j]] = [people[j], people[i]];
+  }
+
+  return people.slice(0, 20);
+}
