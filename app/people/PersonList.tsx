@@ -62,17 +62,17 @@ export default function PersonList({ people }: Props) {
           Add your first friend to get started.
         </p>
       ) : (
-        <ul className="divide-y divide-gray-100 rounded-md border border-gray-200">
+        <ul>
           {people.map((person) => (
             <li key={person.id}>
               <Link
                 href={`/people/${person.id}`}
-                className="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition-colors"
+                className="flex items-center justify-between p-0 -my-2 hover:bg-gray-50 transition-colors"
               >
-                <span className="text-sm font-medium text-gray-900">
+                <span className="text-2xl">
                   {person.displayName}
                 </span>
-                <span className="text-xs text-gray-400">→</span>
+                {/*<span className="text-xs text-gray-400">→</span>*/}
               </Link>
             </li>
           ))}

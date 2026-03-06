@@ -88,7 +88,7 @@
   --color-surface-raised:var(--primitive-white);
 
   /* Colour — text */
-  --color-text:          var(--primitive-black);
+  --color-text:          var(--primitive-grey-60);
   --color-text-secondary:var(--primitive-grey-60);
   --color-text-faint:    var(--primitive-grey-40);
 
