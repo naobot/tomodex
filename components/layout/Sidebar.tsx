@@ -1,10 +1,17 @@
+import Header from "@/components/ui/Header";
+
 type Props = {
+  isLoggedIn: boolean;
   children?: React.ReactNode;
 };
 
-export default function Sidebar({ children }: Props) {
+export default function Sidebar({isLoggedIn,  children }: Props) {
   return (
     <aside className="sticky top-0 h-screen flex flex-col w-64 shrink-0">
+      <div className="p-4">
+        <Header isLoggedIn />
+      </div>
+
       <div className="p-4">
         {/* Search bar */}
         <input type="text" placeholder="Search friends..." />

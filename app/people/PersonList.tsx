@@ -4,6 +4,7 @@ import { useRef, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { addPerson } from "./actions";
+import Button from "@/components/ui/Button";
 
 type PersonSummary = {
   id: string;
@@ -42,17 +43,17 @@ export default function PersonList({ people }: Props) {
     <>
       {/* List header */}
       <div className="mb-4 flex items-center justify-between">
-        <p className="text-sm text-gray-500">
+        {/*<p className="text-sm text-pixel">
           {people.length === 0
             ? "No friends yet."
             : `${people.length} friend${people.length === 1 ? "" : "s"}`}
-        </p>
-        <button
+        </p>*/}
+        <Button
           onClick={openModal}
-          className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+          className="text-sm text-pixel"
         >
           + Add Friend
-        </button>
+        </Button>
       </div>
 
       {/* Friends list */}

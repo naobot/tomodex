@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { addNote, updateNote, deleteNote } from "./actions";
 import type { SerialisedNote } from "./types";
+import Button from "@/components/ui/Button";
 
 type Props = {
   personId: string;
@@ -69,19 +70,19 @@ function NoteItem({
           {note.updatedAt !== note.createdAt ? "Edited " : ""}
           {new Date(note.updatedAt).toLocaleDateString()}
         </span>
-        <button
+        <Button
           onClick={() => setEditing(true)}
-          className="hover:text-indigo-600"
+          className="text-sm text-pixel"
         >
           Edit
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => startTransition(() => deleteNote(personId, note.id))}
           disabled={isPending}
-          className="text-red-400 hover:text-red-600 disabled:opacity-40"
+          className="text-sm text-pixel text-red-400 hover:text-red-600 disabled:opacity-40"
         >
           Delete
-        </button>
+        </Button>
       </div>
     </li>
   );
@@ -120,13 +121,13 @@ export default function NotesSection({ personId, notes }: Props) {
           rows={2}
           className="flex-1 rounded border border-gray-300 px-2 py-1 text-sm resize-none"
         />
-        <button
+        <Button
           type="submit"
           disabled={isPending}
-          className="rounded bg-indigo-600 px-3 py-1 text-sm text-white hover:bg-indigo-700 disabled:opacity-50 self-end"
+          className="disabled:opacity-50 text-pixel text-sm self-end"
         >
           Add
-        </button>
+        </Button>
       </form>
     </section>
   );

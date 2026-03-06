@@ -3,6 +3,7 @@
 import { useTransition } from "react";
 import { upsertLocation, clearLocation } from "./actions";
 import type { SerialisedLocation } from "./types";
+import Button from "@/components/ui/Button";
 
 type Props = {
   personId: string;
@@ -22,13 +23,14 @@ export default function LocationSection({ personId, location }: Props) {
           <span>
             {[location.city, location.country].filter(Boolean).join(", ")}
           </span>
-          <button
-            onClick={() => startTransition(() => clearLocation(personId))}
+
+          <Button
+            type="submit"
             disabled={isPending}
-            className="ml-4 text-xs text-red-400 hover:text-red-600 disabled:opacity-40"
+            className="text-xs text-red-400 hover:text-red-600 disabled:opacity-40 text-pixel"
           >
             Clear
-          </button>
+          </Button>
         </div>
       ) : (
         <p className="text-sm text-gray-400">No location set.</p>
@@ -51,13 +53,13 @@ export default function LocationSection({ personId, location }: Props) {
           defaultValue={location?.country ?? ""}
           className="flex-1 rounded border border-gray-300 px-2 py-1 text-sm"
         />
-        <button
+        <Button
           type="submit"
           disabled={isPending}
-          className="rounded bg-indigo-600 px-3 py-1 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
+          className="disabled:opacity-50 text-pixel text-sm"
         >
           {location ? "Update" : "Set"}
-        </button>
+        </Button>
       </form>
     </section>
   );

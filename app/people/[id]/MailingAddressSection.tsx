@@ -3,6 +3,7 @@
 import { useTransition } from "react";
 import { addMailingAddress, deleteMailingAddress } from "./actions";
 import type { SerialisedMailingAddress } from "./types";
+import Button from "@/components/ui/Button";
 
 type Props = {
   personId: string;
@@ -34,15 +35,14 @@ export default function MailingAddressSection({
                 <p className="text-gray-400 text-xs mt-0.5">{a.label}</p>
               )}
             </div>
-            <button
-              onClick={() =>
-                startTransition(() => deleteMailingAddress(personId, a.id))
-              }
+            <Button
+              type="submit"
+              onClick={() => startTransition(() => deleteMailingAddress(personId, a.id))}
               disabled={isPending}
-              className="ml-4 text-xs text-red-400 hover:text-red-600 disabled:opacity-40 shrink-0"
+              className="text-xs text-red-400 hover:text-red-600 disabled:opacity-40 text-pixel shrink-0"
             >
               Remove
-            </button>
+            </Button>
           </li>
         ))}
       </ul>
@@ -64,13 +64,13 @@ export default function MailingAddressSection({
             rows={2}
             className="flex-1 rounded border border-gray-300 px-2 py-1 text-sm resize-none"
           />
-          <button
+          <Button
             type="submit"
             disabled={isPending}
-            className="rounded bg-indigo-600 px-3 py-1 text-sm text-white hover:bg-indigo-700 disabled:opacity-50 self-end"
+            className="disabled:opacity-50 text-pixel text-sm self-end"
           >
             Add
-          </button>
+          </Button>
         </div>
       </form>
     </section>

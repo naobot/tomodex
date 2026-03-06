@@ -11,6 +11,7 @@ import type {
   SerialisedPhoneNumber,
   SerialisedEmailAddress,
 } from "./types";
+import Button from "@/components/ui/Button";
 
 type Props = {
   personId: string;
@@ -73,13 +74,13 @@ export default function ContactSection({
             required
             className="flex-1 rounded border border-gray-300 px-2 py-1 text-sm"
           />
-          <button
+          <Button
             type="submit"
             disabled={isPending}
-            className="rounded bg-indigo-600 px-3 py-1 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
+            className="disabled:opacity-50 text-pixel text-sm"
           >
             Add
-          </button>
+          </Button>
         </form>
       </div>
 
@@ -128,13 +129,13 @@ export default function ContactSection({
             required
             className="flex-1 rounded border border-gray-300 px-2 py-1 text-sm"
           />
-          <button
+          <Button
             type="submit"
             disabled={isPending}
-            className="rounded bg-indigo-600 px-3 py-1 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
+            className="disabled:opacity-50 text-pixel text-sm"
           >
             Add
-          </button>
+          </Button>
         </form>
       </div>
     </section>

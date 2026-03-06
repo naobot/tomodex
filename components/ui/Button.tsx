@@ -6,11 +6,13 @@ interface ButtonProps {
   children: ReactNode;
   className?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
+  type?: "button" | "reset" | "submit" | undefined;
 }
 
-export default function Button({ children, onClick, className = "" }: ButtonProps) {
+export default function Button({ children, onClick, className = "", disabled, type }: ButtonProps) {
   return (
-    <button className={`${styles.root} ${className}`.trim()} onClick={onClick}>
+    <button className={`${styles.root} ${className}`.trim()} onClick={onClick} disabled type={type}>
       {children}
     </button>
   );

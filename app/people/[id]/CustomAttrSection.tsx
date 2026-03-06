@@ -3,6 +3,7 @@
 import { useTransition } from "react";
 import { addCustomAttribute, deleteCustomAttribute } from "./actions";
 import type { SerialisedCustomAttribute } from "./types";
+import Button from "@/components/ui/Button";
 
 type Props = {
   personId: string;
@@ -32,17 +33,17 @@ export default function CustomAttrSection({
               <span className="font-medium text-gray-700">{attr.key}:</span>{" "}
               <span className="text-gray-600">{attr.value}</span>
             </span>
-            <button
+            <Button
               onClick={() =>
                 startTransition(() =>
                   deleteCustomAttribute(personId, attr.id)
                 )
               }
               disabled={isPending}
-              className="ml-4 text-xs text-red-400 hover:text-red-600 disabled:opacity-40"
+              className="ml-4 text-pixel text-xs text-red-400 hover:text-red-600 disabled:opacity-40"
             >
               Remove
-            </button>
+            </Button>
           </li>
         ))}
       </ul>
@@ -65,13 +66,13 @@ export default function CustomAttrSection({
           required
           className="flex-1 rounded border border-gray-300 px-2 py-1 text-sm"
         />
-        <button
+        <Button
           type="submit"
           disabled={isPending}
-          className="rounded bg-indigo-600 px-3 py-1 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
+          className="px-3 py-1 text-sm text-pixel disabled:opacity-50"
         >
           Add
-        </button>
+        </Button>
       </form>
     </section>
   );

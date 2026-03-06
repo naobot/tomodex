@@ -2,6 +2,8 @@ import { notFound, redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import PersonDetail from "./PersonDetail";
+import Link from "next/link";
+import AppShell from "@/components/layout/AppShell";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -48,5 +50,8 @@ export default async function PersonPage({ params }: Props) {
     })),
   };
 
-  return <PersonDetail person={serialised} />;
+  return (
+    <AppShell>
+      <PersonDetail person={serialised} />
+    </AppShell>);
 }

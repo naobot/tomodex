@@ -1,39 +1,18 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { auth } from "@/auth";
-import { prisma } from "@/lib/prisma";
-import PersonList from "./PersonList";
+import AppShell from "@/components/layout/AppShell";
 
-export default async function PeoplePage() {
-  const session = await auth();
-
-  if (!session?.user?.id) redirect("/login");
-
-  const people = await prisma.person.findMany({
-    where: { ownerId: session.user.id },
-    orderBy: { updatedAt: "desc" },
-    select: {
-      id: true,
-      displayName: true,
-      updatedAt: true,
-    },
-  });
-
-  const serialisedPeople = people.map((p) => ({
-    ...p,
-    updatedAt: p.updatedAt.toISOString(),
-  }));
-
+export default function PeoplePage() {
   return (
-    <main className="mx-auto max-w-xl px-4 py-10">
-      <Link
-        href="/"
-        className="mb-6 inline-block text-sm text-indigo-600 hover:underline"
-      >
-        ← Back
-      </Link>
-      <h1 className="mb-6 text-2xl font-bold text-gray-900">Friends</h1>
-      <PersonList people={serialisedPeople} />
-    </main>
+    <AppShell>
+      <div className="flex items-center gap-4">
+        <Link
+          href="/"
+          className="mb-6 inline-block text-sm text-pixel uppercase"
+        >
+          ←
+        </Link>
+        <h1 className="mb-6 text-md text-pixel uppercase">Friends</h1>
+      </div>
+    </AppShell>
   );
 }

@@ -9,6 +9,7 @@ import MailingAddressSection from "./MailingAddressSection";
 import NotesSection from "./NotesSection";
 import CustomAttrSection from "./CustomAttrSection";
 import type { SerialisedPerson } from "./types";
+import Button from "@/components/ui/Button";
 
 // Month names for birthday display — birthMonth is 1-indexed
 const MONTHS = [
@@ -44,19 +45,24 @@ export default function PersonDetail({ person }: Props) {
 
   return (
     <main className="mx-auto max-w-2xl px-4 py-10 space-y-10">
-      {/* Back link */}
-      <Link
-        href="/people"
-        className="text-sm text-indigo-600 hover:underline"
-      >
-        ← All people
-      </Link>
+      <div className="flex items-center gap-4">
+        <div>
+          <Link
+            href="/people"
+            className="mb-6 inline-block text-sm text-pixel uppercase"
+          >
+            ←
+          </Link>
+        </div>
+        <div>
+          <h1 className="inline-block text-3xl font-bold text-gray-900">
+            {person.displayName}
+          </h1>
+        </div>
+      </div>
 
       {/* Header / core fields */}
       <section className="space-y-4">
-        <h1 className="text-3xl font-bold text-gray-900">
-          {person.displayName}
-        </h1>
         {person.fullName && (
           <p className="text-gray-500 text-sm">{person.fullName}</p>
         )}
@@ -66,8 +72,8 @@ export default function PersonDetail({ person }: Props) {
 
         {/* Edit core fields */}
         <details className="rounded border border-gray-200 p-3">
-          <summary className="cursor-pointer text-sm text-indigo-600 select-none">
-            Edit details
+          <summary className="cursor-pointer text-sm text-pixel uppercase select-none">
+            Edit
           </summary>
           <form
             action={(fd) =>
@@ -129,13 +135,13 @@ export default function PersonDetail({ person }: Props) {
                 />
               </label>
             </div>
-            <button
+            <Button
               type="submit"
               disabled={isPending}
-              className="rounded bg-indigo-600 px-4 py-1.5 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
+              className="disabled:opacity-50 text-pixel text-sm"
             >
               Save
-            </button>
+            </Button>
           </form>
         </details>
       </section>
