@@ -44,7 +44,7 @@ export default function PersonDetail({ person }: Props) {
   );
 
   return (
-    <main className="mx-auto max-w-2xl px-4 py-10 space-y-10">
+    <div>
       <div className="flex items-center gap-4">
         <div>
           <Link
@@ -175,6 +175,6 @@ export default function PersonDetail({ person }: Props) {
         personId={person.id}
         customAttributes={person.customAttributes}
       />
-    </main>
+    </div>
   );
 }
