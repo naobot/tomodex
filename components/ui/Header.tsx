@@ -17,7 +17,7 @@ export default function Header({ isLoggedIn }: HeaderProps) {
         </h1>
       </div>
       <div>
-        <AuthButton isLoggedIn />
+        <AuthButton isLoggedIn={isLoggedIn} />
       </div>
     </div>
   );
