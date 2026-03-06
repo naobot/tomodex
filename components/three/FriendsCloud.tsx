@@ -66,9 +66,6 @@ export default function FriendsCloud({ friends }: Props) {
 
       const object = new CSS3DObject(anchor);
 
-      anchor.addEventListener("mouseenter", () => console.log("hover!", friend.displayName));
-      anchor.addEventListener("click", () => console.log("click!", friend.displayName));
-
       // Scatter names across a wide 3D volume
       object.position.set(
         (Math.random() - 0.5) * 2000,

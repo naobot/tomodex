@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { NavigationProvider } from "@/lib/NavigationContext";
 
 export const metadata: Metadata = {
   title: "Tomodex",
@@ -12,13 +13,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        id='RootLayout'
-        className={`antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <NavigationProvider>
+      <html lang="en">
+        <body
+          id='RootLayout'
+          className={`antialiased`}
+        >
+          {children}
+        </body>
+      </html>
+  </NavigationProvider>
   );
 }

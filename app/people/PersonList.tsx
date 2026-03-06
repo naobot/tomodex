@@ -1,21 +1,28 @@
 "use client";
 
-import { useRef, useTransition } from "react";
+import { useEffect, useRef, useTransition, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { addPerson } from "./actions";
 import Button from "@/components/ui/Button";
 import type { PersonSummary } from "@/lib/people";
+import styles from "./PersonList.module.css";
+import { usePreviousPathname } from "@/lib/NavigationContext";
 
 type Props = {
   people: PersonSummary[];
 };
+
+const MAX_STAGGER_MS = 300;
 
 export default function PersonList({ people }: Props) {
   const [isPending, startTransition] = useTransition();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
+
+  const previousPathname = usePreviousPathname();
+  const shouldAnimate = previousPathname === "/";
 
   function openModal() {
     dialogRef.current?.showModal();
@@ -34,6 +41,11 @@ export default function PersonList({ people }: Props) {
     });
   }
 
+  // Spread the stagger evenly across MAX_STAGGER_MS regardless of list length
+  const staggerStep = people.length > 1
+    ? MAX_STAGGER_MS / (people.length - 1)
+    : 0;
+
   return (
     <>
       <div className="mb-4 flex items-center justify-between">
@@ -46,8 +58,15 @@ export default function PersonList({ people }: Props) {
         <p className="text-sm text-gray-400">Add your first friend to get started.</p>
       ) : (
         <ul>
-          {people.map((person) => (
-            <li key={person.id}>
+          {people.map((person, i) => (
+            <li
+              key={person.id}
+              className={shouldAnimate ? styles.item : undefined}
+              style={shouldAnimate
+                ? { animationDelay: `${Math.round(i * staggerStep)}ms` }
+                : undefined
+              }
+            >
               <Link
                 href={`/people/${person.id}`}
                 className="flex items-center justify-between p-0 -my-2 hover:bg-gray-50 transition-colors"
