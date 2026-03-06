@@ -12,6 +12,10 @@ export default function PeoplePage() {
           ←
         </Link>
         <h1 className="mb-6 text-md text-pixel uppercase">Friends</h1>
+        <div>
+          {/* TODO Advanced search bar with filter and sort options */}
+          {/* TODO List of People with Cards displaying summaries of their profiles, click through to access Person Details page */}
+        </div>
       </div>
     </AppShell>
   );
