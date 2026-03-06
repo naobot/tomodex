@@ -3,8 +3,9 @@
 import { useRef, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { addPerson } from "./actions";
+
 import Button from "@/components/ui/Button";
+import { addPerson } from "./people/actions";
 
 type PersonSummary = {
   id: string;

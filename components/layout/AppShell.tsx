@@ -3,7 +3,7 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
-import PersonList from "@/app/people/PersonList";
+import PersonList from "@/app/PersonList";
 
 type Props = {
   children: React.ReactNode;
