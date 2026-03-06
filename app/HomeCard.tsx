@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { signIn, signOut } from "next-auth/react";
 import styles from "./HomeCard.module.css";
+import Card from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
 
 type Props = {
   isLoggedIn: boolean;
@@ -31,35 +33,46 @@ const actions = [
 
 // Animation delays for staggered entrance — applied as inline style since
 // CSS Modules can't target nth-child across a mapped list reliably
-const ITEM_DELAYS = ["0.08s", "0.14s", "0.20s"];
+// const ITEM_DELAYS = ["0.08s", "0.14s", "0.20s"];
 
 export default function HomeCard({ isLoggedIn }: Props) {
   return (
-    <div className={styles.root}>
-      <div className={styles.card}>
-        <h1 className={styles.wordmark}>Tomodex</h1>
-        <p className={styles.tagline}>Your personal rolodex</p>
-        <hr className={styles.divider} />
+    <Card className="w-sm m-auto p-8px">
+      <div className="w-full flex justify-between items-center">
+        <div>
+          <h1 className="text-sm uppercase text-pixel">Tomodex</h1>
+        </div>
+        <div>
+          {isLoggedIn ? (
+            <Button
+              className='text-pixel text-sm'
+              onClick={() => signOut({ callbackUrl: "/" })}
+            >
+              Sign out
+            </Button>
+          ) : (
+            <Button
+              className='text-pixel text-sm'
+              onClick={() => signIn("google")}
+            >
+              Sign in
+            </Button>
+          )}
+        </div>
+      </div>
 
-        <ul className={styles.actionList}>
+        <ul className="my-4">
           {actions.map((action, i) => {
             const inner = (
               <>
-                <span>
-                  <span className={styles.actionLabel}>{action.label}</span>
-                  <br />
-                  <span className={styles.actionSub}>{action.sub}</span>
-                </span>
-                <span className={styles.actionArrow}>→</span>
+                <span className='text-2xl'>{action.label}</span>
               </>
             );
 
             if (!isLoggedIn || !action.href) {
               return (
-                <li key={action.key}>
+                <li key={action.key} className={`${isLoggedIn ? styles.BarMenuItem : 'text-disabled'} -my-2`}>
                   <button
-                    className={styles.actionBtn}
-                    style={{ animationDelay: ITEM_DELAYS[i] }}
                     disabled={!isLoggedIn}
                   >
                     {inner}
@@ -69,11 +82,10 @@ export default function HomeCard({ isLoggedIn }: Props) {
             }
 
             return (
-              <li key={action.key}>
+              <li key={action.key} className={`${styles.BarMenuItem} -my-2`}>
                 <Link
                   href={action.href}
-                  className={styles.actionBtn}
-                  style={{ animationDelay: ITEM_DELAYS[i] }}
+                  // style={{ animationDelay: ITEM_DELAYS[i] }}
                 >
                   {inner}
                 </Link>
@@ -81,23 +93,6 @@ export default function HomeCard({ isLoggedIn }: Props) {
             );
           })}
         </ul>
-
-        {isLoggedIn ? (
-          <button
-            className={styles.authBtn}
-            onClick={() => signOut({ callbackUrl: "/" })}
-          >
-            Sign out
-          </button>
-        ) : (
-          <button
-            className={styles.authBtn}
-            onClick={() => signIn("google")}
-          >
-            Sign in to get started
-          </button>
-        )}
-      </div>
-    </div>
+    </Card>
   );
 }

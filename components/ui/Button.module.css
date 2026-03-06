@@ -1,0 +1,25 @@
+.root {
+  /*width: 100%;*/
+  padding: var(--padding-btn);
+  border: 1px solid var(--primitive-highlight);
+  color: var(--primitive-grey-60);
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition:
+    background var(--transition-default),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+  animation: itemIn var(--duration-default) var(--ease-out) 0.28s both;
+}
+
+.root:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
+}
+
+.root:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}

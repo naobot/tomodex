@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600&family=Nunito+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&family=Lexend+Giga:wght@100..900&display=swap');
+@import "tailwindcss";
 
 /* ==========================================================================
    TOMODEX DESIGN TOKENS
@@ -14,17 +15,17 @@
      PRIMITIVES — colour
   -------------------------------------------------------------------------- */
   --primitive-white:        #ffffff;
-  --primitive-off-white:    #fafaf8;
-  --primitive-bg:           #f2f2f0;
+  --primitive-off-white:    #f8f8fa;
+  --primitive-bg:           #f0f1f2;
   --primitive-bg-inset:     #e8e8e5;
 
-  --primitive-black:        #1e1e1c;
-  --primitive-grey-60:      #5a5a56;
-  --primitive-grey-40:      #9a9a94;
+  --primitive-black:        #1c1c1e;
+  --primitive-grey-60:      #565b63;
+  --primitive-grey-40:      #9ca2ad;
 
-  --primitive-platinum-30:  #c8c8c4;
-  --primitive-platinum-40:  #b0b0aa;
-  --primitive-platinum-55:  #909088;
+  --primitive-platinum-30:  #c4c8c8;
+  --primitive-platinum-40:  #aab0b0;
+  --primitive-platinum-55:  #888e90;
 
   --primitive-highlight:    rgba(255, 255, 255, 0.62);
   --primitive-gloss:        rgba(255, 255, 255, 0.28);
@@ -53,8 +54,9 @@
   /* --------------------------------------------------------------------------
      PRIMITIVES — typography
   -------------------------------------------------------------------------- */
-  --primitive-font-ui:      'Nunito Sans', system-ui, sans-serif;
-  --primitive-font-display: 'Nunito', system-ui, sans-serif;
+  --primitive-font-ui:      'Lexend Giga', system-ui, sans-serif;
+  --primitive-font-display: 'Legend Giga', system-ui, sans-serif;
+  --primitive-font-pixel:   'Bitcount Grid Single', system-ui, monospace;
 
   --primitive-size-xs:  0.72rem;   /* 11.5px */
   --primitive-size-sm:  0.8125rem; /* 13px   */
@@ -115,7 +117,7 @@
   --padding-card:   var(--primitive-space-8) var(--primitive-space-8);
   --padding-panel:  var(--primitive-space-6) var(--primitive-space-6);
   --padding-inset:  var(--primitive-space-3) var(--primitive-space-4);
-  --padding-btn:    var(--primitive-space-2) var(--primitive-space-6);
+  --padding-btn:    var(--primitive-space-1) var(--primitive-space-2);
 
   /* Radius */
   --radius-sm: var(--primitive-radius-sm);
@@ -182,4 +184,28 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  color: var(--primitive-grey-60);
+}
+
+#RootLayout {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  align-content: center;
+  align-items: center;
+  margin-block: auto;
+}
+
+.text-pixel {
+  font-family: var(--primitive-font-pixel);
+}
+
+.text-disabled {
+  cursor: default;
+  opacity: 0.8;
 }
