@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useTransition, useState } from "react";
-import Link from "next/link";
+import { useRef, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { addPerson } from "./actions";
 import Button from "@/components/ui/Button";
 import type { PersonSummary } from "@/lib/people";
 import styles from "./PersonList.module.css";
-import { usePreviousPathname } from "@/lib/NavigationContext";
+import { useNavigationLoader, usePreviousPathname } from "@/lib/NavigationContext";
 
 type Props = {
   people: PersonSummary[];
@@ -19,6 +18,7 @@ export default function PersonList({ people }: Props) {
   const [isPending, startTransition] = useTransition();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const { startNavigating } = useNavigationLoader();
   const router = useRouter();
 
   const previousPathname = usePreviousPathname();
@@ -67,12 +67,12 @@ export default function PersonList({ people }: Props) {
                 : undefined
               }
             >
-              <Link
-                href={`/people/${person.id}`}
-                className="flex items-center justify-between p-0 -my-2 hover:bg-gray-50 transition-colors"
+              <button
+                onClick={() => { startNavigating(); router.push(`/people/${person.id}`)}}
+                className="flex items-center justify-between p-0 -my-2 hover:bg-gray-50 transition-colors cursor-pointer"
               >
                 <span className="text-2xl">{person.displayName}</span>
-              </Link>
+              </button>
             </li>
           ))}
         </ul>
