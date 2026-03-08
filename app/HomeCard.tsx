@@ -37,7 +37,7 @@ const actions = [
 export default function HomeCard({ isLoggedIn }: Props) {
   return (
     <Card className={`${styles.root} w-sm m-auto p-8px pointer-events-auto`}>
-        <Header isLoggedIn />
+        <Header isLoggedIn={isLoggedIn} />
 
         <ul className="my-4">
           {actions.map((action, i) => {
