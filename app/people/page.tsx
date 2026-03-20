@@ -4,12 +4,13 @@ import PersonGrid from "./PersonGrid";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { getPeopleGridForUser } from "@/lib/people";
+import DbErrorToast from "@/components/toast/DbErrorToast";
 
 export default async function PeoplePage() {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
 
-  const people = await getPeopleGridForUser(session.user?.id)
+  const result = await getPeopleGridForUser(session.user?.id);
 
   return (
     <AppShell>
@@ -25,9 +26,11 @@ export default async function PeoplePage() {
       <div>
         <div>
           {/* TODO Advanced search bar with filter and sort options */}
-          {/* TODO List of People with Cards displaying summaries of their profiles, click through to access Person Details page */}
           <div className="flex flex-col w-full">
-            <PersonGrid people={people} />
+            {result.ok
+              ? <PersonGrid people={result.data} />
+              : <DbErrorToast error={result.error} />
+            }
           </div>
         </div>
       </div>

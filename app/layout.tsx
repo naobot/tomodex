@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { NavigationProvider } from "@/lib/NavigationContext";
+import { ToastProvider } from "@/components/toast/ToastContext";
+import ToastContainer from "@/components/toast/ToastContainer";
 
 export const metadata: Metadata = {
   title: "Tomodex",
@@ -15,13 +17,13 @@ export default function RootLayout({
   return (
     <NavigationProvider>
       <html lang="en">
-        <body
-          id='RootLayout'
-          className={`antialiased`}
-        >
-          {children}
+        <body id="RootLayout" className="antialiased">
+          <ToastProvider>
+            {children}
+            <ToastContainer />
+          </ToastProvider>
         </body>
       </html>
-  </NavigationProvider>
+    </NavigationProvider>
   );
 }
