@@ -1,9 +1,10 @@
 "use client";
 
 import { useTransition } from "react";
-import { upsertLocation, clearLocation } from "./actions";
+import { upsertLocation } from "./actions";
 import type { SerialisedLocation } from "./types";
 import Button from "@/components/ui/Button";
+import Section from "@/components/layout/Section";
 
 type Props = {
   personId: string;
@@ -14,12 +15,11 @@ export default function LocationSection({ personId, location }: Props) {
   const [isPending, startTransition] = useTransition();
 
   return (
-    <section className="space-y-4">
-      <h2 className="text-lg font-semibold text-gray-800">Location</h2>
+    <Section title="Location">
 
       {/* Current location display */}
       {location ? (
-        <div className="flex items-center justify-between rounded border border-gray-200 px-3 py-2 text-sm">
+        <div className="flex items-center justify-between rounded border border-gray-200 px-3 py-2 my-2 text-sm">
           <span>
             {[location.city, location.country].filter(Boolean).join(", ")}
           </span>
@@ -61,6 +61,6 @@ export default function LocationSection({ personId, location }: Props) {
           {location ? "Update" : "Set"}
         </Button>
       </form>
-    </section>
+    </Section>
   );
 }

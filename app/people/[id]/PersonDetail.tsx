@@ -62,7 +62,7 @@ export default function PersonDetail({ person }: Props) {
       </div>
 
       {/* Header / core fields */}
-      <section className="space-y-4">
+      <section className="my-4">
         {person.fullName && (
           <p className="text-gray-500 text-sm">{person.fullName}</p>
         )}
@@ -79,7 +79,7 @@ export default function PersonDetail({ person }: Props) {
             action={(fd) =>
               startTransition(() => updatePerson(person.id, fd))
             }
-            className="mt-3 space-y-3"
+            className="mt-3 space-y-3 flex flex-col"
           >
             <div className="flex gap-2">
               <label className="flex-1 space-y-1">
@@ -109,7 +109,7 @@ export default function PersonDetail({ person }: Props) {
                   min={1}
                   max={31}
                   defaultValue={person.birthDay ?? ""}
-                  className="w-20 rounded border border-gray-300 px-2 py-1 text-sm"
+                  className="w-20 rounded border border-gray-300 px-2 py-1 mx-1 text-sm"
                 />
               </label>
               <label className="space-y-1">
@@ -120,7 +120,7 @@ export default function PersonDetail({ person }: Props) {
                   min={1}
                   max={12}
                   defaultValue={person.birthMonth ?? ""}
-                  className="w-20 rounded border border-gray-300 px-2 py-1 text-sm"
+                  className="w-20 rounded border border-gray-300 px-2 py-1 mx-1 text-sm"
                 />
               </label>
               <label className="space-y-1">
@@ -131,7 +131,7 @@ export default function PersonDetail({ person }: Props) {
                   min={1900}
                   max={new Date().getFullYear()}
                   defaultValue={person.birthYear ?? ""}
-                  className="w-24 rounded border border-gray-300 px-2 py-1 text-sm"
+                  className="w-24 rounded border border-gray-300 px-2 py-1 mx-1 text-sm"
                 />
               </label>
             </div>

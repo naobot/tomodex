@@ -4,6 +4,7 @@ import { useTransition } from "react";
 import { addMailingAddress, deleteMailingAddress } from "./actions";
 import type { SerialisedMailingAddress } from "./types";
 import Button from "@/components/ui/Button";
+import Section from "@/components/layout/Section";
 
 type Props = {
   personId: string;
@@ -17,13 +18,11 @@ export default function MailingAddressSection({
   const [isPending, startTransition] = useTransition();
 
   return (
-    <section className="space-y-4">
-      <h2 className="text-lg font-semibold text-gray-800">Mailing Addresses</h2>
-
+    <Section title="Mailing Addresses">
       {mailingAddresses.length === 0 && (
         <p className="text-sm text-gray-400">No mailing addresses yet.</p>
       )}
-      <ul className="space-y-2">
+      <ul className="my-2">
         {mailingAddresses.map((a) => (
           <li
             key={a.id}
@@ -49,14 +48,14 @@ export default function MailingAddressSection({
 
       <form
         action={(fd) => startTransition(() => addMailingAddress(personId, fd))}
-        className="space-y-2"
+        className="my-2"
       >
         <input
           name="label"
           placeholder="Label (optional, e.g. Home)"
-          className="w-full rounded border border-gray-300 px-2 py-1 text-sm"
+          className="w-full rounded border border-gray-300 px-2 py-1 my-2 text-sm"
         />
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
           <textarea
             name="mailingAddress"
             placeholder="Mailing address"
@@ -67,12 +66,12 @@ export default function MailingAddressSection({
           <Button
             type="submit"
             disabled={isPending}
-            className="disabled:opacity-50 text-pixel text-sm self-end"
+            className="disabled:opacity-50 text-pixel text-sm"
           >
             Add
           </Button>
         </div>
       </form>
-    </section>
+    </Section>
   );
 }

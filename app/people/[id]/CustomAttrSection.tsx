@@ -4,6 +4,7 @@ import { useTransition } from "react";
 import { addCustomAttribute, deleteCustomAttribute } from "./actions";
 import type { SerialisedCustomAttribute } from "./types";
 import Button from "@/components/ui/Button";
+import Section from "@/components/layout/Section";
 
 type Props = {
   personId: string;
@@ -17,12 +18,11 @@ export default function CustomAttrSection({
   const [isPending, startTransition] = useTransition();
 
   return (
-    <section className="space-y-4">
-      <h2 className="text-lg font-semibold text-gray-800">Custom Info</h2>
+    <Section title="Custom Info">
 
-      {customAttributes.length === 0 && (
-        <p className="text-sm text-gray-400">No custom attributes yet.</p>
-      )}
+      {customAttributes.length === 0 ? (
+        <p className="text-sm text-gray-400 my-4">No custom attributes yet.</p>
+      ) :
       <ul className="divide-y divide-gray-100 rounded border border-gray-200">
         {customAttributes.map((attr) => (
           <li
@@ -47,6 +47,7 @@ export default function CustomAttrSection({
           </li>
         ))}
       </ul>
+      }
 
       <form
         action={(fd) =>
@@ -74,6 +75,6 @@ export default function CustomAttrSection({
           Add
         </Button>
       </form>
-    </section>
+    </Section>
   );
 }

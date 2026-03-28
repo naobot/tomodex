@@ -12,6 +12,7 @@ import type {
   SerialisedEmailAddress,
 } from "./types";
 import Button from "@/components/ui/Button";
+import Section from "@/components/layout/Section";
 
 type Props = {
   personId: string;
@@ -27,18 +28,16 @@ export default function ContactSection({
   const [isPending, startTransition] = useTransition();
 
   return (
-    <section className="space-y-6">
-      <h2 className="text-lg font-semibold text-gray-800">Contact</h2>
-
+    <Section title="Contact">
       {/* Phone numbers */}
-      <div className="space-y-2">
+      <div className="my-2">
         <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide">
           Phone
         </h3>
         {phoneNumbers.length === 0 && (
           <p className="text-sm text-gray-400">No phone numbers yet.</p>
         )}
-        <ul className="space-y-1">
+        <ul className="my-1">
           {phoneNumbers.map((p) => (
             <li key={p.id} className="flex items-center justify-between text-sm">
               <span>
@@ -85,14 +84,14 @@ export default function ContactSection({
       </div>
 
       {/* Email addresses */}
-      <div className="space-y-2">
+      <div className="my-2">
         <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide">
           Email
         </h3>
         {emailAddresses.length === 0 && (
           <p className="text-sm text-gray-400">No email addresses yet.</p>
         )}
-        <ul className="space-y-1">
+        <ul className="my-1">
           {emailAddresses.map((e) => (
             <li key={e.id} className="flex items-center justify-between text-sm">
               <span>
@@ -138,6 +137,6 @@ export default function ContactSection({
           </Button>
         </form>
       </div>
-    </section>
+    </Section>
   );
 }

@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { addNote, updateNote, deleteNote } from "./actions";
 import type { SerialisedNote } from "./types";
 import Button from "@/components/ui/Button";
+import Section from "@/components/layout/Section";
 
 type Props = {
   personId: string;
@@ -31,7 +32,7 @@ function NoteItem({
             startTransition(() => updateNote(personId, note.id, fd));
             setEditing(false);
           }}
-          className="space-y-2"
+          className="my-2"
         >
           <textarea
             name="body"
@@ -63,7 +64,7 @@ function NoteItem({
   }
 
   return (
-    <li className="rounded border border-gray-200 p-3 text-sm space-y-1">
+    <li className="rounded border border-gray-200 p-3 text-sm my-1">
       <p className="whitespace-pre-wrap">{note.body}</p>
       <div className="flex items-center gap-3 text-xs text-gray-400">
         <span>
@@ -92,13 +93,11 @@ export default function NotesSection({ personId, notes }: Props) {
   const [isPending, startTransition] = useTransition();
 
   return (
-    <section className="space-y-4">
-      <h2 className="text-lg font-semibold text-gray-800">Notes</h2>
-
-      {notes.length === 0 && (
-        <p className="text-sm text-gray-400">No notes yet.</p>
-      )}
-      <ul className="space-y-2">
+    <Section title="Notes">
+      {notes.length === 0 ? (
+        <p className="text-sm text-gray-400 my-4">No notes yet.</p>
+      ) :
+      <ul className="my-2">
         {notes.map((note) => (
           <NoteItem
             key={note.id}
@@ -108,11 +107,11 @@ export default function NotesSection({ personId, notes }: Props) {
             startTransition={startTransition}
           />
         ))}
-      </ul>
+      </ul>}
 
       <form
         action={(fd) => startTransition(() => addNote(personId, fd))}
-        className="flex gap-2"
+        className="flex gap-2 content-center items-center"
       >
         <textarea
           name="body"
@@ -124,11 +123,11 @@ export default function NotesSection({ personId, notes }: Props) {
         <Button
           type="submit"
           disabled={isPending}
-          className="disabled:opacity-50 text-pixel text-sm self-end"
+          className="disabled:opacity-50 text-pixel text-sm"
         >
           Add
         </Button>
       </form>
-    </section>
+    </Section>
   );
 }
