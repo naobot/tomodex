@@ -52,7 +52,7 @@ export default function PersonDetail({ person }: Props) {
         <div>
           <Link
             href="/people"
-            className="mb-6 inline-block text-sm text-pixel uppercase"
+            className="inline-block text-sm text-pixel uppercase"
           >
             ←
           </Link>
