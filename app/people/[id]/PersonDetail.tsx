@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState, useTransition } from "react";
+import styles from "./PersonDetail.module.css";
+import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { updatePerson } from "./actions";
 import ContactSection from "./ContactSection";
@@ -35,8 +36,8 @@ type Props = {
 };
 
 export default function PersonDetail({ person }: Props) {
-  const [isPending, startTransition] = useTransition();
-  const [editIsOpen, editIsOpenSet] = useState(false);
+  // const [isPending, startTransition] = useTransition();
+  // const [editIsOpen, editIsOpenSet] = useState(false);
 
   const birthday = formatBirthday(
     person.birthDay,
@@ -44,45 +45,48 @@ export default function PersonDetail({ person }: Props) {
     person.birthYear
   );
 
-  useEffect(() => {}, [updatePerson]) // TODO
+  const currentAge = (() => {
+    if (!person.birthYear || !person.birthMonth || !person.birthDay) return '';
+    const today = new Date();
+    const age = today.getFullYear() - person.birthYear;
+    const hasHadBirthdayThisYear =
+      today.getMonth() + 1 > person.birthMonth ||
+      (today.getMonth() + 1 === person.birthMonth && today.getDate() >= person.birthDay);
+    return String(hasHadBirthdayThisYear ? age : age - 1);
+  })();
 
   return (
-    <div>
-      <div className="flex items-center gap-4">
+    <div className={styles.root}>
+      <div className={styles.PersonDetailHeader}>
         <div>
           <Link
             href="/people"
-            className="mb-6 inline-block text-sm text-pixel uppercase"
+            className="inline-block text-sm text-pixel uppercase"
           >
             ←
           </Link>
         </div>
         <div>
-          <h1 className="inline-block text-3xl font-bold text-gray-900">
+          <h1 className="inline-block text-3xl">
             {person.displayName}
           </h1>
         </div>
       </div>
 
       {/* Header / core fields */}
-      <section className="my-4">
+      <section className={styles.Summary}>
+        {/* Edit core fields */}
         {person.fullName && (
-          <p className="text-gray-500 text-sm">{person.fullName}</p>
+          <p className="text-gray-500 text-sm">
+            {person.fullName}
+            {currentAge && <>, {`${currentAge}`}</>}
+          </p>
         )}
         {birthday && (
           <p className="text-sm text-gray-500">🎂 {birthday}</p>
         )}
-
-        {/* Edit core fields */}
-        <details
-          className="rounded border border-gray-200 p-3"
-          open={editIsOpen}
-          onToggle={(e) => editIsOpenSet((e.target as HTMLDetailsElement).open)}
-        >
-          <summary className="cursor-pointer text-sm text-pixel uppercase select-none">
-            Edit
-          </summary>
-          <fieldset disabled={isPending}>
+        {/*Edit*/}
+          {/*<fieldset disabled={isPending}>
             <form
               action={(fd) =>
                 startTransition(async () => {
@@ -154,11 +158,10 @@ export default function PersonDetail({ person }: Props) {
                 Save
               </Button>
             </form>
-          </fieldset>
-        </details>
+          </fieldset>*/}
       </section>
 
-      <hr className="border-gray-100" />
+      {/*<hr className="border-gray-100" />
 
       <ContactSection
         personId={person.id}
@@ -186,7 +189,7 @@ export default function PersonDetail({ person }: Props) {
       <CustomAttrSection
         personId={person.id}
         customAttributes={person.customAttributes}
-      />
+      />*/}
     </div>
   );
 }
