@@ -1,6 +1,6 @@
 "use client";
 
-import { useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import Link from "next/link";
 import { updatePerson } from "./actions";
 import ContactSection from "./ContactSection";
@@ -36,12 +36,15 @@ type Props = {
 
 export default function PersonDetail({ person }: Props) {
   const [isPending, startTransition] = useTransition();
+  const [editIsOpen, editIsOpenSet] = useState(false);
 
   const birthday = formatBirthday(
     person.birthDay,
     person.birthMonth,
     person.birthYear
   );
+
+  useEffect(() => {}, [updatePerson]) // TODO
 
   return (
     <div>
@@ -71,78 +74,87 @@ export default function PersonDetail({ person }: Props) {
         )}
 
         {/* Edit core fields */}
-        <details className="rounded border border-gray-200 p-3">
+        <details
+          className="rounded border border-gray-200 p-3"
+          open={editIsOpen}
+          onToggle={(e) => editIsOpenSet((e.target as HTMLDetailsElement).open)}
+        >
           <summary className="cursor-pointer text-sm text-pixel uppercase select-none">
             Edit
           </summary>
-          <form
-            action={(fd) =>
-              startTransition(() => updatePerson(person.id, fd))
-            }
-            className="mt-3 space-y-3 flex flex-col"
-          >
-            <div className="flex gap-2">
-              <label className="flex-1 space-y-1">
-                <span className="text-xs text-gray-500">Display name *</span>
-                <input
-                  name="displayName"
-                  defaultValue={person.displayName}
-                  required
-                  className="w-full rounded border border-gray-300 px-2 py-1 text-sm"
-                />
-              </label>
-              <label className="flex-1 space-y-1">
-                <span className="text-xs text-gray-500">Full name</span>
-                <input
-                  name="fullName"
-                  defaultValue={person.fullName ?? ""}
-                  className="w-full rounded border border-gray-300 px-2 py-1 text-sm"
-                />
-              </label>
-            </div>
-            <div className="flex gap-2">
-              <label className="space-y-1">
-                <span className="text-xs text-gray-500">Birth day</span>
-                <input
-                  name="birthDay"
-                  type="number"
-                  min={1}
-                  max={31}
-                  defaultValue={person.birthDay ?? ""}
-                  className="w-20 rounded border border-gray-300 px-2 py-1 mx-1 text-sm"
-                />
-              </label>
-              <label className="space-y-1">
-                <span className="text-xs text-gray-500">Birth month</span>
-                <input
-                  name="birthMonth"
-                  type="number"
-                  min={1}
-                  max={12}
-                  defaultValue={person.birthMonth ?? ""}
-                  className="w-20 rounded border border-gray-300 px-2 py-1 mx-1 text-sm"
-                />
-              </label>
-              <label className="space-y-1">
-                <span className="text-xs text-gray-500">Birth year</span>
-                <input
-                  name="birthYear"
-                  type="number"
-                  min={1900}
-                  max={new Date().getFullYear()}
-                  defaultValue={person.birthYear ?? ""}
-                  className="w-24 rounded border border-gray-300 px-2 py-1 mx-1 text-sm"
-                />
-              </label>
-            </div>
-            <Button
-              type="submit"
-              disabled={isPending}
-              className="disabled:opacity-50 text-pixel text-sm"
+          <fieldset disabled={isPending}>
+            <form
+              action={(fd) =>
+                startTransition(async () => {
+                  await updatePerson(person.id, fd)
+                  editIsOpenSet(false)
+                })
+              }
+              className="mt-3 space-y-3 flex flex-col"
             >
-              Save
-            </Button>
-          </form>
+              <div className="flex gap-2">
+                <label className="flex-1 space-y-1">
+                  <span className="text-xs text-gray-500">Display name *</span>
+                  <input
+                    name="displayName"
+                    defaultValue={person.displayName}
+                    required
+                    className="w-full rounded border border-gray-300 px-2 py-1 text-sm"
+                  />
+                </label>
+                <label className="flex-1 space-y-1">
+                  <span className="text-xs text-gray-500">Full name</span>
+                  <input
+                    name="fullName"
+                    defaultValue={person.fullName ?? ""}
+                    className="w-full rounded border border-gray-300 px-2 py-1 text-sm"
+                  />
+                </label>
+              </div>
+              <div className="flex gap-2">
+                <label className="space-y-1">
+                  <span className="text-xs text-gray-500">Birth day</span>
+                  <input
+                    name="birthDay"
+                    type="number"
+                    min={1}
+                    max={31}
+                    defaultValue={person.birthDay ?? ""}
+                    className="w-20 rounded border border-gray-300 px-2 py-1 mx-1 text-sm"
+                  />
+                </label>
+                <label className="space-y-1">
+                  <span className="text-xs text-gray-500">Birth month</span>
+                  <input
+                    name="birthMonth"
+                    type="number"
+                    min={1}
+                    max={12}
+                    defaultValue={person.birthMonth ?? ""}
+                    className="w-20 rounded border border-gray-300 px-2 py-1 mx-1 text-sm"
+                  />
+                </label>
+                <label className="space-y-1">
+                  <span className="text-xs text-gray-500">Birth year</span>
+                  <input
+                    name="birthYear"
+                    type="number"
+                    min={1900}
+                    max={new Date().getFullYear()}
+                    defaultValue={person.birthYear ?? ""}
+                    className="w-24 rounded border border-gray-300 px-2 py-1 mx-1 text-sm"
+                  />
+                </label>
+              </div>
+              <Button
+                type="submit"
+                disabled={isPending}
+                className="disabled:opacity-50 text-pixel text-sm"
+              >
+                Save
+              </Button>
+            </form>
+          </fieldset>
         </details>
       </section>
 
