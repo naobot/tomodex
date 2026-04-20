@@ -10,24 +10,24 @@ type Props = {
 };
 
 const actions = [
-  {
-    key: "find",
-    label: "Find Friend",
-    sub: "Quick search",
-    href: null, // interactive — handled separately
-  },
+  // {
+  //   key: "find",
+  //   label: "Find Friend",
+  //   sub: "Quick search",
+  //   href: null, // interactive — handled separately
+  // },
   {
     key: "all",
     label: "All Friends",
     sub: "Browse everyone",
     href: "/people",
   },
-  {
-    key: "birthdays",
-    label: "Birthdays",
-    sub: "Upcoming & recent",
-    href: "/birthdays",
-  },
+  // {
+  //   key: "birthdays",
+  //   label: "Birthdays",
+  //   sub: "Upcoming & recent",
+  //   href: "/birthdays",
+  // },
 ];
 
 // Animation delays for staggered entrance — applied as inline style since
