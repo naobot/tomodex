@@ -158,7 +158,7 @@ export type EmailAddressGroupByOutputType = {
   _max: EmailAddressMaxAggregateOutputType | null
 }
 
-type GetEmailAddressGroupByPayload<T extends EmailAddressGroupByArgs> = Prisma.PrismaPromise<
+export type GetEmailAddressGroupByPayload<T extends EmailAddressGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<EmailAddressGroupByOutputType, T['by']> &
       {
@@ -1242,6 +1242,11 @@ export type EmailAddressFindManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Skip the first `n` EmailAddresses.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of EmailAddresses.
+   */
   distinct?: Prisma.EmailAddressScalarFieldEnum | Prisma.EmailAddressScalarFieldEnum[]
 }
 

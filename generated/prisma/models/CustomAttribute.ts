@@ -165,7 +165,7 @@ export type CustomAttributeGroupByOutputType = {
   _max: CustomAttributeMaxAggregateOutputType | null
 }
 
-type GetCustomAttributeGroupByPayload<T extends CustomAttributeGroupByArgs> = Prisma.PrismaPromise<
+export type GetCustomAttributeGroupByPayload<T extends CustomAttributeGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CustomAttributeGroupByOutputType, T['by']> &
       {
@@ -1283,6 +1283,11 @@ export type CustomAttributeFindManyArgs<ExtArgs extends runtime.Types.Extensions
    * Skip the first `n` CustomAttributes.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of CustomAttributes.
+   */
   distinct?: Prisma.CustomAttributeScalarFieldEnum | Prisma.CustomAttributeScalarFieldEnum[]
 }
 

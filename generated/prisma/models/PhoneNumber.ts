@@ -158,7 +158,7 @@ export type PhoneNumberGroupByOutputType = {
   _max: PhoneNumberMaxAggregateOutputType | null
 }
 
-type GetPhoneNumberGroupByPayload<T extends PhoneNumberGroupByArgs> = Prisma.PrismaPromise<
+export type GetPhoneNumberGroupByPayload<T extends PhoneNumberGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<PhoneNumberGroupByOutputType, T['by']> &
       {
@@ -1242,6 +1242,11 @@ export type PhoneNumberFindManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Skip the first `n` PhoneNumbers.
    */
   skip?: number
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+   * 
+   * Filter by unique combinations of PhoneNumbers.
+   */
   distinct?: Prisma.PhoneNumberScalarFieldEnum | Prisma.PhoneNumberScalarFieldEnum[]
 }
 
