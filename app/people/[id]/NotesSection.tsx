@@ -1,15 +1,20 @@
 "use client";
-
 import { useState, useTransition } from "react";
 import { addNote, updateNote, deleteNote } from "./actions";
 import type { SerialisedNote } from "./types";
-import Button from "@/components/ui/Button";
 import Section from "@/components/layout/Section";
 
 type Props = {
   personId: string;
   notes: SerialisedNote[];
 };
+
+function formatNoteDate(updatedAt: string, createdAt: string): string {
+  const date = new Date(updatedAt);
+  const edited = updatedAt !== createdAt;
+  const formatted = date.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  return edited ? `Edited ${formatted}` : formatted;
+}
 
 function NoteItem({
   personId,
@@ -26,13 +31,19 @@ function NoteItem({
 
   if (editing) {
     return (
-      <li className="rounded border border-indigo-300 bg-indigo-50 p-3">
+      <li style={{
+        background: "var(--color-surface-raised)",
+        border: "1px solid var(--color-border)",
+        borderRadius: "var(--radius-md)",
+        padding: 14,
+        marginBottom: 8,
+        boxShadow: "var(--shadow-sm)",
+      }}>
         <form
           action={(fd) => {
             startTransition(() => updateNote(personId, note.id, fd));
             setEditing(false);
           }}
-          className="my-2"
         >
           <textarea
             name="body"
@@ -40,23 +51,12 @@ function NoteItem({
             required
             rows={3}
             autoFocus
-            className="w-full rounded border border-gray-300 px-2 py-1 text-sm resize-none"
+            className="input textarea"
+            style={{ width: "100%", marginBottom: 8 }}
           />
-          <div className="flex gap-2">
-            <button
-              type="submit"
-              disabled={isPending}
-              className="rounded bg-indigo-600 px-3 py-1 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
-            >
-              Save
-            </button>
-            <button
-              type="button"
-              onClick={() => setEditing(false)}
-              className="rounded border border-gray-300 px-3 py-1 text-sm text-gray-600 hover:bg-gray-50"
-            >
-              Cancel
-            </button>
+          <div style={{ display: "flex", gap: 8 }}>
+            <button type="submit" disabled={isPending} className="btn-submit">Save</button>
+            <button type="button" className="btn" onClick={() => setEditing(false)}>Cancel</button>
           </div>
         </form>
       </li>
@@ -64,26 +64,29 @@ function NoteItem({
   }
 
   return (
-    <li className="rounded border border-gray-200 p-3 text-sm my-1">
-      <p className="whitespace-pre-wrap">{note.body}</p>
-      <div className="flex items-center gap-3 text-xs text-gray-400">
-        <span>
-          {note.updatedAt !== note.createdAt ? "Edited " : ""}
-          {new Date(note.updatedAt).toLocaleDateString()}
+    <li style={{
+      background: "var(--color-surface-raised)",
+      border: "1px solid var(--color-border)",
+      borderRadius: "var(--radius-md)",
+      padding: 14,
+      marginBottom: 8,
+      boxShadow: "var(--shadow-sm)",
+    }}>
+      <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text)", lineHeight: 1.65, margin: 0, whiteSpace: "pre-wrap" }}>
+        {note.body}
+      </p>
+      <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 8 }}>
+        <span style={{ fontFamily: "var(--font-pixel)", fontSize: 10, color: "var(--color-text-faint)", letterSpacing: "0.04em" }}>
+          {formatNoteDate(note.updatedAt, note.createdAt)}
         </span>
-        <Button
-          onClick={() => setEditing(true)}
-          className="text-sm text-pixel"
-        >
-          Edit
-        </Button>
-        <Button
+        <button className="btn-inline" onClick={() => setEditing(true)}>Edit</button>
+        <button
+          className="btn-destruct"
           onClick={() => startTransition(() => deleteNote(personId, note.id))}
           disabled={isPending}
-          className="text-sm text-pixel text-red-400 hover:text-red-600 disabled:opacity-40"
         >
           Delete
-        </Button>
+        </button>
       </div>
     </li>
   );
@@ -94,10 +97,10 @@ export default function NotesSection({ personId, notes }: Props) {
 
   return (
     <Section title="Notes">
-      {notes.length === 0 ? (
-        <p className="text-sm text-gray-400 my-4">No notes yet.</p>
-      ) :
-      <ul className="my-2">
+      {notes.length === 0 && (
+        <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-faint)" }}>No notes yet.</p>
+      )}
+      <ul style={{ listStyle: "none", padding: 0, margin: "0 0 8px" }}>
         {notes.map((note) => (
           <NoteItem
             key={note.id}
@@ -107,26 +110,20 @@ export default function NotesSection({ personId, notes }: Props) {
             startTransition={startTransition}
           />
         ))}
-      </ul>}
-
+      </ul>
       <form
         action={(fd) => startTransition(() => addNote(personId, fd))}
-        className="flex gap-2 content-center items-center"
+        style={{ display: "flex", gap: 8, alignItems: "flex-end" }}
       >
         <textarea
           name="body"
           placeholder="Add a note…"
           required
           rows={2}
-          className="flex-1 rounded border border-gray-300 px-2 py-1 text-sm resize-none"
+          className="input textarea"
+          style={{ flex: 1 }}
         />
-        <Button
-          type="submit"
-          disabled={isPending}
-          className="disabled:opacity-50 text-pixel text-sm"
-        >
-          Add
-        </Button>
+        <button type="submit" className="btn-submit" disabled={isPending}>Add</button>
       </form>
     </Section>
   );

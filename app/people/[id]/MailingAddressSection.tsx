@@ -1,9 +1,7 @@
 "use client";
-
 import { useTransition } from "react";
 import { addMailingAddress, deleteMailingAddress } from "./actions";
 import type { SerialisedMailingAddress } from "./types";
-import Button from "@/components/ui/Button";
 import Section from "@/components/layout/Section";
 
 type Props = {
@@ -19,59 +17,64 @@ export default function MailingAddressSection({
 
   return (
     <Section title="Mailing Addresses">
+
       {mailingAddresses.length === 0 && (
-        <p className="text-sm text-gray-400">No mailing addresses yet.</p>
+        <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-faint)" }}>
+          No mailing addresses yet.
+        </p>
       )}
-      <ul className="my-2">
+      <ul style={{ listStyle: "none", padding: 0, margin: "0 0 8px" }}>
         {mailingAddresses.map((a) => (
           <li
             key={a.id}
-            className="flex items-start justify-between rounded border border-gray-200 px-3 py-2 text-sm"
+            style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", padding: "5px 0" }}
           >
             <div>
-              <p className="whitespace-pre-line">{a.mailingAddress}</p>
+              <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text)", whiteSpace: "pre-line", margin: 0 }}>
+                {a.mailingAddress}
+              </p>
               {a.label && (
-                <p className="text-gray-400 text-xs mt-0.5">{a.label}</p>
+                <p style={{ fontFamily: "var(--font-pixel)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--color-text-faint)", margin: "3px 0 0" }}>
+                  {a.label}
+                </p>
               )}
             </div>
-            <Button
-              type="submit"
+            <button
+              className="btn-destruct"
               onClick={() => startTransition(() => deleteMailingAddress(personId, a.id))}
               disabled={isPending}
-              className="text-xs text-red-400 hover:text-red-600 disabled:opacity-40 text-pixel shrink-0"
+              style={{ flexShrink: 0, marginLeft: 8 }}
             >
               Remove
-            </Button>
+            </button>
           </li>
         ))}
       </ul>
 
       <form
         action={(fd) => startTransition(() => addMailingAddress(personId, fd))}
-        className="my-2"
+        style={{ display: "flex", flexDirection: "column", gap: 8 }}
       >
         <input
           name="label"
           placeholder="Label (optional, e.g. Home)"
-          className="w-full rounded border border-gray-300 px-2 py-1 my-2 text-sm"
+          className="input"
         />
-        <div className="flex gap-2 items-center">
+        <div style={{ display: "flex", gap: 8, alignItems: "flex-end" }}>
           <textarea
             name="mailingAddress"
             placeholder="Mailing address"
             required
             rows={2}
-            className="flex-1 rounded border border-gray-300 px-2 py-1 text-sm resize-none"
+            className="input textarea"
+            style={{ flex: 1 }}
           />
-          <Button
-            type="submit"
-            disabled={isPending}
-            className="disabled:opacity-50 text-pixel text-sm"
-          >
+          <button type="submit" className="btn-submit" disabled={isPending}>
             Add
-          </Button>
+          </button>
         </div>
       </form>
+
     </Section>
   );
 }

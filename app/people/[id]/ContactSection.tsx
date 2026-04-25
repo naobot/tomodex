@@ -1,5 +1,4 @@
 "use client";
-
 import { useTransition } from "react";
 import {
   addPhoneNumber,
@@ -11,7 +10,6 @@ import type {
   SerialisedPhoneNumber,
   SerialisedEmailAddress,
 } from "./types";
-import Button from "@/components/ui/Button";
 import Section from "@/components/layout/Section";
 
 type Props = {
@@ -29,29 +27,29 @@ export default function ContactSection({
 
   return (
     <Section title="Contact">
+
       {/* Phone numbers */}
       <div className="my-2">
-        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide">
-          Phone
-        </h3>
         {phoneNumbers.length === 0 && (
-          <p className="text-sm text-gray-400">No phone numbers yet.</p>
+          <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-faint)" }}>
+            No phone numbers yet.
+          </p>
         )}
         <ul className="my-1">
           {phoneNumbers.map((p) => (
-            <li key={p.id} className="flex items-center justify-between text-sm">
-              <span>
+            <li key={p.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "5px 0" }}>
+              <div style={{ fontSize: "var(--text-sm)", color: "var(--color-text)" }}>
                 {p.number}
                 {p.label && (
-                  <span className="ml-2 text-gray-400">({p.label})</span>
+                  <span style={{ fontFamily: "var(--font-pixel)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--color-text-faint)", marginLeft: 8 }}>
+                    {p.label}
+                  </span>
                 )}
-              </span>
+              </div>
               <button
-                onClick={() =>
-                  startTransition(() => deletePhoneNumber(personId, p.id))
-                }
+                className="btn-destruct"
+                onClick={() => startTransition(() => deletePhoneNumber(personId, p.id))}
                 disabled={isPending}
-                className="text-xs text-red-400 hover:text-red-600 disabled:opacity-40"
               >
                 Remove
               </button>
@@ -60,52 +58,36 @@ export default function ContactSection({
         </ul>
         <form
           action={(fd) => startTransition(() => addPhoneNumber(personId, fd))}
-          className="flex gap-2"
+          style={{ display: "flex", gap: 8, marginTop: 10 }}
         >
-          <input
-            name="label"
-            placeholder="Label (optional)"
-            className="w-28 rounded border border-gray-300 px-2 py-1 text-sm"
-          />
-          <input
-            name="number"
-            placeholder="Phone number"
-            required
-            className="flex-1 rounded border border-gray-300 px-2 py-1 text-sm"
-          />
-          <Button
-            type="submit"
-            disabled={isPending}
-            className="disabled:opacity-50 text-pixel text-sm"
-          >
-            Add
-          </Button>
+          <input name="label" placeholder="Label" className="input" style={{ width: 88, flexShrink: 0 }} />
+          <input name="number" placeholder="Phone number" required className="input" style={{ flex: 1 }} />
+          <button type="submit" className="btn-submit" disabled={isPending}>Add</button>
         </form>
       </div>
 
       {/* Email addresses */}
       <div className="my-2">
-        <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide">
-          Email
-        </h3>
         {emailAddresses.length === 0 && (
-          <p className="text-sm text-gray-400">No email addresses yet.</p>
+          <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-faint)" }}>
+            No email addresses yet.
+          </p>
         )}
         <ul className="my-1">
           {emailAddresses.map((e) => (
-            <li key={e.id} className="flex items-center justify-between text-sm">
-              <span>
+            <li key={e.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "5px 0" }}>
+              <div style={{ fontSize: "var(--text-sm)", color: "var(--color-text)" }}>
                 {e.address}
                 {e.label && (
-                  <span className="ml-2 text-gray-400">({e.label})</span>
+                  <span style={{ fontFamily: "var(--font-pixel)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--color-text-faint)", marginLeft: 8 }}>
+                    {e.label}
+                  </span>
                 )}
-              </span>
+              </div>
               <button
-                onClick={() =>
-                  startTransition(() => deleteEmailAddress(personId, e.id))
-                }
+                className="btn-destruct"
+                onClick={() => startTransition(() => deleteEmailAddress(personId, e.id))}
                 disabled={isPending}
-                className="text-xs text-red-400 hover:text-red-600 disabled:opacity-40"
               >
                 Remove
               </button>
@@ -114,29 +96,14 @@ export default function ContactSection({
         </ul>
         <form
           action={(fd) => startTransition(() => addEmailAddress(personId, fd))}
-          className="flex gap-2"
+          style={{ display: "flex", gap: 8, marginTop: 10 }}
         >
-          <input
-            name="label"
-            placeholder="Label (optional)"
-            className="w-28 rounded border border-gray-300 px-2 py-1 text-sm"
-          />
-          <input
-            name="address"
-            type="email"
-            placeholder="Email address"
-            required
-            className="flex-1 rounded border border-gray-300 px-2 py-1 text-sm"
-          />
-          <Button
-            type="submit"
-            disabled={isPending}
-            className="disabled:opacity-50 text-pixel text-sm"
-          >
-            Add
-          </Button>
+          <input name="label" placeholder="Label" className="input" style={{ width: 88, flexShrink: 0 }} />
+          <input name="address" type="email" placeholder="Email address" required className="input" style={{ flex: 1 }} />
+          <button type="submit" className="btn-submit" disabled={isPending}>Add</button>
         </form>
       </div>
+
     </Section>
   );
 }

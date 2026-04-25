@@ -1,9 +1,7 @@
 "use client";
-
 import { useTransition } from "react";
 import { addCustomAttribute, deleteCustomAttribute } from "./actions";
 import type { SerialisedCustomAttribute } from "./types";
-import Button from "@/components/ui/Button";
 import Section from "@/components/layout/Section";
 
 type Props = {
@@ -20,61 +18,55 @@ export default function CustomAttrSection({
   return (
     <Section title="Custom Info">
 
-      {customAttributes.length === 0 ? (
-        <p className="text-sm text-gray-400 my-4">No custom attributes yet.</p>
-      ) :
-      <ul className="divide-y divide-gray-100 rounded border border-gray-200">
+      {customAttributes.length === 0 && (
+        <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-faint)" }}>
+          No custom attributes yet.
+        </p>
+      )}
+      <ul style={{ listStyle: "none", padding: 0, margin: "0 0 8px" }}>
         {customAttributes.map((attr) => (
           <li
             key={attr.id}
-            className="flex items-center justify-between px-3 py-2 text-sm"
+            style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "5px 0" }}
           >
-            <span>
-              <span className="font-medium text-gray-700">{attr.key}:</span>{" "}
-              <span className="text-gray-600">{attr.value}</span>
+            <span style={{ fontSize: "var(--text-sm)", color: "var(--color-text)" }}>
+              <span style={{ color: "var(--color-text-strong)" }}>{attr.key}:</span>{" "}
+              {attr.value}
             </span>
-            <Button
-              onClick={() =>
-                startTransition(() =>
-                  deleteCustomAttribute(personId, attr.id)
-                )
-              }
+            <button
+              className="btn-destruct"
+              onClick={() => startTransition(() => deleteCustomAttribute(personId, attr.id))}
               disabled={isPending}
-              className="ml-4 text-pixel text-xs text-red-400 hover:text-red-600 disabled:opacity-40"
             >
               Remove
-            </Button>
+            </button>
           </li>
         ))}
       </ul>
-      }
 
       <form
-        action={(fd) =>
-          startTransition(() => addCustomAttribute(personId, fd))
-        }
-        className="flex gap-2"
+        action={(fd) => startTransition(() => addCustomAttribute(personId, fd))}
+        style={{ display: "flex", gap: 8 }}
       >
         <input
           name="key"
           placeholder="Label (e.g. Favourite tea)"
           required
-          className="flex-1 rounded border border-gray-300 px-2 py-1 text-sm"
+          className="input"
+          style={{ flex: 1 }}
         />
         <input
           name="value"
           placeholder="Value"
           required
-          className="flex-1 rounded border border-gray-300 px-2 py-1 text-sm"
+          className="input"
+          style={{ flex: 1 }}
         />
-        <Button
-          type="submit"
-          disabled={isPending}
-          className="px-3 py-1 text-sm text-pixel disabled:opacity-50"
-        >
+        <button type="submit" className="btn-submit" disabled={isPending}>
           Add
-        </Button>
+        </button>
       </form>
+
     </Section>
   );
 }
