@@ -46,10 +46,6 @@ export default function PersonList({ people }: Props) {
 
   return (
     <>
-      <div className="mb-4">
-        <button className="btn" onClick={openModal}>+ Add Friend</button>
-      </div>
-
       {people.length === 0 ? (
         <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-faint)" }}>
           Add your first friend to get started.

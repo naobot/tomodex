@@ -19,7 +19,7 @@ export default async function AppShell({ children }: Props) {
 
   return (
     <div className="flex min-h-screen w-full">
-      <Sidebar isLoggedIn={Boolean(session?.user?.id)}>
+      <Sidebar>
         {result.ok
           ? <PersonList people={result.data} />
           : <DbErrorToast error={result.error} />
