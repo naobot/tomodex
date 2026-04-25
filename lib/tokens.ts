@@ -20,6 +20,7 @@ export const color = {
   text:          "#1e1e1c",
   textSecondary: "#5a5a56",
   textFaint:     "#9a9a94",
+  textStrong:    "#363a3c",
 
   // Borders
   border:        "#c8c8c4",
@@ -69,5 +70,5 @@ export const easing = {
 export const font = {
   ui:      "'Lexend Giga', system-ui, sans-serif",
   display:      "'Lexend Giga', system-ui, sans-serif",
-  pixel: "'Bitcount Single Grid', system-ui, monospace",
+  pixel: "'Bitcount Grid Single', system-ui, monospace",
 } as const;
