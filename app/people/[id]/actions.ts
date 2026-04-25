@@ -32,27 +32,34 @@ function revalidatePerson(personId: string) {
 // ---------------------------------------------------------------------------
 
 export async function updatePerson(personId: string, formData: FormData) {
-  await requireOwnership(personId);
+  const ownerId = await requireOwnership(personId);
 
   const displayName = (formData.get("displayName") as string)?.trim();
   if (!displayName) throw new Error("Display name is required");
 
   const fullName = (formData.get("fullName") as string)?.trim() || null;
 
-  const birthDay = formData.get("birthDay")
-    ? Number(formData.get("birthDay"))
-    : null;
-  const birthMonth = formData.get("birthMonth")
-    ? Number(formData.get("birthMonth"))
-    : null;
-  const birthYear = formData.get("birthYear")
-    ? Number(formData.get("birthYear"))
-    : null;
+  const birthDay   = formData.get("birthDay")   ? Number(formData.get("birthDay"))   : null;
+  const birthMonth = formData.get("birthMonth") ? Number(formData.get("birthMonth")) : null;
+  const birthYear  = formData.get("birthYear")  ? Number(formData.get("birthYear"))  : null;
+
+  const city    = (formData.get("city") as string)?.trim()    || null;
+  const country = (formData.get("country") as string)?.trim() || null;
 
   await prisma.person.update({
     where: { id: personId },
     data: { displayName, fullName, birthDay, birthMonth, birthYear },
   });
+
+  if (city || country) {
+    await prisma.location.upsert({
+      where:  { personId },
+      create: { personId, ownerId, city, country },
+      update: { city, country },
+    });
+  } else {
+    await prisma.location.deleteMany({ where: { personId } });
+  }
 
   revalidatePerson(personId);
 }
