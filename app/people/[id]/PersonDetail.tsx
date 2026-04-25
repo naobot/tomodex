@@ -1,6 +1,5 @@
 "use client";
-
-import { useEffect, useRef, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import Link from "next/link";
 import { updatePerson } from "./actions";
 import ContactSection from "./ContactSection";
@@ -9,7 +8,6 @@ import MailingAddressSection from "./MailingAddressSection";
 import NotesSection from "./NotesSection";
 import CustomAttrSection from "./CustomAttrSection";
 import type { SerialisedPerson } from "./types";
-import Button from "@/components/ui/Button";
 
 // Month names for birthday display — birthMonth is 1-indexed
 const MONTHS = [
@@ -38,155 +36,176 @@ export default function PersonDetail({ person }: Props) {
   const [isPending, startTransition] = useTransition();
   const [editIsOpen, editIsOpenSet] = useState(false);
 
-  const birthday = formatBirthday(
-    person.birthDay,
-    person.birthMonth,
-    person.birthYear
-  );
-
-  useEffect(() => {}, [updatePerson]) // TODO
+  const birthday = formatBirthday(person.birthDay, person.birthMonth, person.birthYear);
 
   return (
     <div>
-      <div className="flex items-center gap-4">
-        <div>
-          <Link
-            href="/people"
-            className="inline-block text-sm text-pixel uppercase"
-          >
-            ←
-          </Link>
-        </div>
-        <div>
-          <h1 className="inline-block text-3xl font-bold text-gray-900">
-            {person.displayName}
-          </h1>
-        </div>
+
+      {/* Page header */}
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+        <Link
+          href="/people"
+          style={{
+            fontFamily: "var(--font-pixel)",
+            fontSize: 13,
+            color: "var(--color-text-faint)",
+            lineHeight: 1,
+            textDecoration: "none",
+            userSelect: "none",
+          }}
+        >
+          ‹
+        </Link>
+        <span style={{
+          fontFamily: "var(--font-pixel)",
+          fontSize: 11,
+          textTransform: "uppercase",
+          letterSpacing: "0.14em",
+          color: "var(--color-text)",
+        }}>
+          Profile
+        </span>
       </div>
 
-      {/* Header / core fields */}
-      <section className="my-4">
-        {person.fullName && (
-          <p className="text-gray-500 text-sm">{person.fullName}</p>
-        )}
-        {birthday && (
-          <p className="text-sm text-gray-500">🎂 {birthday}</p>
-        )}
-
-        {/* Edit core fields */}
-        <details
-          className="rounded border border-gray-200 p-3"
-          open={editIsOpen}
-          onToggle={(e) => editIsOpenSet((e.target as HTMLDetailsElement).open)}
+      {/* Name row */}
+      <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 4 }}>
+        <h1 style={{
+          fontSize: "var(--text-3xl)",
+          fontWeight: 200,
+          color: "var(--color-text-strong)",
+          margin: 0,
+          lineHeight: 1.1,
+        }}>
+          {person.displayName}
+        </h1>
+        <button
+          className="btn"
+          style={{ fontSize: 10, padding: "4px 12px" }}
+          onClick={() => editIsOpenSet(o => !o)}
         >
-          <summary className="cursor-pointer text-sm text-pixel uppercase select-none">
-            Edit
-          </summary>
-          <fieldset disabled={isPending}>
+          {editIsOpen ? "▲ Close" : "▼ Edit"}
+        </button>
+      </div>
+
+      {/* Meta — hidden while accordion is open */}
+      {!editIsOpen && (
+        <div style={{ marginBottom: 14 }}>
+          {person.fullName && (
+            <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-faint)", lineHeight: 1.4 }}>
+              {person.fullName}
+            </p>
+          )}
+          {birthday && (
+            <p style={{
+              fontFamily: "var(--font-pixel)",
+              fontSize: 10,
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+              color: "var(--color-text-faint)",
+              marginTop: 3,
+            }}>
+              {birthday}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Edit accordion */}
+      {editIsOpen && (
+        <div style={{
+          background: "var(--color-surface-raised)",
+          border: "1px solid var(--color-border)",
+          borderRadius: "var(--radius-md)",
+          padding: "16px 18px 18px",
+          marginBottom: 16,
+          boxShadow: "var(--shadow-sm)",
+        }}>
+          <fieldset disabled={isPending} style={{ border: "none", padding: 0, margin: 0 }}>
             <form
               action={(fd) =>
                 startTransition(async () => {
-                  await updatePerson(person.id, fd)
-                  editIsOpenSet(false)
+                  await updatePerson(person.id, fd);
+                  editIsOpenSet(false);
                 })
               }
-              className="mt-3 space-y-3 flex flex-col"
             >
-              <div className="flex gap-2">
-                <label className="flex-1 space-y-1">
-                  <span className="text-xs text-gray-500">Display name *</span>
+              {/* Display name + Full name */}
+              <div style={{ display: "flex", gap: 10, marginBottom: 12 }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-text-faint)", marginBottom: 5 }}>
+                    Display name <span style={{ color: "var(--color-accent)" }}>*</span>
+                  </div>
                   <input
                     name="displayName"
                     defaultValue={person.displayName}
                     required
-                    className="w-full rounded border border-gray-300 px-2 py-1 text-sm"
+                    className="input"
+                    style={{ width: "100%" }}
                   />
-                </label>
-                <label className="flex-1 space-y-1">
-                  <span className="text-xs text-gray-500">Full name</span>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-text-faint)", marginBottom: 5 }}>
+                    Full name
+                  </div>
                   <input
                     name="fullName"
                     defaultValue={person.fullName ?? ""}
-                    className="w-full rounded border border-gray-300 px-2 py-1 text-sm"
+                    className="input"
+                    style={{ width: "100%" }}
                   />
-                </label>
+                </div>
               </div>
-              <div className="flex gap-2">
-                <label className="space-y-1">
-                  <span className="text-xs text-gray-500">Birth day</span>
-                  <input
-                    name="birthDay"
-                    type="number"
-                    min={1}
-                    max={31}
-                    defaultValue={person.birthDay ?? ""}
-                    className="w-20 rounded border border-gray-300 px-2 py-1 mx-1 text-sm"
-                  />
-                </label>
-                <label className="space-y-1">
-                  <span className="text-xs text-gray-500">Birth month</span>
-                  <input
-                    name="birthMonth"
-                    type="number"
-                    min={1}
-                    max={12}
-                    defaultValue={person.birthMonth ?? ""}
-                    className="w-20 rounded border border-gray-300 px-2 py-1 mx-1 text-sm"
-                  />
-                </label>
-                <label className="space-y-1">
-                  <span className="text-xs text-gray-500">Birth year</span>
-                  <input
-                    name="birthYear"
-                    type="number"
-                    min={1900}
-                    max={new Date().getFullYear()}
-                    defaultValue={person.birthYear ?? ""}
-                    className="w-24 rounded border border-gray-300 px-2 py-1 mx-1 text-sm"
-                  />
-                </label>
+
+              {/* Birthday */}
+              <div style={{ marginBottom: 12 }}>
+                <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-text-faint)", marginBottom: 5 }}>
+                  Birthday
+                </div>
+                <div style={{ display: "flex", gap: 8 }}>
+                  <div style={{ flex: 1 }}>
+                    <input name="birthMonth" type="number" min={1} max={12} placeholder="MM" defaultValue={person.birthMonth ?? ""} className="input" style={{ width: "100%", textAlign: "center" }} />
+                    <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, color: "var(--color-text-faint)", marginTop: 4, textAlign: "center", letterSpacing: "0.04em" }}>Month</div>
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <input name="birthDay" type="number" min={1} max={31} placeholder="DD" defaultValue={person.birthDay ?? ""} className="input" style={{ width: "100%", textAlign: "center" }} />
+                    <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, color: "var(--color-text-faint)", marginTop: 4, textAlign: "center", letterSpacing: "0.04em" }}>Day</div>
+                  </div>
+                  <div style={{ flex: 2 }}>
+                    <input name="birthYear" type="number" min={1900} max={new Date().getFullYear()} placeholder="YYYY" defaultValue={person.birthYear ?? ""} className="input" style={{ width: "100%", textAlign: "center" }} />
+                    <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, color: "var(--color-text-faint)", marginTop: 4, textAlign: "center", letterSpacing: "0.04em" }}>Year</div>
+                  </div>
+                </div>
               </div>
-              <Button
-                type="submit"
-                disabled={isPending}
-                className="disabled:opacity-50 text-pixel text-sm"
-              >
-                Save
-              </Button>
+
+              {/* Actions */}
+              <div style={{ display: "flex", gap: 8, justifyContent: "flex-end", marginTop: 4 }}>
+                <button type="button" className="btn" onClick={() => editIsOpenSet(false)}>
+                  Cancel
+                </button>
+                <button type="submit" className="btn-submit">
+                  Save
+                </button>
+              </div>
             </form>
           </fieldset>
-        </details>
-      </section>
+        </div>
+      )}
 
-      <hr className="border-gray-100" />
+      <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "16px 0" }} />
+      <ContactSection personId={person.id} phoneNumbers={person.phoneNumbers} emailAddresses={person.emailAddresses} />
 
-      <ContactSection
-        personId={person.id}
-        phoneNumbers={person.phoneNumbers}
-        emailAddresses={person.emailAddresses}
-      />
-
-      <hr className="border-gray-100" />
-
+      <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "16px 0" }} />
       <LocationSection personId={person.id} location={person.location} />
 
-      <hr className="border-gray-100" />
+      <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "16px 0" }} />
+      <MailingAddressSection personId={person.id} mailingAddresses={person.mailingAddresses} />
 
-      <MailingAddressSection
-        personId={person.id}
-        mailingAddresses={person.mailingAddresses}
-      />
-
-      <hr className="border-gray-100" />
-
+      <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "16px 0" }} />
       <NotesSection personId={person.id} notes={person.notes} />
 
-      <hr className="border-gray-100" />
+      <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "16px 0" }} />
+      <CustomAttrSection personId={person.id} customAttributes={person.customAttributes} />
 
-      <CustomAttrSection
-        personId={person.id}
-        customAttributes={person.customAttributes}
-      />
     </div>
   );
 }
