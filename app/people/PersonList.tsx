@@ -3,7 +3,6 @@
 import { useRef, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { addPerson } from "./actions";
-import Button from "@/components/ui/Button";
 import type { PersonSummary } from "@/lib/people";
 import styles from "./PersonList.module.css";
 import { useNavigationLoader, usePreviousPathname } from "@/lib/NavigationContext";
@@ -41,23 +40,22 @@ export default function PersonList({ people }: Props) {
     });
   }
 
-  // Spread the stagger evenly across MAX_STAGGER_MS regardless of list length
   const staggerStep = people.length > 1
     ? MAX_STAGGER_MS / (people.length - 1)
     : 0;
 
   return (
     <>
-      <div className="mb-4 flex items-center justify-between">
-        <Button onClick={openModal} className="text-sm text-pixel">
-          + Add Friend
-        </Button>
+      <div className="mb-4">
+        <button className="btn" onClick={openModal}>+ Add Friend</button>
       </div>
 
       {people.length === 0 ? (
-        <p className="text-sm text-gray-400">Add your first friend to get started.</p>
+        <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-faint)" }}>
+          Add your first friend to get started.
+        </p>
       ) : (
-        <ul>
+        <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
           {people.map((person, i) => (
             <li
               key={person.id}
@@ -68,10 +66,20 @@ export default function PersonList({ people }: Props) {
               }
             >
               <button
-                onClick={() => { startNavigating(); router.push(`/people/${person.id}`)}}
-                className="flex items-center justify-between p-0 -my-2 hover:bg-gray-50 transition-colors cursor-pointer"
+                onClick={() => { startNavigating(); router.push(`/people/${person.id}`); }}
+                style={{
+                  background: "none",
+                  border: "none",
+                  padding: "2px 0",
+                  cursor: "pointer",
+                  display: "block",
+                  width: "100%",
+                  textAlign: "left",
+                }}
               >
-                <span className="text-2xl">{person.displayName}</span>
+                <span style={{ fontSize: "var(--text-2xl)", fontWeight: 300, color: "var(--color-text-faint)" }}>
+                  {person.displayName}
+                </span>
               </button>
             </li>
           ))}
@@ -80,46 +88,71 @@ export default function PersonList({ people }: Props) {
 
       <dialog
         ref={dialogRef}
-        className="rounded-xl border border-gray-200 p-0 shadow-xl backdrop:bg-black/30 w-full max-w-md m-auto"
+        style={{
+          border: "1px solid var(--color-border)",
+          borderRadius: "var(--radius-lg)",
+          padding: 0,
+          boxShadow: "var(--shadow-lg)",
+          width: "100%",
+          maxWidth: 420,
+          margin: "auto",
+        }}
         onClose={closeModal}
       >
-        <div className="px-6 py-5">
-          <h2 className="mb-4 text-lg font-semibold text-gray-900">Add a Friend</h2>
-          <form ref={formRef} action={handleSubmit} className="space-y-4">
-            <label className="block space-y-1">
-              <span className="text-sm font-medium text-gray-700">
-                Display name <span className="text-red-500">*</span>
-              </span>
+        <div style={{ padding: "24px 28px" }}>
+          <div style={{
+            fontFamily: "var(--font-pixel)",
+            fontSize: 11,
+            textTransform: "uppercase",
+            letterSpacing: "0.14em",
+            color: "var(--color-text)",
+            marginBottom: 20,
+          }}>
+            Add a Friend
+          </div>
+          <form ref={formRef} action={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+
+            <div>
+              <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-text-faint)", marginBottom: 5 }}>
+                Display name <span style={{ color: "var(--color-accent)" }}>*</span>
+              </div>
               <input
                 name="displayName"
                 type="text"
                 required
                 autoFocus
                 placeholder="e.g. Sarah"
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-300"
+                className="input"
+                style={{ width: "100%" }}
               />
-              <p className="text-xs text-gray-400">How their name appears throughout the app.</p>
-            </label>
+              <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, color: "var(--color-text-faint)", marginTop: 4, letterSpacing: "0.04em" }}>
+                How their name appears throughout the app.
+              </div>
+            </div>
 
-            <label className="block space-y-1">
-              <span className="text-sm font-medium text-gray-700">Full name</span>
+            <div>
+              <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-text-faint)", marginBottom: 5 }}>
+                Full name
+              </div>
               <input
                 name="fullName"
                 type="text"
                 placeholder="e.g. Sarah Jane Smith"
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-300"
+                className="input"
+                style={{ width: "100%" }}
               />
-              <p className="text-xs text-gray-400">(Optional)</p>
-            </label>
-
-            <div className="flex justify-end gap-2 pt-2">
-              <Button type="button" onClick={closeModal} className="text-sm text-pixel">
-                Cancel
-              </Button>
-              <Button type="submit" disabled={isPending} className="text-sm text-pixel disabled:opacity-50">
-                {isPending ? "Adding…" : "Add Friend"}
-              </Button>
+              <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, color: "var(--color-text-faint)", marginTop: 4, letterSpacing: "0.04em" }}>
+                Optional
+              </div>
             </div>
+
+            <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, paddingTop: 4 }}>
+              <button type="button" className="btn" onClick={closeModal}>Cancel</button>
+              <button type="submit" className="btn-submit" disabled={isPending}>
+                {isPending ? "Adding…" : "Add Friend"}
+              </button>
+            </div>
+
           </form>
         </div>
       </dialog>
