@@ -1,11 +1,11 @@
 "use client";
-
-import { useRef, useTransition } from "react";
+import { useRef, useTransition, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { addPerson } from "./actions";
 import type { PersonSummary } from "@/lib/people";
 import styles from "./PersonList.module.css";
 import { useNavigationLoader, usePreviousPathname } from "@/lib/NavigationContext";
+import { useSidebar } from "@/lib/SidebarContext";
 
 type Props = {
   people: PersonSummary[];
@@ -18,6 +18,7 @@ export default function PersonList({ people }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const { startNavigating } = useNavigationLoader();
+  const { query, registerOpenModal } = useSidebar();
   const router = useRouter();
 
   const previousPathname = usePreviousPathname();
@@ -40,19 +41,34 @@ export default function PersonList({ people }: Props) {
     });
   }
 
-  const staggerStep = people.length > 1
-    ? MAX_STAGGER_MS / (people.length - 1)
+  // Register the modal opener with the context so Sidebar's + button can trigger it
+  useEffect(() => {
+    registerOpenModal(openModal);
+  }, [registerOpenModal]);
+
+  const filtered = query
+    ? people.filter((p) =>
+        p.displayName.toLowerCase().startsWith(query.toLowerCase())
+      )
+    : people;
+
+  const staggerStep = filtered.length > 1
+    ? MAX_STAGGER_MS / (filtered.length - 1)
     : 0;
 
   return (
     <>
-      {people.length === 0 ? (
+      {filtered.length === 0 && query ? (
+        <p style={{ fontFamily: "var(--font-pixel)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--color-text-faint)", marginTop: 6 }}>
+          No results
+        </p>
+      ) : filtered.length === 0 ? (
         <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-faint)" }}>
           Add your first friend to get started.
         </p>
       ) : (
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-          {people.map((person, i) => (
+          {filtered.map((person, i) => (
             <li
               key={person.id}
               className={shouldAnimate ? styles.item : undefined}
@@ -96,59 +112,34 @@ export default function PersonList({ people }: Props) {
         onClose={closeModal}
       >
         <div style={{ padding: "24px 28px" }}>
-          <div style={{
-            fontFamily: "var(--font-pixel)",
-            fontSize: 11,
-            textTransform: "uppercase",
-            letterSpacing: "0.14em",
-            color: "var(--color-text)",
-            marginBottom: 20,
-          }}>
+          <div style={{ fontFamily: "var(--font-pixel)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--color-text)", marginBottom: 20 }}>
             Add a Friend
           </div>
           <form ref={formRef} action={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-
             <div>
               <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-text-faint)", marginBottom: 5 }}>
                 Display name <span style={{ color: "var(--color-accent)" }}>*</span>
               </div>
-              <input
-                name="displayName"
-                type="text"
-                required
-                autoFocus
-                placeholder="e.g. Sarah"
-                className="input"
-                style={{ width: "100%" }}
-              />
+              <input name="displayName" type="text" required autoFocus placeholder="e.g. Sarah" className="input" style={{ width: "100%" }} />
               <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, color: "var(--color-text-faint)", marginTop: 4, letterSpacing: "0.04em" }}>
                 How their name appears throughout the app.
               </div>
             </div>
-
             <div>
               <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-text-faint)", marginBottom: 5 }}>
                 Full name
               </div>
-              <input
-                name="fullName"
-                type="text"
-                placeholder="e.g. Sarah Jane Smith"
-                className="input"
-                style={{ width: "100%" }}
-              />
+              <input name="fullName" type="text" placeholder="e.g. Sarah Jane Smith" className="input" style={{ width: "100%" }} />
               <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, color: "var(--color-text-faint)", marginTop: 4, letterSpacing: "0.04em" }}>
                 Optional
               </div>
             </div>
-
             <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, paddingTop: 4 }}>
               <button type="button" className="btn" onClick={closeModal}>Cancel</button>
               <button type="submit" className="btn-submit" disabled={isPending}>
                 {isPending ? "Adding…" : "Add Friend"}
               </button>
             </div>
-
           </form>
         </div>
       </dialog>

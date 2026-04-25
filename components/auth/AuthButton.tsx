@@ -1,28 +1,26 @@
-"use client"
-
-import { signIn, signOut } from "next-auth/react"
-import Button from "@/components/ui/Button";
+"use client";
+import { signIn, signOut } from "next-auth/react";
 
 type AuthProps = {
   isLoggedIn: boolean;
 };
 
 export function AuthButton({ isLoggedIn }: AuthProps) {
-  return (<>
-    {isLoggedIn ? (
-      <Button
-        className='text-pixel text-sm'
-        onClick={() => signOut({ callbackUrl: "/" })}
-      >
-        Sign out
-      </Button>
-    ) : (
-      <Button
-        className='text-pixel text-sm'
-        onClick={() => signIn("google")}
-      >
-        Sign in
-      </Button>
-    )}
-  </>)
+  return isLoggedIn ? (
+    <button
+      className="btn"
+      style={{ padding: "2px 8px", fontSize: 9 }}
+      onClick={() => signOut({ callbackUrl: "/" })}
+    >
+      Sign Out
+    </button>
+  ) : (
+    <button
+      className="btn"
+      style={{ padding: "2px 8px", fontSize: 9 }}
+      onClick={() => signIn("google")}
+    >
+      Sign In
+    </button>
+  );
 }

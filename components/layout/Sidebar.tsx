@@ -1,14 +1,15 @@
 "use client";
-import { useState } from "react";
-import { signOut } from "next-auth/react";
-// import PersonListFiltered from "@/app/people/PersonListFiltered";
+
+import { useSidebar } from "@/lib/SidebarContext";
+import { AuthButton } from "@/components/auth/AuthButton";
 
 type Props = {
+  isLoggedIn: boolean;
   children?: React.ReactNode;
 };
 
-export default function Sidebar({ children }: Props) {
-  const [query, setQuery] = useState("");
+export default function Sidebar({ isLoggedIn, children }: Props) {
+  const { query, setQuery, openAddModal } = useSidebar();
 
   return (
     <aside
@@ -20,13 +21,7 @@ export default function Sidebar({ children }: Props) {
         <span style={{ fontFamily: "var(--font-pixel)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-text)" }}>
           Tomodex
         </span>
-        <button
-          className="btn"
-          style={{ padding: "2px 8px", fontSize: 9 }}
-          onClick={() => signOut({ callbackUrl: "/" })}
-        >
-          Sign Out
-        </button>
+        <AuthButton isLoggedIn={isLoggedIn} />
       </div>
 
       {/* Search + Add */}
@@ -38,7 +33,11 @@ export default function Sidebar({ children }: Props) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <button className="btn" style={{ padding: "3px 6px", fontSize: 12, flexShrink: 0, lineHeight: 1, minWidth: 24 }}>
+        <button
+          className="btn"
+          style={{ padding: "3px 6px", fontSize: 12, flexShrink: 0, lineHeight: 1, minWidth: 24 }}
+          onClick={openAddModal}
+        >
           +
         </button>
       </div>
