@@ -1,0 +1,8 @@
+.row {
+  border-radius: var(--radius-sm);
+  transition: background 120ms ease-out;
+}
+
+.row:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
