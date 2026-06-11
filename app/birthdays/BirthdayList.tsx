@@ -1,19 +1,9 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useNavigationLoader } from "@/lib/NavigationContext";
 import type { BirthdaysData } from "@/lib/birthdays";
-import styles from "./BirthdayList.module.css";
-
-const MONTH_ABBR = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+import BirthdayListRow from "./BirthdayListRow";
 
 type Filter = "thisMonth" | "next30" | "all";
-
-function formatDaysUntil(days: number): string {
-  if (days === 0) return "Today";
-  if (days === 1) return "Tomorrow";
-  return `${days} days`;
-}
 
 const PILLS: { key: Filter; label: string }[] = [
   { key: "thisMonth", label: "This Month" },
@@ -25,8 +15,6 @@ type Props = { data: BirthdaysData };
 
 export default function BirthdayList({ data }: Props) {
   const [filter, setFilter] = useState<Filter>("all");
-  const { startNavigating } = useNavigationLoader();
-  const router = useRouter();
 
   const currentMonth = new Date().getMonth() + 1;
 
@@ -35,11 +23,6 @@ export default function BirthdayList({ data }: Props) {
     if (filter === "next30")    return p.daysUntil <= 30;
     return true;
   });
-
-  function navTo(id: string) {
-    startNavigating();
-    router.push(`/people/${id}`);
-  }
 
   return (
     <div>
@@ -88,47 +71,13 @@ export default function BirthdayList({ data }: Props) {
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
           {filtered.map((person) => (
             <li key={person.id}>
-              <button
-                onClick={() => navTo(person.id)}
-                className={styles.row}
-                style={{
-                  background: "none",
-                  border: "none",
-                  padding: "6px 4px",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 14,
-                  width: "100%",
-                  textAlign: "left",
-                }}
-              >
-                <div style={{
-                  width: 44, height: 44,
-                  background: "var(--color-surface-raised)",
-                  border: "1px solid rgba(0,0,0,0.08)",
-                  borderRadius: "var(--radius-sm)",
-                  boxShadow: "0 1px 2px rgba(0,0,0,0.06)",
-                  display: "flex", flexDirection: "column",
-                  alignItems: "center", justifyContent: "center",
-                  flexShrink: 0,
-                }}>
-                  <span style={{ fontFamily: "var(--font-pixel)", fontSize: 9, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--color-text-faint)", lineHeight: 1 }}>
-                    {MONTH_ABBR[person.birthMonth - 1]}
-                  </span>
-                  <span style={{ fontSize: "var(--text-md)", fontWeight: 300, color: "var(--color-text-strong)", lineHeight: 1.3 }}>
-                    {person.birthDay}
-                  </span>
-                </div>
-
-                <span style={{ fontSize: "var(--text-md)", fontWeight: 300, color: "var(--color-text-strong)", flex: 1 }}>
-                  {person.displayName}
-                </span>
-
-                <span style={{ fontFamily: "var(--font-pixel)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--color-text-faint)" }}>
-                  {formatDaysUntil(person.daysUntil)}
-                </span>
-              </button>
+              <BirthdayListRow
+                id={person.id}
+                displayName={person.displayName}
+                birthDay={person.birthDay}
+                birthMonth={person.birthMonth}
+                daysUntil={person.daysUntil}
+              />
             </li>
           ))}
         </ul>
@@ -144,26 +93,11 @@ export default function BirthdayList({ data }: Props) {
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {data.withoutBirthday.map((p) => (
               <li key={p.id}>
-                <button
-                  onClick={() => navTo(p.id)}
-                  className={styles.noBirthdayName}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    padding: "2px 0",
-                    cursor: "pointer",
-                    display: "block",
-                    width: "100%",
-                    textAlign: "left",
-                    fontFamily: "var(--font-pixel)",
-                    fontSize: 10,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.08em",
-                    color: "var(--color-text-faint)",
-                  }}
-                >
-                  {p.displayName}
-                </button>
+                <BirthdayListRow
+                  id={p.id}
+                  displayName={p.displayName}
+                  faded
+                />
               </li>
             ))}
           </ul>

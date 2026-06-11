@@ -6,11 +6,3 @@
 .row:hover {
   background: rgba(0, 0, 0, 0.03);
 }
-
-.noBirthdayName {
-  transition: color 120ms ease-out;
-}
-
-.noBirthdayName:hover {
-  color: var(--color-text);
-}
