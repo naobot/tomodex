@@ -22,12 +22,12 @@ const actions = [
     sub: "Browse everyone",
     href: "/people",
   },
-  // {
-  //   key: "birthdays",
-  //   label: "Birthdays",
-  //   sub: "Upcoming & recent",
-  //   href: "/birthdays",
-  // },
+  {
+    key: "birthdays",
+    label: "Birthdays",
+    sub: "Upcoming & recent",
+    href: "/birthdays",
+  },
 ];
 
 // Animation delays for staggered entrance — applied as inline style since
