@@ -1,4 +1,4 @@
-const MONTH_ABBR = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+import { MONTH_ABBR } from "./months";
 
 export function formatBirthday(
   day: number | null,
