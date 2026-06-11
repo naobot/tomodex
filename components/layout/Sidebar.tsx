@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useSidebar } from "@/lib/SidebarContext";
 import { AuthButton } from "@/components/auth/AuthButton";
 
@@ -45,6 +46,22 @@ export default function Sidebar({ isLoggedIn, children }: Props) {
       {/* Friend list */}
       <div className="flex-1 overflow-y-auto" style={{ padding: "0 16px" }}>
         {children}
+      </div>
+
+      {/* Bottom nav */}
+      <div style={{ padding: "12px 16px 20px", borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+        <Link href="/birthdays" style={{ textDecoration: "none" }}>
+          <span style={{
+            fontFamily: "var(--font-pixel)",
+            fontSize: "var(--text-xs)",
+            fontWeight: 300,
+            textTransform: "uppercase",
+            letterSpacing: "0.08em",
+            color: "var(--color-text-faint)",
+          }}>
+            Birthdays
+          </span>
+        </Link>
       </div>
     </aside>
   );
