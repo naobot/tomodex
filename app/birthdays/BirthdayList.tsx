@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useNavigationLoader } from "@/lib/NavigationContext";
 import type { BirthdaysData } from "@/lib/birthdays";
+import styles from "./BirthdayList.module.css";
 
 const MONTH_ABBR = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
@@ -89,10 +90,11 @@ export default function BirthdayList({ data }: Props) {
             <li key={person.id}>
               <button
                 onClick={() => navTo(person.id)}
+                className={styles.row}
                 style={{
                   background: "none",
                   border: "none",
-                  padding: "6px 0",
+                  padding: "6px 4px",
                   cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
@@ -144,6 +146,7 @@ export default function BirthdayList({ data }: Props) {
               <li key={p.id}>
                 <button
                   onClick={() => navTo(p.id)}
+                  className={styles.noBirthdayName}
                   style={{
                     background: "none",
                     border: "none",
