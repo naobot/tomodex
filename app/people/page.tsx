@@ -1,10 +1,10 @@
-import Link from "next/link";
 import AppShell from "@/components/layout/AppShell";
 import PersonGrid from "./PersonGrid";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { getPeopleGridForUser } from "@/lib/people";
 import DbErrorToast from "@/components/toast/DbErrorToast";
+import Link from "next/link";
 
 export default async function PeoplePage() {
   const session = await auth();
@@ -14,26 +14,28 @@ export default async function PeoplePage() {
 
   return (
     <AppShell>
-      <div className="flex items-center gap-4">
-        <Link
-          href="/"
-          className="mb-6 inline-block text-sm text-pixel uppercase"
-        >
-          ←
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 20 }}>
+        <Link href="/" style={{ textDecoration: "none" }}>
+          <span style={{
+            fontFamily: "var(--font-pixel)",
+            fontSize: 13,
+            color: "var(--color-text-faint)",
+            cursor: "pointer",
+          }}>‹</span>
         </Link>
-        <h1 className="mb-6 text-md text-pixel uppercase">Friends</h1>
+        <span style={{
+          fontFamily: "var(--font-pixel)",
+          fontSize: 11,
+          textTransform: "uppercase",
+          letterSpacing: "0.14em",
+          color: "var(--color-text)",
+        }}>All Friends</span>
       </div>
-      <div>
-        <div>
-          {/* TODO Advanced search bar with filter and sort options */}
-          <div className="flex flex-col w-full">
-            {result.ok
-              ? <PersonGrid people={result.data} />
-              : <DbErrorToast error={result.error} />
-            }
-          </div>
-        </div>
-      </div>
+
+      {result.ok
+        ? <PersonGrid people={result.data} />
+        : <DbErrorToast error={result.error} />
+      }
     </AppShell>
   );
 }
