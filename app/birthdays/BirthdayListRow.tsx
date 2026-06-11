@@ -2,8 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useNavigationLoader } from "@/lib/NavigationContext";
 import styles from "./BirthdayListRow.module.css";
-
-const MONTH_ABBR = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+import { MONTH_ABBR } from "@/utils/months";
 
 function formatDaysUntil(days: number): string {
   if (days === 0) return "Today";
