@@ -38,6 +38,10 @@ export async function getPeopleForUser(userId: string): Promise<DbResult<PersonS
 export type PersonGridItem = {
   id: string;
   displayName: string;
+  fullName: string | null;
+  birthDay: number | null;
+  birthMonth: number | null;
+  birthYear: number | null;
   location: {
     city: string | null;
     country: string | null;
@@ -52,6 +56,10 @@ export async function getPeopleGridForUser(userId: string): Promise<DbResult<Per
       select: {
         id: true,
         displayName: true,
+        fullName: true,
+        birthDay: true,
+        birthMonth: true,
+        birthYear: true,
         location: {
           select: { city: true, country: true },
         },

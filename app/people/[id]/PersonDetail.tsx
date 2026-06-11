@@ -8,23 +8,7 @@ import NotesSection from "./NotesSection";
 import CustomAttrSection from "./CustomAttrSection";
 import type { SerialisedPerson } from "./types";
 
-const MONTHS = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
-];
-
-function formatBirthday(
-  day: number | null,
-  month: number | null,
-  year: number | null
-): string | null {
-  if (!day && !month && !year) return null;
-  const parts: string[] = [];
-  if (month) parts.push(MONTHS[month - 1]);
-  if (day) parts.push(String(day));
-  if (year) parts.push(String(year));
-  return parts.join(" ");
-}
+import { formatBirthday } from "@/utils/formatBirthday";
 
 type Props = {
   person: SerialisedPerson;
