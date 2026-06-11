@@ -12,6 +12,17 @@ type Props = {
 export default function Sidebar({ isLoggedIn, children }: Props) {
   const { query, setQuery, openAddModal } = useSidebar();
 
+  const BOTTOM_NAV_ITEMS = [
+    {
+      url: "/people",
+      text: "All Friends"
+    },
+    {
+      url: "/birthdays",
+      text: "Birthdays"
+    },
+  ]
+
   return (
     <aside
       className="sticky top-0 h-screen flex flex-col w-64 shrink-0"
@@ -50,18 +61,20 @@ export default function Sidebar({ isLoggedIn, children }: Props) {
 
       {/* Bottom nav */}
       <div style={{ padding: "12px 16px 20px", borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-        <Link href="/birthdays" style={{ textDecoration: "none" }}>
-          <span style={{
-            fontFamily: "var(--font-pixel)",
-            fontSize: "var(--text-xs)",
-            fontWeight: 300,
-            textTransform: "uppercase",
-            letterSpacing: "0.08em",
-            color: "var(--color-text-faint)",
-          }}>
-            Birthdays
-          </span>
-        </Link>
+        {BOTTOM_NAV_ITEMS.map((item, i) => (
+          <Link key={`bottomnav-${i}`} href={item.url} style={{ textDecoration: "none" }}>
+            <div style={{
+              fontFamily: "var(--font-pixel)",
+              fontSize: "var(--text-xs)",
+              fontWeight: 300,
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+              color: "var(--color-text-faint)",
+            }}>
+              {item.text}
+            </div>
+          </Link>
+        ))}
       </div>
     </aside>
   );
