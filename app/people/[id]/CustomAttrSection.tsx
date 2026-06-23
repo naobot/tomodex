@@ -53,16 +53,16 @@ export default function CustomAttrSection({
           placeholder="Label (e.g. Favourite tea)"
           required
           className="input"
-          style={{ flex: 1 }}
+          style={{ flex: 2, minWidth: 0 }}
         />
         <input
           name="value"
           placeholder="Value"
           required
           className="input"
-          style={{ flex: 1 }}
+          style={{ flex: 1, minWidth: 0 }}
         />
-        <button type="submit" className="btn-submit" disabled={isPending}>
+        <button type="submit" className="btn-submit" disabled={isPending} style={{ flexShrink: 0 }}>
           Add
         </button>
       </form>
