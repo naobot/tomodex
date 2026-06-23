@@ -105,8 +105,10 @@ export default function PersonList({ people }: Props) {
           borderRadius: "var(--radius-lg)",
           padding: 0,
           boxShadow: "var(--shadow-lg)",
-          width: "100%",
+          width: "calc(100% - 2rem)",
           maxWidth: 420,
+          maxHeight: "calc(100dvh - 4rem)",
+          overflowY: "auto",
           margin: "auto",
         }}
         onClose={closeModal}
