@@ -58,6 +58,8 @@ font-*  uppercase           (use var(--font-*) / textTransform inline)
 rounded-*                   (use var(--radius-*))
 ```
 
+**Exception — responsive spacing:** when spacing must change at a breakpoint (e.g. `p-4 md:p-6`), Tailwind is acceptable because inline styles cannot express media queries. Prefer a CSS module if the pattern recurs.
+
 ### 4. CSS modules — pseudo-states and animations
 
 Use `*.module.css` only for things that cannot be expressed inline: `:hover`, `:focus`, `:active`, `@keyframes`, and complex selectors. Import tokens via `var()` in the CSS file.
