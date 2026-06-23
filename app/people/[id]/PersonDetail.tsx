@@ -9,6 +9,7 @@ import CustomAttrSection from "./CustomAttrSection";
 import type { SerialisedPerson } from "./types";
 
 import { formatBirthday } from "@/utils/formatBirthday";
+import styles from "./PersonDetail.module.css";
 
 type Props = {
   person: SerialisedPerson;
@@ -38,7 +39,7 @@ export default function PersonDetail({ person }: Props) {
 
       {/* Name row */}
       <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 4 }}>
-        <h1 style={{ fontSize: "var(--text-3xl)", fontWeight: 200, color: "var(--color-text-strong)", margin: 0, lineHeight: 1.1 }}>
+        <h1 style={{ fontSize: "var(--text-3xl)", fontWeight: 200, color: "var(--color-text-strong)", margin: 0, lineHeight: 1.1, minWidth: 0 }}>
           {person.displayName}
         </h1>
         <button className="btn" style={{ fontSize: 10, padding: "4px 12px" }} onClick={() => editIsOpenSet(o => !o)}>
@@ -69,12 +70,12 @@ export default function PersonDetail({ person }: Props) {
 
       {/* Edit accordion */}
       {editIsOpen && (
-        <div style={{ background: "var(--color-surface-raised)", border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", padding: "16px 18px 18px", marginBottom: 16, boxShadow: "var(--shadow-sm)" }}>
+        <div className={styles.accordion} style={{ background: "var(--color-surface-raised)", border: "1px solid var(--color-border)", borderRadius: "var(--radius-md)", marginBottom: 16, boxShadow: "var(--shadow-sm)" }}>
           <fieldset disabled={isPending} style={{ border: "none", padding: 0, margin: 0 }}>
             <form action={(fd) => startTransition(async () => { await updatePerson(person.id, fd); editIsOpenSet(false); })}>
 
               {/* Display name + Full name */}
-              <div style={{ display: "flex", gap: 10, marginBottom: 12 }}>
+              <div className={styles.formRow}>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-text-faint)", marginBottom: 5 }}>
                     Display name <span style={{ color: "var(--color-accent)" }}>*</span>
@@ -95,15 +96,15 @@ export default function PersonDetail({ person }: Props) {
                   Birthday
                 </div>
                 <div style={{ display: "flex", gap: 8 }}>
-                  <div style={{ flex: 1 }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
                     <input name="birthMonth" type="number" min={1} max={12} placeholder="MM" defaultValue={person.birthMonth ?? ""} className="input" style={{ width: "100%", textAlign: "center" }} />
                     <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, color: "var(--color-text-faint)", marginTop: 4, textAlign: "center", letterSpacing: "0.04em" }}>Month</div>
                   </div>
-                  <div style={{ flex: 1 }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
                     <input name="birthDay" type="number" min={1} max={31} placeholder="DD" defaultValue={person.birthDay ?? ""} className="input" style={{ width: "100%", textAlign: "center" }} />
                     <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, color: "var(--color-text-faint)", marginTop: 4, textAlign: "center", letterSpacing: "0.04em" }}>Day</div>
                   </div>
-                  <div style={{ flex: 2 }}>
+                  <div style={{ flex: 2, minWidth: 0 }}>
                     <input name="birthYear" type="number" min={1900} max={new Date().getFullYear()} placeholder="YYYY" defaultValue={person.birthYear ?? ""} className="input" style={{ width: "100%", textAlign: "center" }} />
                     <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, color: "var(--color-text-faint)", marginTop: 4, textAlign: "center", letterSpacing: "0.04em" }}>Year</div>
                   </div>
@@ -115,7 +116,7 @@ export default function PersonDetail({ person }: Props) {
                 <div style={{ fontFamily: "var(--font-pixel)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-text-faint)", marginBottom: 5 }}>
                   Location
                 </div>
-                <div style={{ display: "flex", gap: 8 }}>
+                <div className={styles.formRow} style={{ marginBottom: 0 }}>
                   <input name="city" placeholder="City" defaultValue={person.location?.city ?? ""} className="input" style={{ flex: 1 }} />
                   <input name="country" placeholder="Country" defaultValue={person.location?.country ?? ""} className="input" style={{ flex: 1 }} />
                 </div>

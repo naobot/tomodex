@@ -1,0 +1,28 @@
+.accordion {
+  padding: 12px 14px;
+}
+
+@media (min-width: 768px) {
+  .accordion {
+    padding: 16px 18px 18px;
+  }
+}
+
+/* Two-column form rows stack vertically on small screens */
+.formRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: 12px;
+}
+
+@media (min-width: 768px) {
+  .formRow {
+    flex-direction: row;
+    gap: 10px;
+  }
+}
+
+.formRow > * {
+  min-width: 0;
+}
