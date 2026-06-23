@@ -3,6 +3,7 @@ import { auth } from "@/auth";
 import { getPeopleForUser } from "@/lib/people";
 import { SidebarProvider } from "@/lib/SidebarContext";
 import Sidebar from "./Sidebar";
+import MobileTopNav from "./MobileTopNav";
 import Footer from "./Footer";
 import PersonList from "@/app/people/PersonList";
 import NavigationOverlay from "@/components/ui/NavigationOverlay";
@@ -18,17 +19,27 @@ export default async function AppShell({ children }: Props) {
 
   const result = await getPeopleForUser(session.user.id);
 
+  const friendList = result.ok
+    ? <PersonList people={result.data} />
+    : <DbErrorToast error={result.error} />;
+
+  const isLoggedIn = Boolean(session?.user?.id);
+
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen w-full">
-        <Sidebar isLoggedIn={Boolean(session?.user?.id)}>
-          {result.ok
-            ? <PersonList people={result.data} />
-            : <DbErrorToast error={result.error} />
-          }
-        </Sidebar>
+      <div className="flex flex-col md:flex-row min-h-screen w-full">
+        {/* Mobile top nav — hidden on md+ */}
+        <div className="md:hidden">
+          <MobileTopNav isLoggedIn={isLoggedIn}>{friendList}</MobileTopNav>
+        </div>
+
+        {/* Desktop sidebar — hidden on mobile */}
+        <div className="hidden md:block">
+          <Sidebar isLoggedIn={isLoggedIn}>{friendList}</Sidebar>
+        </div>
+
         <div className="flex flex-col flex-1 min-w-0 relative">
-          <main className="flex-1 p-6">
+          <main className="flex-1 p-4 md:p-6">
             {children}
           </main>
           <NavigationOverlay />
