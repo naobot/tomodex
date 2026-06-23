@@ -29,13 +29,13 @@ export default function ContactSection({
     <Section title="Contact">
 
       {/* Phone numbers */}
-      <div className="my-2">
+      <div style={{ margin: "var(--space-sm) 0" }}>
         {phoneNumbers.length === 0 && (
           <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-faint)" }}>
             No phone numbers yet.
           </p>
         )}
-        <ul className="my-1">
+        <ul style={{ margin: "var(--space-xs) 0", padding: 0, listStyle: "none" }}>
           {phoneNumbers.map((p) => (
             <li key={p.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "5px 0" }}>
               <div style={{ fontSize: "var(--text-sm)", color: "var(--color-text)" }}>
@@ -67,13 +67,13 @@ export default function ContactSection({
       </div>
 
       {/* Email addresses */}
-      <div className="my-2">
+      <div style={{ margin: "var(--space-sm) 0" }}>
         {emailAddresses.length === 0 && (
           <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-faint)" }}>
             No email addresses yet.
           </p>
         )}
-        <ul className="my-1">
+        <ul style={{ margin: "var(--space-xs) 0", padding: 0, listStyle: "none" }}>
           {emailAddresses.map((e) => (
             <li key={e.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "5px 0" }}>
               <div style={{ fontSize: "var(--text-sm)", color: "var(--color-text)" }}>

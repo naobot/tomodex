@@ -9,16 +9,12 @@ type HeaderProps = {
 export default function Header({ isLoggedIn }: HeaderProps) {
   return (
     <div className="w-full flex justify-between items-center">
-      <div>
-        <h1 className="text-sm uppercase text-pixel">
-          <Link href={"/"}>
-            Tomodex
-          </Link>
-        </h1>
-      </div>
-      <div>
-        <AuthButton isLoggedIn={isLoggedIn} />
-      </div>
+      <h1 style={{ margin: 0, fontSize: "var(--text-sm)", fontFamily: "var(--font-pixel)", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-text)" }}>
+        <Link href={"/"} style={{ textDecoration: "none", color: "inherit" }}>
+          Tomodex
+        </Link>
+      </h1>
+      <AuthButton isLoggedIn={isLoggedIn} />
     </div>
   );
 }

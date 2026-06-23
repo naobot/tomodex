@@ -39,20 +39,16 @@ export default function HomeCard({ isLoggedIn }: Props) {
     <Card className={`${styles.root} w-sm m-auto p-8px pointer-events-auto`}>
         <Header isLoggedIn={isLoggedIn} />
 
-        <ul className="my-4">
+        <ul style={{ margin: "var(--space-md) 0", padding: 0, listStyle: "none" }}>
           {actions.map((action, i) => {
             const inner = (
-              <>
-                <span className='text-2xl'>{action.label}</span>
-              </>
+              <span style={{ fontSize: "var(--text-2xl)" }}>{action.label}</span>
             );
 
             if (!isLoggedIn || !action.href) {
               return (
-                <li key={action.key} className={`${isLoggedIn ? styles.BarMenuItem : 'text-disabled'} -my-2`}>
-                  <button
-                    disabled={!isLoggedIn}
-                  >
+                <li key={action.key} className={isLoggedIn ? styles.BarMenuItem : 'text-disabled'} style={{ margin: "-8px 0" }}>
+                  <button disabled={!isLoggedIn}>
                     {inner}
                   </button>
                 </li>
@@ -60,11 +56,8 @@ export default function HomeCard({ isLoggedIn }: Props) {
             }
 
             return (
-              <li key={action.key} className={`${styles.BarMenuItem} -my-2`}>
-                <Link
-                  href={action.href}
-                  // style={{ animationDelay: ITEM_DELAYS[i] }}
-                >
+              <li key={action.key} className={styles.BarMenuItem} style={{ margin: "-8px 0" }}>
+                <Link href={action.href}>
                   {inner}
                 </Link>
               </li>
