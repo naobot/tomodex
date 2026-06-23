@@ -36,7 +36,7 @@ const actions = [
 
 export default function HomeCard({ isLoggedIn }: Props) {
   return (
-    <Card className={`${styles.root} w-sm m-auto pointer-events-auto`} style={{ padding: "var(--space-sm)" }}>
+    <Card className={`${styles.root} w-sm m-auto pointer-events-auto`}>
         <Header isLoggedIn={isLoggedIn} />
 
         <ul style={{ margin: "var(--space-md) 0", padding: 0, listStyle: "none" }}>
