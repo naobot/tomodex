@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { withDb, type DbResult } from "@/lib/db";
+import type { FriendsOrder } from "@/lib/settings";
 import type { SerialisedPerson } from "@/app/people/[id]/types";
 
 // ---------------------------------------------------------------------------
@@ -12,11 +13,18 @@ export type PersonSummary = {
   updatedAt: string;
 };
 
-export async function getPeopleForUser(userId: string): Promise<DbResult<PersonSummary[]>> {
+export async function getPeopleForUser(
+  userId: string,
+  friendsOrder: FriendsOrder = "ADDED",
+): Promise<DbResult<PersonSummary[]>> {
   return withDb(async () => {
+    const orderBy = friendsOrder === "ALPHA"
+      ? { displayName: "asc" as const }
+      : { createdAt: "desc" as const };
+
     const people = await prisma.person.findMany({
       where: { ownerId: userId },
-      orderBy: { updatedAt: "desc" },
+      orderBy,
       select: {
         id: true,
         displayName: true,
@@ -48,11 +56,18 @@ export type PersonGridItem = {
   } | null;
 };
 
-export async function getPeopleGridForUser(userId: string): Promise<DbResult<PersonGridItem[]>> {
+export async function getPeopleGridForUser(
+  userId: string,
+  friendsOrder: FriendsOrder = "ADDED",
+): Promise<DbResult<PersonGridItem[]>> {
+  const orderBy = friendsOrder === "ALPHA"
+    ? { displayName: "asc" as const }
+    : { createdAt: "desc" as const };
+
   return withDb(() =>
     prisma.person.findMany({
       where: { ownerId: userId },
-      orderBy: { displayName: "asc" },
+      orderBy,
       select: {
         id: true,
         displayName: true,

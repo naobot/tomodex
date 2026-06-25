@@ -11,12 +11,11 @@ export default async function PeoplePage() {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
 
-  const [result, settingsResult] = await Promise.all([
-    getPeopleGridForUser(session.user.id),
-    getUserSettings(session.user.id),
-  ]);
-
+  const settingsResult = await getUserSettings(session.user.id);
   const dateFormat = settingsResult.ok ? settingsResult.data.dateFormat : DEFAULT_SETTINGS.dateFormat;
+  const friendsOrder = settingsResult.ok ? settingsResult.data.friendsOrder : DEFAULT_SETTINGS.friendsOrder;
+
+  const result = await getPeopleGridForUser(session.user.id, friendsOrder);
 
   return (
     <AppShell>

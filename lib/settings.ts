@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { prisma } from "@/lib/prisma";
 import { withDb, type DbResult } from "@/lib/db";
 
@@ -14,12 +15,14 @@ export const DEFAULT_SETTINGS: UserSettingsData = {
   friendsOrder: "ADDED",
 };
 
-export async function getUserSettings(userId: string): Promise<DbResult<UserSettingsData>> {
-  return withDb(async () => {
-    const row = await prisma.userSettings.findUnique({
-      where: { userId },
-      select: { dateFormat: true, friendsOrder: true },
+export const getUserSettings = cache(
+  async (userId: string): Promise<DbResult<UserSettingsData>> => {
+    return withDb(async () => {
+      const row = await prisma.userSettings.findUnique({
+        where: { userId },
+        select: { dateFormat: true, friendsOrder: true },
+      });
+      return (row as UserSettingsData | null) ?? DEFAULT_SETTINGS;
     });
-    return (row as UserSettingsData | null) ?? DEFAULT_SETTINGS;
-  });
-}
+  }
+);
