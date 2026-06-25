@@ -263,6 +263,7 @@ export type PersonWhereInput = {
   location?: Prisma.XOR<Prisma.LocationNullableScalarRelationFilter, Prisma.LocationWhereInput> | null
   notes?: Prisma.NoteListRelationFilter
   customAttributes?: Prisma.CustomAttributeListRelationFilter
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueListRelationFilter
 }
 
 export type PersonOrderByWithRelationInput = {
@@ -282,6 +283,7 @@ export type PersonOrderByWithRelationInput = {
   location?: Prisma.LocationOrderByWithRelationInput
   notes?: Prisma.NoteOrderByRelationAggregateInput
   customAttributes?: Prisma.CustomAttributeOrderByRelationAggregateInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueOrderByRelationAggregateInput
 }
 
 export type PersonWhereUniqueInput = Prisma.AtLeast<{
@@ -304,6 +306,7 @@ export type PersonWhereUniqueInput = Prisma.AtLeast<{
   location?: Prisma.XOR<Prisma.LocationNullableScalarRelationFilter, Prisma.LocationWhereInput> | null
   notes?: Prisma.NoteListRelationFilter
   customAttributes?: Prisma.CustomAttributeListRelationFilter
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueListRelationFilter
 }, "id">
 
 export type PersonOrderByWithAggregationInput = {
@@ -354,6 +357,7 @@ export type PersonCreateInput = {
   location?: Prisma.LocationCreateNestedOneWithoutPersonInput
   notes?: Prisma.NoteCreateNestedManyWithoutPersonInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutPersonInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutPersonInput
 }
 
 export type PersonUncheckedCreateInput = {
@@ -372,6 +376,7 @@ export type PersonUncheckedCreateInput = {
   location?: Prisma.LocationUncheckedCreateNestedOneWithoutPersonInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutPersonInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutPersonInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutPersonInput
 }
 
 export type PersonUpdateInput = {
@@ -390,6 +395,7 @@ export type PersonUpdateInput = {
   location?: Prisma.LocationUpdateOneWithoutPersonNestedInput
   notes?: Prisma.NoteUpdateManyWithoutPersonNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutPersonNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonUncheckedUpdateInput = {
@@ -408,6 +414,7 @@ export type PersonUncheckedUpdateInput = {
   location?: Prisma.LocationUncheckedUpdateOneWithoutPersonNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutPersonNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutPersonNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonCreateManyInput = {
@@ -453,6 +460,11 @@ export type PersonListRelationFilter = {
 
 export type PersonOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type PersonScalarRelationFilter = {
+  is?: Prisma.PersonWhereInput
+  isNot?: Prisma.PersonWhereInput
 }
 
 export type PersonCountOrderByAggregateInput = {
@@ -503,11 +515,6 @@ export type PersonSumOrderByAggregateInput = {
   birthYear?: Prisma.SortOrder
 }
 
-export type PersonScalarRelationFilter = {
-  is?: Prisma.PersonWhereInput
-  isNot?: Prisma.PersonWhereInput
-}
-
 export type PersonCreateNestedManyWithoutOwnerInput = {
   create?: Prisma.XOR<Prisma.PersonCreateWithoutOwnerInput, Prisma.PersonUncheckedCreateWithoutOwnerInput> | Prisma.PersonCreateWithoutOwnerInput[] | Prisma.PersonUncheckedCreateWithoutOwnerInput[]
   connectOrCreate?: Prisma.PersonCreateOrConnectWithoutOwnerInput | Prisma.PersonCreateOrConnectWithoutOwnerInput[]
@@ -548,6 +555,20 @@ export type PersonUncheckedUpdateManyWithoutOwnerNestedInput = {
   update?: Prisma.PersonUpdateWithWhereUniqueWithoutOwnerInput | Prisma.PersonUpdateWithWhereUniqueWithoutOwnerInput[]
   updateMany?: Prisma.PersonUpdateManyWithWhereWithoutOwnerInput | Prisma.PersonUpdateManyWithWhereWithoutOwnerInput[]
   deleteMany?: Prisma.PersonScalarWhereInput | Prisma.PersonScalarWhereInput[]
+}
+
+export type PersonCreateNestedOneWithoutGlobalCustomFieldValuesInput = {
+  create?: Prisma.XOR<Prisma.PersonCreateWithoutGlobalCustomFieldValuesInput, Prisma.PersonUncheckedCreateWithoutGlobalCustomFieldValuesInput>
+  connectOrCreate?: Prisma.PersonCreateOrConnectWithoutGlobalCustomFieldValuesInput
+  connect?: Prisma.PersonWhereUniqueInput
+}
+
+export type PersonUpdateOneRequiredWithoutGlobalCustomFieldValuesNestedInput = {
+  create?: Prisma.XOR<Prisma.PersonCreateWithoutGlobalCustomFieldValuesInput, Prisma.PersonUncheckedCreateWithoutGlobalCustomFieldValuesInput>
+  connectOrCreate?: Prisma.PersonCreateOrConnectWithoutGlobalCustomFieldValuesInput
+  upsert?: Prisma.PersonUpsertWithoutGlobalCustomFieldValuesInput
+  connect?: Prisma.PersonWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PersonUpdateToOneWithWhereWithoutGlobalCustomFieldValuesInput, Prisma.PersonUpdateWithoutGlobalCustomFieldValuesInput>, Prisma.PersonUncheckedUpdateWithoutGlobalCustomFieldValuesInput>
 }
 
 export type PersonCreateNestedOneWithoutMailingAddressesInput = {
@@ -649,6 +670,7 @@ export type PersonCreateWithoutOwnerInput = {
   location?: Prisma.LocationCreateNestedOneWithoutPersonInput
   notes?: Prisma.NoteCreateNestedManyWithoutPersonInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutPersonInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutPersonInput
 }
 
 export type PersonUncheckedCreateWithoutOwnerInput = {
@@ -666,6 +688,7 @@ export type PersonUncheckedCreateWithoutOwnerInput = {
   location?: Prisma.LocationUncheckedCreateNestedOneWithoutPersonInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutPersonInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutPersonInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutPersonInput
 }
 
 export type PersonCreateOrConnectWithoutOwnerInput = {
@@ -709,6 +732,94 @@ export type PersonScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Person"> | Date | string
 }
 
+export type PersonCreateWithoutGlobalCustomFieldValuesInput = {
+  id?: string
+  displayName: string
+  fullName?: string | null
+  birthDay?: number | null
+  birthMonth?: number | null
+  birthYear?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutPeopleInput
+  phoneNumbers?: Prisma.PhoneNumberCreateNestedManyWithoutPersonInput
+  emailAddresses?: Prisma.EmailAddressCreateNestedManyWithoutPersonInput
+  mailingAddresses?: Prisma.MailingAddressCreateNestedManyWithoutPersonInput
+  location?: Prisma.LocationCreateNestedOneWithoutPersonInput
+  notes?: Prisma.NoteCreateNestedManyWithoutPersonInput
+  customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutPersonInput
+}
+
+export type PersonUncheckedCreateWithoutGlobalCustomFieldValuesInput = {
+  id?: string
+  ownerId: string
+  displayName: string
+  fullName?: string | null
+  birthDay?: number | null
+  birthMonth?: number | null
+  birthYear?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  phoneNumbers?: Prisma.PhoneNumberUncheckedCreateNestedManyWithoutPersonInput
+  emailAddresses?: Prisma.EmailAddressUncheckedCreateNestedManyWithoutPersonInput
+  mailingAddresses?: Prisma.MailingAddressUncheckedCreateNestedManyWithoutPersonInput
+  location?: Prisma.LocationUncheckedCreateNestedOneWithoutPersonInput
+  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutPersonInput
+  customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutPersonInput
+}
+
+export type PersonCreateOrConnectWithoutGlobalCustomFieldValuesInput = {
+  where: Prisma.PersonWhereUniqueInput
+  create: Prisma.XOR<Prisma.PersonCreateWithoutGlobalCustomFieldValuesInput, Prisma.PersonUncheckedCreateWithoutGlobalCustomFieldValuesInput>
+}
+
+export type PersonUpsertWithoutGlobalCustomFieldValuesInput = {
+  update: Prisma.XOR<Prisma.PersonUpdateWithoutGlobalCustomFieldValuesInput, Prisma.PersonUncheckedUpdateWithoutGlobalCustomFieldValuesInput>
+  create: Prisma.XOR<Prisma.PersonCreateWithoutGlobalCustomFieldValuesInput, Prisma.PersonUncheckedCreateWithoutGlobalCustomFieldValuesInput>
+  where?: Prisma.PersonWhereInput
+}
+
+export type PersonUpdateToOneWithWhereWithoutGlobalCustomFieldValuesInput = {
+  where?: Prisma.PersonWhereInput
+  data: Prisma.XOR<Prisma.PersonUpdateWithoutGlobalCustomFieldValuesInput, Prisma.PersonUncheckedUpdateWithoutGlobalCustomFieldValuesInput>
+}
+
+export type PersonUpdateWithoutGlobalCustomFieldValuesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  birthMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  birthYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutPeopleNestedInput
+  phoneNumbers?: Prisma.PhoneNumberUpdateManyWithoutPersonNestedInput
+  emailAddresses?: Prisma.EmailAddressUpdateManyWithoutPersonNestedInput
+  mailingAddresses?: Prisma.MailingAddressUpdateManyWithoutPersonNestedInput
+  location?: Prisma.LocationUpdateOneWithoutPersonNestedInput
+  notes?: Prisma.NoteUpdateManyWithoutPersonNestedInput
+  customAttributes?: Prisma.CustomAttributeUpdateManyWithoutPersonNestedInput
+}
+
+export type PersonUncheckedUpdateWithoutGlobalCustomFieldValuesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  displayName?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  birthDay?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  birthMonth?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  birthYear?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  phoneNumbers?: Prisma.PhoneNumberUncheckedUpdateManyWithoutPersonNestedInput
+  emailAddresses?: Prisma.EmailAddressUncheckedUpdateManyWithoutPersonNestedInput
+  mailingAddresses?: Prisma.MailingAddressUncheckedUpdateManyWithoutPersonNestedInput
+  location?: Prisma.LocationUncheckedUpdateOneWithoutPersonNestedInput
+  notes?: Prisma.NoteUncheckedUpdateManyWithoutPersonNestedInput
+  customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutPersonNestedInput
+}
+
 export type PersonCreateWithoutMailingAddressesInput = {
   id?: string
   displayName: string
@@ -724,6 +835,7 @@ export type PersonCreateWithoutMailingAddressesInput = {
   location?: Prisma.LocationCreateNestedOneWithoutPersonInput
   notes?: Prisma.NoteCreateNestedManyWithoutPersonInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutPersonInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutPersonInput
 }
 
 export type PersonUncheckedCreateWithoutMailingAddressesInput = {
@@ -741,6 +853,7 @@ export type PersonUncheckedCreateWithoutMailingAddressesInput = {
   location?: Prisma.LocationUncheckedCreateNestedOneWithoutPersonInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutPersonInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutPersonInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutPersonInput
 }
 
 export type PersonCreateOrConnectWithoutMailingAddressesInput = {
@@ -774,6 +887,7 @@ export type PersonUpdateWithoutMailingAddressesInput = {
   location?: Prisma.LocationUpdateOneWithoutPersonNestedInput
   notes?: Prisma.NoteUpdateManyWithoutPersonNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutPersonNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonUncheckedUpdateWithoutMailingAddressesInput = {
@@ -791,6 +905,7 @@ export type PersonUncheckedUpdateWithoutMailingAddressesInput = {
   location?: Prisma.LocationUncheckedUpdateOneWithoutPersonNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutPersonNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutPersonNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonCreateWithoutLocationInput = {
@@ -808,6 +923,7 @@ export type PersonCreateWithoutLocationInput = {
   mailingAddresses?: Prisma.MailingAddressCreateNestedManyWithoutPersonInput
   notes?: Prisma.NoteCreateNestedManyWithoutPersonInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutPersonInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutPersonInput
 }
 
 export type PersonUncheckedCreateWithoutLocationInput = {
@@ -825,6 +941,7 @@ export type PersonUncheckedCreateWithoutLocationInput = {
   mailingAddresses?: Prisma.MailingAddressUncheckedCreateNestedManyWithoutPersonInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutPersonInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutPersonInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutPersonInput
 }
 
 export type PersonCreateOrConnectWithoutLocationInput = {
@@ -858,6 +975,7 @@ export type PersonUpdateWithoutLocationInput = {
   mailingAddresses?: Prisma.MailingAddressUpdateManyWithoutPersonNestedInput
   notes?: Prisma.NoteUpdateManyWithoutPersonNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutPersonNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonUncheckedUpdateWithoutLocationInput = {
@@ -875,6 +993,7 @@ export type PersonUncheckedUpdateWithoutLocationInput = {
   mailingAddresses?: Prisma.MailingAddressUncheckedUpdateManyWithoutPersonNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutPersonNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutPersonNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonCreateWithoutPhoneNumbersInput = {
@@ -892,6 +1011,7 @@ export type PersonCreateWithoutPhoneNumbersInput = {
   location?: Prisma.LocationCreateNestedOneWithoutPersonInput
   notes?: Prisma.NoteCreateNestedManyWithoutPersonInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutPersonInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutPersonInput
 }
 
 export type PersonUncheckedCreateWithoutPhoneNumbersInput = {
@@ -909,6 +1029,7 @@ export type PersonUncheckedCreateWithoutPhoneNumbersInput = {
   location?: Prisma.LocationUncheckedCreateNestedOneWithoutPersonInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutPersonInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutPersonInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutPersonInput
 }
 
 export type PersonCreateOrConnectWithoutPhoneNumbersInput = {
@@ -942,6 +1063,7 @@ export type PersonUpdateWithoutPhoneNumbersInput = {
   location?: Prisma.LocationUpdateOneWithoutPersonNestedInput
   notes?: Prisma.NoteUpdateManyWithoutPersonNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutPersonNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonUncheckedUpdateWithoutPhoneNumbersInput = {
@@ -959,6 +1081,7 @@ export type PersonUncheckedUpdateWithoutPhoneNumbersInput = {
   location?: Prisma.LocationUncheckedUpdateOneWithoutPersonNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutPersonNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutPersonNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonCreateWithoutEmailAddressesInput = {
@@ -976,6 +1099,7 @@ export type PersonCreateWithoutEmailAddressesInput = {
   location?: Prisma.LocationCreateNestedOneWithoutPersonInput
   notes?: Prisma.NoteCreateNestedManyWithoutPersonInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutPersonInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutPersonInput
 }
 
 export type PersonUncheckedCreateWithoutEmailAddressesInput = {
@@ -993,6 +1117,7 @@ export type PersonUncheckedCreateWithoutEmailAddressesInput = {
   location?: Prisma.LocationUncheckedCreateNestedOneWithoutPersonInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutPersonInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutPersonInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutPersonInput
 }
 
 export type PersonCreateOrConnectWithoutEmailAddressesInput = {
@@ -1026,6 +1151,7 @@ export type PersonUpdateWithoutEmailAddressesInput = {
   location?: Prisma.LocationUpdateOneWithoutPersonNestedInput
   notes?: Prisma.NoteUpdateManyWithoutPersonNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutPersonNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonUncheckedUpdateWithoutEmailAddressesInput = {
@@ -1043,6 +1169,7 @@ export type PersonUncheckedUpdateWithoutEmailAddressesInput = {
   location?: Prisma.LocationUncheckedUpdateOneWithoutPersonNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutPersonNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutPersonNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonCreateWithoutNotesInput = {
@@ -1060,6 +1187,7 @@ export type PersonCreateWithoutNotesInput = {
   mailingAddresses?: Prisma.MailingAddressCreateNestedManyWithoutPersonInput
   location?: Prisma.LocationCreateNestedOneWithoutPersonInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutPersonInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutPersonInput
 }
 
 export type PersonUncheckedCreateWithoutNotesInput = {
@@ -1077,6 +1205,7 @@ export type PersonUncheckedCreateWithoutNotesInput = {
   mailingAddresses?: Prisma.MailingAddressUncheckedCreateNestedManyWithoutPersonInput
   location?: Prisma.LocationUncheckedCreateNestedOneWithoutPersonInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutPersonInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutPersonInput
 }
 
 export type PersonCreateOrConnectWithoutNotesInput = {
@@ -1110,6 +1239,7 @@ export type PersonUpdateWithoutNotesInput = {
   mailingAddresses?: Prisma.MailingAddressUpdateManyWithoutPersonNestedInput
   location?: Prisma.LocationUpdateOneWithoutPersonNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutPersonNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonUncheckedUpdateWithoutNotesInput = {
@@ -1127,6 +1257,7 @@ export type PersonUncheckedUpdateWithoutNotesInput = {
   mailingAddresses?: Prisma.MailingAddressUncheckedUpdateManyWithoutPersonNestedInput
   location?: Prisma.LocationUncheckedUpdateOneWithoutPersonNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutPersonNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonCreateWithoutCustomAttributesInput = {
@@ -1144,6 +1275,7 @@ export type PersonCreateWithoutCustomAttributesInput = {
   mailingAddresses?: Prisma.MailingAddressCreateNestedManyWithoutPersonInput
   location?: Prisma.LocationCreateNestedOneWithoutPersonInput
   notes?: Prisma.NoteCreateNestedManyWithoutPersonInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutPersonInput
 }
 
 export type PersonUncheckedCreateWithoutCustomAttributesInput = {
@@ -1161,6 +1293,7 @@ export type PersonUncheckedCreateWithoutCustomAttributesInput = {
   mailingAddresses?: Prisma.MailingAddressUncheckedCreateNestedManyWithoutPersonInput
   location?: Prisma.LocationUncheckedCreateNestedOneWithoutPersonInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutPersonInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutPersonInput
 }
 
 export type PersonCreateOrConnectWithoutCustomAttributesInput = {
@@ -1194,6 +1327,7 @@ export type PersonUpdateWithoutCustomAttributesInput = {
   mailingAddresses?: Prisma.MailingAddressUpdateManyWithoutPersonNestedInput
   location?: Prisma.LocationUpdateOneWithoutPersonNestedInput
   notes?: Prisma.NoteUpdateManyWithoutPersonNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonUncheckedUpdateWithoutCustomAttributesInput = {
@@ -1211,6 +1345,7 @@ export type PersonUncheckedUpdateWithoutCustomAttributesInput = {
   mailingAddresses?: Prisma.MailingAddressUncheckedUpdateManyWithoutPersonNestedInput
   location?: Prisma.LocationUncheckedUpdateOneWithoutPersonNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutPersonNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonCreateManyOwnerInput = {
@@ -1239,6 +1374,7 @@ export type PersonUpdateWithoutOwnerInput = {
   location?: Prisma.LocationUpdateOneWithoutPersonNestedInput
   notes?: Prisma.NoteUpdateManyWithoutPersonNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutPersonNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonUncheckedUpdateWithoutOwnerInput = {
@@ -1256,6 +1392,7 @@ export type PersonUncheckedUpdateWithoutOwnerInput = {
   location?: Prisma.LocationUncheckedUpdateOneWithoutPersonNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutPersonNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutPersonNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutPersonNestedInput
 }
 
 export type PersonUncheckedUpdateManyWithoutOwnerInput = {
@@ -1280,6 +1417,7 @@ export type PersonCountOutputType = {
   mailingAddresses: number
   notes: number
   customAttributes: number
+  globalCustomFieldValues: number
 }
 
 export type PersonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1288,6 +1426,7 @@ export type PersonCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   mailingAddresses?: boolean | PersonCountOutputTypeCountMailingAddressesArgs
   notes?: boolean | PersonCountOutputTypeCountNotesArgs
   customAttributes?: boolean | PersonCountOutputTypeCountCustomAttributesArgs
+  globalCustomFieldValues?: boolean | PersonCountOutputTypeCountGlobalCustomFieldValuesArgs
 }
 
 /**
@@ -1335,6 +1474,13 @@ export type PersonCountOutputTypeCountCustomAttributesArgs<ExtArgs extends runti
   where?: Prisma.CustomAttributeWhereInput
 }
 
+/**
+ * PersonCountOutputType without action
+ */
+export type PersonCountOutputTypeCountGlobalCustomFieldValuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GlobalCustomFieldValueWhereInput
+}
+
 
 export type PersonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1353,6 +1499,7 @@ export type PersonSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   location?: boolean | Prisma.Person$locationArgs<ExtArgs>
   notes?: boolean | Prisma.Person$notesArgs<ExtArgs>
   customAttributes?: boolean | Prisma.Person$customAttributesArgs<ExtArgs>
+  globalCustomFieldValues?: boolean | Prisma.Person$globalCustomFieldValuesArgs<ExtArgs>
   _count?: boolean | Prisma.PersonCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["person"]>
 
@@ -1403,6 +1550,7 @@ export type PersonInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   location?: boolean | Prisma.Person$locationArgs<ExtArgs>
   notes?: boolean | Prisma.Person$notesArgs<ExtArgs>
   customAttributes?: boolean | Prisma.Person$customAttributesArgs<ExtArgs>
+  globalCustomFieldValues?: boolean | Prisma.Person$globalCustomFieldValuesArgs<ExtArgs>
   _count?: boolean | Prisma.PersonCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PersonIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1422,6 +1570,7 @@ export type $PersonPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     location: Prisma.$LocationPayload<ExtArgs> | null
     notes: Prisma.$NotePayload<ExtArgs>[]
     customAttributes: Prisma.$CustomAttributePayload<ExtArgs>[]
+    globalCustomFieldValues: Prisma.$GlobalCustomFieldValuePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1834,6 +1983,7 @@ export interface Prisma__PersonClient<T, Null = never, ExtArgs extends runtime.T
   location<T extends Prisma.Person$locationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Person$locationArgs<ExtArgs>>): Prisma.Prisma__LocationClient<runtime.Types.Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   notes<T extends Prisma.Person$notesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Person$notesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   customAttributes<T extends Prisma.Person$customAttributesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Person$customAttributesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomAttributePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  globalCustomFieldValues<T extends Prisma.Person$globalCustomFieldValuesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Person$globalCustomFieldValuesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GlobalCustomFieldValuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2409,6 +2559,30 @@ export type Person$customAttributesArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.CustomAttributeScalarFieldEnum | Prisma.CustomAttributeScalarFieldEnum[]
+}
+
+/**
+ * Person.globalCustomFieldValues
+ */
+export type Person$globalCustomFieldValuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GlobalCustomFieldValue
+   */
+  select?: Prisma.GlobalCustomFieldValueSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GlobalCustomFieldValue
+   */
+  omit?: Prisma.GlobalCustomFieldValueOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GlobalCustomFieldValueInclude<ExtArgs> | null
+  where?: Prisma.GlobalCustomFieldValueWhereInput
+  orderBy?: Prisma.GlobalCustomFieldValueOrderByWithRelationInput | Prisma.GlobalCustomFieldValueOrderByWithRelationInput[]
+  cursor?: Prisma.GlobalCustomFieldValueWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GlobalCustomFieldValueScalarFieldEnum | Prisma.GlobalCustomFieldValueScalarFieldEnum[]
 }
 
 /**

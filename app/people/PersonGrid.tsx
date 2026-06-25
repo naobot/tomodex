@@ -3,14 +3,16 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useNavigationLoader } from "@/lib/NavigationContext";
 import type { PersonGridItem } from "@/lib/people";
+import type { DateFormat } from "@/lib/settings";
 import styles from "./PersonList.module.css";
 import { formatBirthday } from "@/utils/formatBirthday";
 
 type Props = {
   people: PersonGridItem[];
+  dateFormat: DateFormat;
 };
 
-export default function PersonGrid({ people }: Props) {
+export default function PersonGrid({ people, dateFormat }: Props) {
   const [query, setQuery] = useState("");
   const { startNavigating } = useNavigationLoader();
   const router = useRouter();
@@ -49,7 +51,7 @@ export default function PersonGrid({ people }: Props) {
             const location = [person.location?.city, person.location?.country]
               .filter(Boolean)
               .join(", ");
-            const birthday = formatBirthday(person.birthDay, person.birthMonth, person.birthYear);
+            const birthday = formatBirthday(person.birthDay, person.birthMonth, person.birthYear, dateFormat);
             const isLast = i === filtered.length - 1;
 
             return (

@@ -9,7 +9,19 @@
 * 🟢 You can import this file directly.
 */
 
+export const DateFormat = {
+  DD_MONTH_YYYY: 'DD_MONTH_YYYY',
+  MONTH_DD_YYYY: 'MONTH_DD_YYYY',
+  DD_MM_YYYY: 'DD_MM_YYYY',
+  MM_DD_YYYY: 'MM_DD_YYYY'
+} as const
+
+export type DateFormat = (typeof DateFormat)[keyof typeof DateFormat]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const FriendsOrder = {
+  ADDED: 'ADDED',
+  ALPHA: 'ALPHA'
+} as const
+
+export type FriendsOrder = (typeof FriendsOrder)[keyof typeof FriendsOrder]

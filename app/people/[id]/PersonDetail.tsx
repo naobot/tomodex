@@ -9,17 +9,21 @@ import CustomAttrSection from "./CustomAttrSection";
 import type { SerialisedPerson } from "./types";
 
 import { formatBirthday } from "@/utils/formatBirthday";
+import type { DateFormat } from "@/lib/settings";
+import type { GlobalFieldWithValue } from "@/lib/globalCustomFields";
 import styles from "./PersonDetail.module.css";
 
 type Props = {
   person: SerialisedPerson;
+  dateFormat: DateFormat;
+  globalFields: GlobalFieldWithValue[];
 };
 
-export default function PersonDetail({ person }: Props) {
+export default function PersonDetail({ person, dateFormat, globalFields }: Props) {
   const [isPending, startTransition] = useTransition();
   const [editIsOpen, editIsOpenSet] = useState(false);
 
-  const birthday = formatBirthday(person.birthDay, person.birthMonth, person.birthYear);
+  const birthday = formatBirthday(person.birthDay, person.birthMonth, person.birthYear, dateFormat);
   const location = person.location
     ? [person.location.city, person.location.country].filter(Boolean).join(", ")
     : null;
@@ -143,10 +147,10 @@ export default function PersonDetail({ person }: Props) {
       <MailingAddressSection personId={person.id} mailingAddresses={person.mailingAddresses} />
 
       <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "16px 0" }} />
-      <NotesSection personId={person.id} notes={person.notes} />
+      <CustomAttrSection personId={person.id} customAttributes={person.customAttributes} globalFields={globalFields} />
 
       <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "16px 0" }} />
-      <CustomAttrSection personId={person.id} customAttributes={person.customAttributes} />
+      <NotesSection personId={person.id} notes={person.notes} />
 
     </div>
   );

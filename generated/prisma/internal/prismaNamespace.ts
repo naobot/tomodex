@@ -385,6 +385,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
+  GlobalCustomField: 'GlobalCustomField',
+  GlobalCustomFieldValue: 'GlobalCustomFieldValue',
+  UserSettings: 'UserSettings',
   Account: 'Account',
   Session: 'Session',
   Person: 'Person',
@@ -409,7 +412,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "person" | "mailingAddress" | "location" | "phoneNumber" | "emailAddress" | "note" | "customAttribute"
+    modelProps: "user" | "globalCustomField" | "globalCustomFieldValue" | "userSettings" | "account" | "session" | "person" | "mailingAddress" | "location" | "phoneNumber" | "emailAddress" | "note" | "customAttribute"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -484,6 +487,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+        }
+      }
+    }
+    GlobalCustomField: {
+      payload: Prisma.$GlobalCustomFieldPayload<ExtArgs>
+      fields: Prisma.GlobalCustomFieldFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GlobalCustomFieldFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GlobalCustomFieldFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldPayload>
+        }
+        findFirst: {
+          args: Prisma.GlobalCustomFieldFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GlobalCustomFieldFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldPayload>
+        }
+        findMany: {
+          args: Prisma.GlobalCustomFieldFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldPayload>[]
+        }
+        create: {
+          args: Prisma.GlobalCustomFieldCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldPayload>
+        }
+        createMany: {
+          args: Prisma.GlobalCustomFieldCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GlobalCustomFieldCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldPayload>[]
+        }
+        delete: {
+          args: Prisma.GlobalCustomFieldDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldPayload>
+        }
+        update: {
+          args: Prisma.GlobalCustomFieldUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldPayload>
+        }
+        deleteMany: {
+          args: Prisma.GlobalCustomFieldDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GlobalCustomFieldUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GlobalCustomFieldUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldPayload>[]
+        }
+        upsert: {
+          args: Prisma.GlobalCustomFieldUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldPayload>
+        }
+        aggregate: {
+          args: Prisma.GlobalCustomFieldAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGlobalCustomField>
+        }
+        groupBy: {
+          args: Prisma.GlobalCustomFieldGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GlobalCustomFieldGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GlobalCustomFieldCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GlobalCustomFieldCountAggregateOutputType> | number
+        }
+      }
+    }
+    GlobalCustomFieldValue: {
+      payload: Prisma.$GlobalCustomFieldValuePayload<ExtArgs>
+      fields: Prisma.GlobalCustomFieldValueFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GlobalCustomFieldValueFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GlobalCustomFieldValueFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload>
+        }
+        findFirst: {
+          args: Prisma.GlobalCustomFieldValueFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GlobalCustomFieldValueFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload>
+        }
+        findMany: {
+          args: Prisma.GlobalCustomFieldValueFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload>[]
+        }
+        create: {
+          args: Prisma.GlobalCustomFieldValueCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload>
+        }
+        createMany: {
+          args: Prisma.GlobalCustomFieldValueCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GlobalCustomFieldValueCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload>[]
+        }
+        delete: {
+          args: Prisma.GlobalCustomFieldValueDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload>
+        }
+        update: {
+          args: Prisma.GlobalCustomFieldValueUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload>
+        }
+        deleteMany: {
+          args: Prisma.GlobalCustomFieldValueDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GlobalCustomFieldValueUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GlobalCustomFieldValueUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload>[]
+        }
+        upsert: {
+          args: Prisma.GlobalCustomFieldValueUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload>
+        }
+        aggregate: {
+          args: Prisma.GlobalCustomFieldValueAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGlobalCustomFieldValue>
+        }
+        groupBy: {
+          args: Prisma.GlobalCustomFieldValueGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GlobalCustomFieldValueGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GlobalCustomFieldValueCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GlobalCustomFieldValueCountAggregateOutputType> | number
+        }
+      }
+    }
+    UserSettings: {
+      payload: Prisma.$UserSettingsPayload<ExtArgs>
+      fields: Prisma.UserSettingsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserSettingsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSettingsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserSettingsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSettingsPayload>
+        }
+        findFirst: {
+          args: Prisma.UserSettingsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSettingsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserSettingsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSettingsPayload>
+        }
+        findMany: {
+          args: Prisma.UserSettingsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSettingsPayload>[]
+        }
+        create: {
+          args: Prisma.UserSettingsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSettingsPayload>
+        }
+        createMany: {
+          args: Prisma.UserSettingsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserSettingsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSettingsPayload>[]
+        }
+        delete: {
+          args: Prisma.UserSettingsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSettingsPayload>
+        }
+        update: {
+          args: Prisma.UserSettingsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSettingsPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserSettingsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserSettingsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserSettingsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSettingsPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserSettingsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserSettingsPayload>
+        }
+        aggregate: {
+          args: Prisma.UserSettingsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserSettings>
+        }
+        groupBy: {
+          args: Prisma.UserSettingsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserSettingsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserSettingsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserSettingsCountAggregateOutputType> | number
         }
       }
     }
@@ -1204,6 +1429,40 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+export const GlobalCustomFieldScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  label: 'label',
+  fieldType: 'fieldType',
+  createdAt: 'createdAt'
+} as const
+
+export type GlobalCustomFieldScalarFieldEnum = (typeof GlobalCustomFieldScalarFieldEnum)[keyof typeof GlobalCustomFieldScalarFieldEnum]
+
+
+export const GlobalCustomFieldValueScalarFieldEnum = {
+  id: 'id',
+  ownerId: 'ownerId',
+  personId: 'personId',
+  fieldId: 'fieldId',
+  value: 'value',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GlobalCustomFieldValueScalarFieldEnum = (typeof GlobalCustomFieldValueScalarFieldEnum)[keyof typeof GlobalCustomFieldValueScalarFieldEnum]
+
+
+export const UserSettingsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  dateFormat: 'dateFormat',
+  friendsOrder: 'friendsOrder',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserSettingsScalarFieldEnum = (typeof UserSettingsScalarFieldEnum)[keyof typeof UserSettingsScalarFieldEnum]
+
+
 export const AccountScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -1374,6 +1633,34 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
+ * Reference to a field of type 'DateFormat'
+ */
+export type EnumDateFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateFormat'>
+    
+
+
+/**
+ * Reference to a field of type 'DateFormat[]'
+ */
+export type ListEnumDateFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateFormat[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FriendsOrder'
+ */
+export type EnumFriendsOrderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FriendsOrder'>
+    
+
+
+/**
+ * Reference to a field of type 'FriendsOrder[]'
+ */
+export type ListEnumFriendsOrderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FriendsOrder[]'>
+    
+
+
+/**
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -1496,6 +1783,9 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
+  globalCustomField?: Prisma.GlobalCustomFieldOmit
+  globalCustomFieldValue?: Prisma.GlobalCustomFieldValueOmit
+  userSettings?: Prisma.UserSettingsOmit
   account?: Prisma.AccountOmit
   session?: Prisma.SessionOmit
   person?: Prisma.PersonOmit

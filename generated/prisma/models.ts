@@ -9,6 +9,9 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/User'
+export type * from './models/GlobalCustomField'
+export type * from './models/GlobalCustomFieldValue'
+export type * from './models/UserSettings'
 export type * from './models/Account'
 export type * from './models/Session'
 export type * from './models/Person'

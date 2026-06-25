@@ -191,6 +191,9 @@ export type UserWhereInput = {
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   accounts?: Prisma.AccountListRelationFilter
+  settings?: Prisma.XOR<Prisma.UserSettingsNullableScalarRelationFilter, Prisma.UserSettingsWhereInput> | null
+  globalCustomFields?: Prisma.GlobalCustomFieldListRelationFilter
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueListRelationFilter
   people?: Prisma.PersonListRelationFilter
   notes?: Prisma.NoteListRelationFilter
   customAttributes?: Prisma.CustomAttributeListRelationFilter
@@ -208,6 +211,9 @@ export type UserOrderByWithRelationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
+  settings?: Prisma.UserSettingsOrderByWithRelationInput
+  globalCustomFields?: Prisma.GlobalCustomFieldOrderByRelationAggregateInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueOrderByRelationAggregateInput
   people?: Prisma.PersonOrderByRelationAggregateInput
   notes?: Prisma.NoteOrderByRelationAggregateInput
   customAttributes?: Prisma.CustomAttributeOrderByRelationAggregateInput
@@ -228,6 +234,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   accounts?: Prisma.AccountListRelationFilter
+  settings?: Prisma.XOR<Prisma.UserSettingsNullableScalarRelationFilter, Prisma.UserSettingsWhereInput> | null
+  globalCustomFields?: Prisma.GlobalCustomFieldListRelationFilter
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueListRelationFilter
   people?: Prisma.PersonListRelationFilter
   notes?: Prisma.NoteListRelationFilter
   customAttributes?: Prisma.CustomAttributeListRelationFilter
@@ -269,6 +278,9 @@ export type UserCreateInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutOwnerInput
   people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
@@ -286,6 +298,9 @@ export type UserUncheckedCreateInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutOwnerInput
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
@@ -303,6 +318,9 @@ export type UserUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutOwnerNestedInput
   people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
@@ -320,6 +338,9 @@ export type UserUncheckedUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutOwnerNestedInput
   people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
@@ -402,6 +423,48 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type UserCreateNestedOneWithoutGlobalCustomFieldsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGlobalCustomFieldsInput, Prisma.UserUncheckedCreateWithoutGlobalCustomFieldsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGlobalCustomFieldsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutGlobalCustomFieldsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGlobalCustomFieldsInput, Prisma.UserUncheckedCreateWithoutGlobalCustomFieldsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGlobalCustomFieldsInput
+  upsert?: Prisma.UserUpsertWithoutGlobalCustomFieldsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGlobalCustomFieldsInput, Prisma.UserUpdateWithoutGlobalCustomFieldsInput>, Prisma.UserUncheckedUpdateWithoutGlobalCustomFieldsInput>
+}
+
+export type UserCreateNestedOneWithoutGlobalCustomFieldValuesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGlobalCustomFieldValuesInput, Prisma.UserUncheckedCreateWithoutGlobalCustomFieldValuesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGlobalCustomFieldValuesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutGlobalCustomFieldValuesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGlobalCustomFieldValuesInput, Prisma.UserUncheckedCreateWithoutGlobalCustomFieldValuesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGlobalCustomFieldValuesInput
+  upsert?: Prisma.UserUpsertWithoutGlobalCustomFieldValuesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGlobalCustomFieldValuesInput, Prisma.UserUpdateWithoutGlobalCustomFieldValuesInput>, Prisma.UserUncheckedUpdateWithoutGlobalCustomFieldValuesInput>
+}
+
+export type UserCreateNestedOneWithoutSettingsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSettingsInput, Prisma.UserUncheckedCreateWithoutSettingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSettingsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSettingsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSettingsInput, Prisma.UserUncheckedCreateWithoutSettingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSettingsInput
+  upsert?: Prisma.UserUpsertWithoutSettingsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSettingsInput, Prisma.UserUpdateWithoutSettingsInput>, Prisma.UserUncheckedUpdateWithoutSettingsInput>
 }
 
 export type UserCreateNestedOneWithoutAccountsInput = {
@@ -516,6 +579,282 @@ export type UserUpdateOneRequiredWithoutCustomAttributesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCustomAttributesInput, Prisma.UserUpdateWithoutCustomAttributesInput>, Prisma.UserUncheckedUpdateWithoutCustomAttributesInput>
 }
 
+export type UserCreateWithoutGlobalCustomFieldsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutOwnerInput
+  people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
+  notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
+  customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
+  phoneNumbers?: Prisma.PhoneNumberCreateNestedManyWithoutOwnerInput
+  emailAddresses?: Prisma.EmailAddressCreateNestedManyWithoutOwnerInput
+  mailingAddresses?: Prisma.MailingAddressCreateNestedManyWithoutOwnerInput
+  locations?: Prisma.LocationCreateNestedManyWithoutOwnerInput
+}
+
+export type UserUncheckedCreateWithoutGlobalCustomFieldsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutOwnerInput
+  people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
+  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
+  customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
+  phoneNumbers?: Prisma.PhoneNumberUncheckedCreateNestedManyWithoutOwnerInput
+  emailAddresses?: Prisma.EmailAddressUncheckedCreateNestedManyWithoutOwnerInput
+  mailingAddresses?: Prisma.MailingAddressUncheckedCreateNestedManyWithoutOwnerInput
+  locations?: Prisma.LocationUncheckedCreateNestedManyWithoutOwnerInput
+}
+
+export type UserCreateOrConnectWithoutGlobalCustomFieldsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGlobalCustomFieldsInput, Prisma.UserUncheckedCreateWithoutGlobalCustomFieldsInput>
+}
+
+export type UserUpsertWithoutGlobalCustomFieldsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGlobalCustomFieldsInput, Prisma.UserUncheckedUpdateWithoutGlobalCustomFieldsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGlobalCustomFieldsInput, Prisma.UserUncheckedCreateWithoutGlobalCustomFieldsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGlobalCustomFieldsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGlobalCustomFieldsInput, Prisma.UserUncheckedUpdateWithoutGlobalCustomFieldsInput>
+}
+
+export type UserUpdateWithoutGlobalCustomFieldsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutOwnerNestedInput
+  people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
+  notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
+  customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
+  phoneNumbers?: Prisma.PhoneNumberUpdateManyWithoutOwnerNestedInput
+  emailAddresses?: Prisma.EmailAddressUpdateManyWithoutOwnerNestedInput
+  mailingAddresses?: Prisma.MailingAddressUpdateManyWithoutOwnerNestedInput
+  locations?: Prisma.LocationUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGlobalCustomFieldsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutOwnerNestedInput
+  people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
+  notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
+  customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
+  phoneNumbers?: Prisma.PhoneNumberUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAddresses?: Prisma.EmailAddressUncheckedUpdateManyWithoutOwnerNestedInput
+  mailingAddresses?: Prisma.MailingAddressUncheckedUpdateManyWithoutOwnerNestedInput
+  locations?: Prisma.LocationUncheckedUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserCreateWithoutGlobalCustomFieldValuesInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldCreateNestedManyWithoutUserInput
+  people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
+  notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
+  customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
+  phoneNumbers?: Prisma.PhoneNumberCreateNestedManyWithoutOwnerInput
+  emailAddresses?: Prisma.EmailAddressCreateNestedManyWithoutOwnerInput
+  mailingAddresses?: Prisma.MailingAddressCreateNestedManyWithoutOwnerInput
+  locations?: Prisma.LocationCreateNestedManyWithoutOwnerInput
+}
+
+export type UserUncheckedCreateWithoutGlobalCustomFieldValuesInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedCreateNestedManyWithoutUserInput
+  people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
+  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
+  customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
+  phoneNumbers?: Prisma.PhoneNumberUncheckedCreateNestedManyWithoutOwnerInput
+  emailAddresses?: Prisma.EmailAddressUncheckedCreateNestedManyWithoutOwnerInput
+  mailingAddresses?: Prisma.MailingAddressUncheckedCreateNestedManyWithoutOwnerInput
+  locations?: Prisma.LocationUncheckedCreateNestedManyWithoutOwnerInput
+}
+
+export type UserCreateOrConnectWithoutGlobalCustomFieldValuesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGlobalCustomFieldValuesInput, Prisma.UserUncheckedCreateWithoutGlobalCustomFieldValuesInput>
+}
+
+export type UserUpsertWithoutGlobalCustomFieldValuesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGlobalCustomFieldValuesInput, Prisma.UserUncheckedUpdateWithoutGlobalCustomFieldValuesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGlobalCustomFieldValuesInput, Prisma.UserUncheckedCreateWithoutGlobalCustomFieldValuesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGlobalCustomFieldValuesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGlobalCustomFieldValuesInput, Prisma.UserUncheckedUpdateWithoutGlobalCustomFieldValuesInput>
+}
+
+export type UserUpdateWithoutGlobalCustomFieldValuesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUpdateManyWithoutUserNestedInput
+  people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
+  notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
+  customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
+  phoneNumbers?: Prisma.PhoneNumberUpdateManyWithoutOwnerNestedInput
+  emailAddresses?: Prisma.EmailAddressUpdateManyWithoutOwnerNestedInput
+  mailingAddresses?: Prisma.MailingAddressUpdateManyWithoutOwnerNestedInput
+  locations?: Prisma.LocationUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGlobalCustomFieldValuesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedUpdateManyWithoutUserNestedInput
+  people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
+  notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
+  customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
+  phoneNumbers?: Prisma.PhoneNumberUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAddresses?: Prisma.EmailAddressUncheckedUpdateManyWithoutOwnerNestedInput
+  mailingAddresses?: Prisma.MailingAddressUncheckedUpdateManyWithoutOwnerNestedInput
+  locations?: Prisma.LocationUncheckedUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserCreateWithoutSettingsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutOwnerInput
+  people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
+  notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
+  customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
+  phoneNumbers?: Prisma.PhoneNumberCreateNestedManyWithoutOwnerInput
+  emailAddresses?: Prisma.EmailAddressCreateNestedManyWithoutOwnerInput
+  mailingAddresses?: Prisma.MailingAddressCreateNestedManyWithoutOwnerInput
+  locations?: Prisma.LocationCreateNestedManyWithoutOwnerInput
+}
+
+export type UserUncheckedCreateWithoutSettingsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutOwnerInput
+  people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
+  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
+  customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
+  phoneNumbers?: Prisma.PhoneNumberUncheckedCreateNestedManyWithoutOwnerInput
+  emailAddresses?: Prisma.EmailAddressUncheckedCreateNestedManyWithoutOwnerInput
+  mailingAddresses?: Prisma.MailingAddressUncheckedCreateNestedManyWithoutOwnerInput
+  locations?: Prisma.LocationUncheckedCreateNestedManyWithoutOwnerInput
+}
+
+export type UserCreateOrConnectWithoutSettingsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSettingsInput, Prisma.UserUncheckedCreateWithoutSettingsInput>
+}
+
+export type UserUpsertWithoutSettingsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSettingsInput, Prisma.UserUncheckedUpdateWithoutSettingsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSettingsInput, Prisma.UserUncheckedCreateWithoutSettingsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSettingsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSettingsInput, Prisma.UserUncheckedUpdateWithoutSettingsInput>
+}
+
+export type UserUpdateWithoutSettingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutOwnerNestedInput
+  people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
+  notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
+  customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
+  phoneNumbers?: Prisma.PhoneNumberUpdateManyWithoutOwnerNestedInput
+  emailAddresses?: Prisma.EmailAddressUpdateManyWithoutOwnerNestedInput
+  mailingAddresses?: Prisma.MailingAddressUpdateManyWithoutOwnerNestedInput
+  locations?: Prisma.LocationUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSettingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutOwnerNestedInput
+  people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
+  notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
+  customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
+  phoneNumbers?: Prisma.PhoneNumberUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAddresses?: Prisma.EmailAddressUncheckedUpdateManyWithoutOwnerNestedInput
+  mailingAddresses?: Prisma.MailingAddressUncheckedUpdateManyWithoutOwnerNestedInput
+  locations?: Prisma.LocationUncheckedUpdateManyWithoutOwnerNestedInput
+}
+
 export type UserCreateWithoutAccountsInput = {
   id?: string
   email: string
@@ -523,6 +862,9 @@ export type UserCreateWithoutAccountsInput = {
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutOwnerInput
   people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
@@ -539,6 +881,9 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutOwnerInput
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
@@ -571,6 +916,9 @@ export type UserUpdateWithoutAccountsInput = {
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutOwnerNestedInput
   people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
@@ -587,6 +935,9 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutOwnerNestedInput
   people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
@@ -604,6 +955,9 @@ export type UserCreateWithoutPeopleInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
   phoneNumbers?: Prisma.PhoneNumberCreateNestedManyWithoutOwnerInput
@@ -620,6 +974,9 @@ export type UserUncheckedCreateWithoutPeopleInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
   phoneNumbers?: Prisma.PhoneNumberUncheckedCreateNestedManyWithoutOwnerInput
@@ -652,6 +1009,9 @@ export type UserUpdateWithoutPeopleInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
   phoneNumbers?: Prisma.PhoneNumberUpdateManyWithoutOwnerNestedInput
@@ -668,6 +1028,9 @@ export type UserUncheckedUpdateWithoutPeopleInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
   phoneNumbers?: Prisma.PhoneNumberUncheckedUpdateManyWithoutOwnerNestedInput
@@ -684,6 +1047,9 @@ export type UserCreateWithoutMailingAddressesInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutOwnerInput
   people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
@@ -700,6 +1066,9 @@ export type UserUncheckedCreateWithoutMailingAddressesInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutOwnerInput
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
@@ -732,6 +1101,9 @@ export type UserUpdateWithoutMailingAddressesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutOwnerNestedInput
   people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
@@ -748,6 +1120,9 @@ export type UserUncheckedUpdateWithoutMailingAddressesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutOwnerNestedInput
   people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
@@ -764,6 +1139,9 @@ export type UserCreateWithoutLocationsInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutOwnerInput
   people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
@@ -780,6 +1158,9 @@ export type UserUncheckedCreateWithoutLocationsInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutOwnerInput
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
@@ -812,6 +1193,9 @@ export type UserUpdateWithoutLocationsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutOwnerNestedInput
   people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
@@ -828,6 +1212,9 @@ export type UserUncheckedUpdateWithoutLocationsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutOwnerNestedInput
   people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
@@ -844,6 +1231,9 @@ export type UserCreateWithoutPhoneNumbersInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutOwnerInput
   people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
@@ -860,6 +1250,9 @@ export type UserUncheckedCreateWithoutPhoneNumbersInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutOwnerInput
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
@@ -892,6 +1285,9 @@ export type UserUpdateWithoutPhoneNumbersInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutOwnerNestedInput
   people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
@@ -908,6 +1304,9 @@ export type UserUncheckedUpdateWithoutPhoneNumbersInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutOwnerNestedInput
   people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
@@ -924,6 +1323,9 @@ export type UserCreateWithoutEmailAddressesInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutOwnerInput
   people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
@@ -940,6 +1342,9 @@ export type UserUncheckedCreateWithoutEmailAddressesInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutOwnerInput
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
@@ -972,6 +1377,9 @@ export type UserUpdateWithoutEmailAddressesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutOwnerNestedInput
   people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
@@ -988,6 +1396,9 @@ export type UserUncheckedUpdateWithoutEmailAddressesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutOwnerNestedInput
   people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
@@ -1004,6 +1415,9 @@ export type UserCreateWithoutNotesInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutOwnerInput
   people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
   phoneNumbers?: Prisma.PhoneNumberCreateNestedManyWithoutOwnerInput
@@ -1020,6 +1434,9 @@ export type UserUncheckedCreateWithoutNotesInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutOwnerInput
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
   phoneNumbers?: Prisma.PhoneNumberUncheckedCreateNestedManyWithoutOwnerInput
@@ -1052,6 +1469,9 @@ export type UserUpdateWithoutNotesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutOwnerNestedInput
   people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
   phoneNumbers?: Prisma.PhoneNumberUpdateManyWithoutOwnerNestedInput
@@ -1068,6 +1488,9 @@ export type UserUncheckedUpdateWithoutNotesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutOwnerNestedInput
   people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
   phoneNumbers?: Prisma.PhoneNumberUncheckedUpdateManyWithoutOwnerNestedInput
@@ -1084,6 +1507,9 @@ export type UserCreateWithoutCustomAttributesInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutOwnerInput
   people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
   phoneNumbers?: Prisma.PhoneNumberCreateNestedManyWithoutOwnerInput
@@ -1100,6 +1526,9 @@ export type UserUncheckedCreateWithoutCustomAttributesInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedCreateNestedManyWithoutUserInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutOwnerInput
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
   phoneNumbers?: Prisma.PhoneNumberUncheckedCreateNestedManyWithoutOwnerInput
@@ -1132,6 +1561,9 @@ export type UserUpdateWithoutCustomAttributesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUpdateManyWithoutOwnerNestedInput
   people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
   phoneNumbers?: Prisma.PhoneNumberUpdateManyWithoutOwnerNestedInput
@@ -1148,6 +1580,9 @@ export type UserUncheckedUpdateWithoutCustomAttributesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
+  globalCustomFields?: Prisma.GlobalCustomFieldUncheckedUpdateManyWithoutUserNestedInput
+  globalCustomFieldValues?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutOwnerNestedInput
   people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
   phoneNumbers?: Prisma.PhoneNumberUncheckedUpdateManyWithoutOwnerNestedInput
@@ -1163,6 +1598,8 @@ export type UserUncheckedUpdateWithoutCustomAttributesInput = {
 
 export type UserCountOutputType = {
   accounts: number
+  globalCustomFields: number
+  globalCustomFieldValues: number
   people: number
   notes: number
   customAttributes: number
@@ -1174,6 +1611,8 @@ export type UserCountOutputType = {
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
+  globalCustomFields?: boolean | UserCountOutputTypeCountGlobalCustomFieldsArgs
+  globalCustomFieldValues?: boolean | UserCountOutputTypeCountGlobalCustomFieldValuesArgs
   people?: boolean | UserCountOutputTypeCountPeopleArgs
   notes?: boolean | UserCountOutputTypeCountNotesArgs
   customAttributes?: boolean | UserCountOutputTypeCountCustomAttributesArgs
@@ -1198,6 +1637,20 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
  */
 export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.AccountWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountGlobalCustomFieldsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GlobalCustomFieldWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountGlobalCustomFieldValuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GlobalCustomFieldValueWhereInput
 }
 
 /**
@@ -1258,6 +1711,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   image?: boolean
   createdAt?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
+  settings?: boolean | Prisma.User$settingsArgs<ExtArgs>
+  globalCustomFields?: boolean | Prisma.User$globalCustomFieldsArgs<ExtArgs>
+  globalCustomFieldValues?: boolean | Prisma.User$globalCustomFieldValuesArgs<ExtArgs>
   people?: boolean | Prisma.User$peopleArgs<ExtArgs>
   notes?: boolean | Prisma.User$notesArgs<ExtArgs>
   customAttributes?: boolean | Prisma.User$customAttributesArgs<ExtArgs>
@@ -1298,6 +1754,9 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "emailVerified" | "image" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
+  settings?: boolean | Prisma.User$settingsArgs<ExtArgs>
+  globalCustomFields?: boolean | Prisma.User$globalCustomFieldsArgs<ExtArgs>
+  globalCustomFieldValues?: boolean | Prisma.User$globalCustomFieldValuesArgs<ExtArgs>
   people?: boolean | Prisma.User$peopleArgs<ExtArgs>
   notes?: boolean | Prisma.User$notesArgs<ExtArgs>
   customAttributes?: boolean | Prisma.User$customAttributesArgs<ExtArgs>
@@ -1314,6 +1773,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     accounts: Prisma.$AccountPayload<ExtArgs>[]
+    settings: Prisma.$UserSettingsPayload<ExtArgs> | null
+    globalCustomFields: Prisma.$GlobalCustomFieldPayload<ExtArgs>[]
+    globalCustomFieldValues: Prisma.$GlobalCustomFieldValuePayload<ExtArgs>[]
     people: Prisma.$PersonPayload<ExtArgs>[]
     notes: Prisma.$NotePayload<ExtArgs>[]
     customAttributes: Prisma.$CustomAttributePayload<ExtArgs>[]
@@ -1724,6 +2186,9 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  settings<T extends Prisma.User$settingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$settingsArgs<ExtArgs>>): Prisma.Prisma__UserSettingsClient<runtime.Types.Result.GetResult<Prisma.$UserSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  globalCustomFields<T extends Prisma.User$globalCustomFieldsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$globalCustomFieldsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GlobalCustomFieldPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  globalCustomFieldValues<T extends Prisma.User$globalCustomFieldValuesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$globalCustomFieldValuesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GlobalCustomFieldValuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   people<T extends Prisma.User$peopleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$peopleArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notes<T extends Prisma.User$notesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   customAttributes<T extends Prisma.User$customAttributesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$customAttributesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomAttributePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2180,6 +2645,73 @@ export type User$accountsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.AccountScalarFieldEnum | Prisma.AccountScalarFieldEnum[]
+}
+
+/**
+ * User.settings
+ */
+export type User$settingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserSettings
+   */
+  select?: Prisma.UserSettingsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserSettings
+   */
+  omit?: Prisma.UserSettingsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserSettingsInclude<ExtArgs> | null
+  where?: Prisma.UserSettingsWhereInput
+}
+
+/**
+ * User.globalCustomFields
+ */
+export type User$globalCustomFieldsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GlobalCustomField
+   */
+  select?: Prisma.GlobalCustomFieldSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GlobalCustomField
+   */
+  omit?: Prisma.GlobalCustomFieldOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GlobalCustomFieldInclude<ExtArgs> | null
+  where?: Prisma.GlobalCustomFieldWhereInput
+  orderBy?: Prisma.GlobalCustomFieldOrderByWithRelationInput | Prisma.GlobalCustomFieldOrderByWithRelationInput[]
+  cursor?: Prisma.GlobalCustomFieldWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GlobalCustomFieldScalarFieldEnum | Prisma.GlobalCustomFieldScalarFieldEnum[]
+}
+
+/**
+ * User.globalCustomFieldValues
+ */
+export type User$globalCustomFieldValuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GlobalCustomFieldValue
+   */
+  select?: Prisma.GlobalCustomFieldValueSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GlobalCustomFieldValue
+   */
+  omit?: Prisma.GlobalCustomFieldValueOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GlobalCustomFieldValueInclude<ExtArgs> | null
+  where?: Prisma.GlobalCustomFieldValueWhereInput
+  orderBy?: Prisma.GlobalCustomFieldValueOrderByWithRelationInput | Prisma.GlobalCustomFieldValueOrderByWithRelationInput[]
+  cursor?: Prisma.GlobalCustomFieldValueWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GlobalCustomFieldValueScalarFieldEnum | Prisma.GlobalCustomFieldValueScalarFieldEnum[]
 }
 
 /**

@@ -7,6 +7,18 @@ datasource db {
   provider = "postgresql"
 }
 
+enum DateFormat {
+  DD_MONTH_YYYY // 25 June 2026
+  MONTH_DD_YYYY // June 25, 2026
+  DD_MM_YYYY    // 25/06/2026
+  MM_DD_YYYY    // 06/25/2026
+}
+
+enum FriendsOrder {
+  ADDED // by date added (default)
+  ALPHA // alphabetical
+}
+
 model User {
   id            String    @id @default(cuid())
   email         String    @unique
@@ -21,13 +33,53 @@ model User {
   accounts Account[]
   // --------------------------
 
-  people           Person[]
-  notes            Note[]
-  customAttributes CustomAttribute[]
-  phoneNumbers     PhoneNumber[]
-  emailAddresses   EmailAddress[]
-  mailingAddresses MailingAddress[]
-  locations        Location[]
+  settings                UserSettings?
+  globalCustomFields      GlobalCustomField[]
+  globalCustomFieldValues GlobalCustomFieldValue[]
+  people                  Person[]
+  notes                   Note[]
+  customAttributes        CustomAttribute[]
+  phoneNumbers            PhoneNumber[]
+  emailAddresses          EmailAddress[]
+  mailingAddresses        MailingAddress[]
+  locations               Location[]
+}
+
+model GlobalCustomField {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  label     String
+  fieldType String   @default("TEXT")
+  createdAt DateTime @default(now())
+
+  values GlobalCustomFieldValue[]
+
+  @@index([userId])
+}
+
+model GlobalCustomFieldValue {
+  id        String            @id @default(cuid())
+  ownerId   String
+  owner     User              @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  personId  String
+  person    Person            @relation(fields: [personId], references: [id], onDelete: Cascade)
+  fieldId   String
+  field     GlobalCustomField @relation(fields: [fieldId], references: [id], onDelete: Cascade)
+  value     String
+  updatedAt DateTime          @updatedAt
+
+  @@unique([personId, fieldId])
+  @@index([personId])
+}
+
+model UserSettings {
+  id           String       @id @default(cuid())
+  userId       String       @unique
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dateFormat   DateFormat   @default(DD_MONTH_YYYY)
+  friendsOrder FriendsOrder @default(ADDED)
+  updatedAt    DateTime     @updatedAt
 }
 
 // --- for NextAuth ---
@@ -69,12 +121,13 @@ model Person {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  phoneNumbers     PhoneNumber[]
-  emailAddresses   EmailAddress[]
-  mailingAddresses MailingAddress[]
-  location         Location?
-  notes            Note[]
-  customAttributes CustomAttribute[]
+  phoneNumbers            PhoneNumber[]
+  emailAddresses          EmailAddress[]
+  mailingAddresses        MailingAddress[]
+  location                Location?
+  notes                   Note[]
+  customAttributes        CustomAttribute[]
+  globalCustomFieldValues GlobalCustomFieldValue[]
 
   @@index([ownerId])
   @@index([displayName])

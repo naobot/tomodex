@@ -23,6 +23,21 @@ export * from './enums';
  */
 export type User = Prisma.UserModel
 /**
+ * Model GlobalCustomField
+ * 
+ */
+export type GlobalCustomField = Prisma.GlobalCustomFieldModel
+/**
+ * Model GlobalCustomFieldValue
+ * 
+ */
+export type GlobalCustomFieldValue = Prisma.GlobalCustomFieldValueModel
+/**
+ * Model UserSettings
+ * 
+ */
+export type UserSettings = Prisma.UserSettingsModel
+/**
  * Model Account
  * 
  */

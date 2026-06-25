@@ -205,3 +205,29 @@ export async function deleteCustomAttribute(
   await prisma.customAttribute.delete({ where: { id: attributeId } });
   revalidatePerson(personId);
 }
+
+// ---------------------------------------------------------------------------
+// Global custom field values
+// ---------------------------------------------------------------------------
+
+export async function setGlobalFieldValue(
+  personId: string,
+  fieldId: string,
+  value: string,
+) {
+  const ownerId = await requireOwnership(personId);
+
+  if (value.trim() === "") {
+    await prisma.globalCustomFieldValue.deleteMany({
+      where: { personId, fieldId, ownerId },
+    });
+  } else {
+    await prisma.globalCustomFieldValue.upsert({
+      where: { personId_fieldId: { personId, fieldId } },
+      create: { ownerId, personId, fieldId, value: value.trim() },
+      update: { value: value.trim() },
+    });
+  }
+
+  revalidatePerson(personId);
+}

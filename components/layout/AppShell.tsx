@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { getPeopleForUser } from "@/lib/people";
+import { getUserSettings, DEFAULT_SETTINGS } from "@/lib/settings";
 import { SidebarProvider } from "@/lib/SidebarContext";
 import Sidebar from "./Sidebar";
 import MobileTopNav from "./MobileTopNav";
@@ -17,7 +18,9 @@ export default async function AppShell({ children }: Props) {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
 
-  const result = await getPeopleForUser(session.user.id);
+  const settingsResult = await getUserSettings(session.user.id);
+  const friendsOrder = settingsResult.ok ? settingsResult.data.friendsOrder : DEFAULT_SETTINGS.friendsOrder;
+  const result = await getPeopleForUser(session.user.id, friendsOrder);
 
   const friendList = result.ok
     ? <PersonList people={result.data} />
