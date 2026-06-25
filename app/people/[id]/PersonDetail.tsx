@@ -147,10 +147,10 @@ export default function PersonDetail({ person, dateFormat, globalFields }: Props
       <MailingAddressSection personId={person.id} mailingAddresses={person.mailingAddresses} />
 
       <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "16px 0" }} />
-      <NotesSection personId={person.id} notes={person.notes} />
+      <CustomAttrSection personId={person.id} customAttributes={person.customAttributes} globalFields={globalFields} />
 
       <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "16px 0" }} />
-      <CustomAttrSection personId={person.id} customAttributes={person.customAttributes} globalFields={globalFields} />
+      <NotesSection personId={person.id} notes={person.notes} />
 
     </div>
   );

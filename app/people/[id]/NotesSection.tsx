@@ -2,7 +2,6 @@
 import { useState, useTransition } from "react";
 import { addNote, updateNote, deleteNote } from "./actions";
 import type { SerialisedNote } from "./types";
-import Section from "@/components/layout/Section";
 
 type Props = {
   personId: string;
@@ -94,37 +93,71 @@ function NoteItem({
 
 export default function NotesSection({ personId, notes }: Props) {
   const [isPending, startTransition] = useTransition();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <Section title="Notes">
-      {notes.length === 0 && (
-        <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-faint)" }}>No notes yet.</p>
-      )}
-      <ul style={{ listStyle: "none", padding: 0, margin: "0 0 8px" }}>
-        {notes.map((note) => (
-          <NoteItem
-            key={note.id}
-            personId={personId}
-            note={note}
-            isPending={isPending}
-            startTransition={startTransition}
-          />
-        ))}
-      </ul>
-      <form
-        action={(fd) => startTransition(() => addNote(personId, fd))}
-        style={{ display: "flex", gap: 8, alignItems: "flex-end" }}
+    <section style={{ margin: "var(--space-md) 0" }}>
+      <button
+        onClick={() => setIsOpen((o) => !o)}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "100%",
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          padding: 0,
+          paddingBottom: 4,
+          marginBottom: isOpen ? "var(--space-md)" : 0,
+        }}
       >
-        <textarea
-          name="body"
-          placeholder="Add a note…"
-          required
-          rows={2}
-          className="input textarea"
-          style={{ flex: 1 }}
-        />
-        <button type="submit" className="btn-submit" disabled={isPending}>Add</button>
-      </form>
-    </Section>
+        <span style={{
+          fontFamily: "var(--font-pixel)",
+          fontSize: 11,
+          textTransform: "uppercase",
+          letterSpacing: "0.14em",
+          color: "var(--color-text)",
+        }}>
+          Notes{notes.length > 0 && ` (${notes.length})`}
+        </span>
+        <span style={{ fontSize: 10, color: "var(--color-text-faint)" }}>
+          {isOpen ? "▲" : "▼"}
+        </span>
+      </button>
+
+      {isOpen && (
+        <>
+          {notes.length === 0 && (
+            <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-faint)" }}>No notes yet.</p>
+          )}
+          <ul style={{ listStyle: "none", padding: 0, margin: "0 0 8px" }}>
+            {notes.map((note) => (
+              <NoteItem
+                key={note.id}
+                personId={personId}
+                note={note}
+                isPending={isPending}
+                startTransition={startTransition}
+              />
+            ))}
+          </ul>
+          <form
+            action={(fd) => startTransition(() => addNote(personId, fd))}
+            style={{ display: "flex", gap: 8, alignItems: "flex-end" }}
+          >
+            <textarea
+              name="body"
+              placeholder="Add a note…"
+              required
+              rows={2}
+              className="input textarea"
+              style={{ flex: 1 }}
+            />
+            <button type="submit" className="btn-submit" disabled={isPending}>Add</button>
+          </form>
+        </>
+      )}
+    </section>
   );
 }
