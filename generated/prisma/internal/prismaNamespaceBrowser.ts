@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  GlobalCustomField: 'GlobalCustomField',
   UserSettings: 'UserSettings',
   Account: 'Account',
   Session: 'Session',
@@ -90,6 +91,17 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const GlobalCustomFieldScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  label: 'label',
+  fieldType: 'fieldType',
+  createdAt: 'createdAt'
+} as const
+
+export type GlobalCustomFieldScalarFieldEnum = (typeof GlobalCustomFieldScalarFieldEnum)[keyof typeof GlobalCustomFieldScalarFieldEnum]
 
 
 export const UserSettingsScalarFieldEnum = {

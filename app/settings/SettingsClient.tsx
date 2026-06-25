@@ -1,10 +1,13 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
+import { createPortal } from "react-dom";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import type { UserSettingsData, DateFormat, FriendsOrder } from "@/lib/settings";
+import type { GlobalCustomFieldData } from "@/lib/globalCustomFields";
 import { saveDisplaySettings } from "./actions";
+import { createGlobalCustomField, deleteGlobalCustomField } from "./globalCustomFieldActions";
 
 const DATE_FORMAT_OPTIONS: { value: DateFormat; label: string; example: string }[] = [
   { value: "DD_MONTH_YYYY", label: "DD Mon YYYY",  example: "25 Jun 2026" },
@@ -156,9 +159,151 @@ function DisplaySettingsForm({ settings }: { settings: UserSettingsData }) {
 
 // ---------------------------------------------------------------------------
 
-type Props = { settings: UserSettingsData };
+function GlobalCustomInfoSection({ fields }: { fields: GlobalCustomFieldData[] }) {
+  const [isPending, startTransition] = useTransition();
+  const [mounted, setMounted] = useState(false);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
-export default function SettingsClient({ settings }: Props) {
+  useEffect(() => setMounted(true), []);
+
+  function openModal() { dialogRef.current?.showModal(); }
+  function closeModal() { dialogRef.current?.close(); formRef.current?.reset(); }
+
+  function handleCreate(formData: FormData) {
+    startTransition(async () => {
+      await createGlobalCustomField(formData);
+      closeModal();
+    });
+  }
+
+  function handleDelete(id: string) {
+    startTransition(() => deleteGlobalCustomField(id));
+  }
+
+  return (
+    <>
+      <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-faint)", marginBottom: 20 }}>
+        Global Custom Info fields appear on every friend&rsquo;s profile. Use them for things you want to track across all contacts — like &ldquo;How we met&rdquo; or &ldquo;Favourite food&rdquo;.
+      </p>
+
+      {fields.length > 0 && (
+        <ul style={{ listStyle: "none", padding: 0, margin: "0 0 16px" }}>
+          {fields.map((field) => (
+            <li
+              key={field.id}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                padding: "6px 0",
+                borderBottom: "1px solid var(--color-border)",
+              }}
+            >
+              <span style={{ fontSize: "var(--text-sm)", color: "var(--color-text)" }}>
+                {field.label}
+              </span>
+              <button
+                className="btn-destruct"
+                onClick={() => handleDelete(field.id)}
+                disabled={isPending}
+              >
+                Remove
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <button className="btn" onClick={openModal} disabled={isPending}>
+        + New field
+      </button>
+
+      {mounted && createPortal(
+        <dialog
+          ref={dialogRef}
+          style={{
+            border: "1px solid var(--color-border)",
+            borderRadius: "var(--radius-lg)",
+            padding: 0,
+            boxShadow: "var(--shadow-lg)",
+            width: "calc(100% - 2rem)",
+            maxWidth: 420,
+            margin: "auto",
+          }}
+          onClose={closeModal}
+        >
+          <div style={{ padding: "24px 28px" }}>
+            <div style={{
+              fontFamily: "var(--font-pixel)",
+              fontSize: 11,
+              textTransform: "uppercase",
+              letterSpacing: "0.14em",
+              color: "var(--color-text)",
+              marginBottom: 20,
+            }}>
+              New Global Field
+            </div>
+            <form ref={formRef} action={handleCreate} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <div>
+                <div style={{
+                  fontFamily: "var(--font-pixel)",
+                  fontSize: 10,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                  color: "var(--color-text-faint)",
+                  marginBottom: 5,
+                }}>
+                  Field name <span style={{ color: "var(--color-accent)" }}>*</span>
+                </div>
+                <input
+                  name="label"
+                  type="text"
+                  required
+                  autoFocus
+                  placeholder="e.g. How we met"
+                  className="input"
+                  style={{ width: "100%" }}
+                />
+              </div>
+              <div>
+                <div style={{
+                  fontFamily: "var(--font-pixel)",
+                  fontSize: 10,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                  color: "var(--color-text-faint)",
+                  marginBottom: 5,
+                }}>
+                  Field type
+                </div>
+                <div style={{ fontSize: "var(--text-sm)", color: "var(--color-text-faint)" }}>
+                  Text
+                </div>
+              </div>
+              <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, paddingTop: 4 }}>
+                <button type="button" className="btn" onClick={closeModal}>Cancel</button>
+                <button type="submit" className="btn-submit" disabled={isPending}>
+                  {isPending ? "Creating…" : "Create field"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </dialog>,
+        document.body
+      )}
+    </>
+  );
+}
+
+// ---------------------------------------------------------------------------
+
+type Props = {
+  settings: UserSettingsData;
+  globalFields: GlobalCustomFieldData[];
+};
+
+export default function SettingsClient({ settings, globalFields }: Props) {
   return (
     <div>
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 24 }}>
@@ -189,9 +334,7 @@ export default function SettingsClient({ settings }: Props) {
         </SettingsSection>
 
         <SettingsSection title="Global Custom Info">
-          <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-faint)" }}>
-            Coming soon.
-          </p>
+          <GlobalCustomInfoSection fields={globalFields} />
         </SettingsSection>
 
       </div>

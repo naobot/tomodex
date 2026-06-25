@@ -47,6 +47,11 @@ export { Prisma }
  */
 export type User = Prisma.UserModel
 /**
+ * Model GlobalCustomField
+ * 
+ */
+export type GlobalCustomField = Prisma.GlobalCustomFieldModel
+/**
  * Model UserSettings
  * 
  */

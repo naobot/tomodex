@@ -33,14 +33,26 @@ model User {
   accounts Account[]
   // --------------------------
 
-  settings         UserSettings?
-  people           Person[]
-  notes            Note[]
-  customAttributes CustomAttribute[]
-  phoneNumbers     PhoneNumber[]
-  emailAddresses   EmailAddress[]
-  mailingAddresses MailingAddress[]
-  locations        Location[]
+  settings           UserSettings?
+  globalCustomFields GlobalCustomField[]
+  people             Person[]
+  notes              Note[]
+  customAttributes   CustomAttribute[]
+  phoneNumbers       PhoneNumber[]
+  emailAddresses     EmailAddress[]
+  mailingAddresses   MailingAddress[]
+  locations          Location[]
+}
+
+model GlobalCustomField {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  label     String
+  fieldType String   @default("TEXT")
+  createdAt DateTime @default(now())
+
+  @@index([userId])
 }
 
 model UserSettings {
