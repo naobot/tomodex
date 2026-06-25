@@ -28,6 +28,11 @@ export type User = Prisma.UserModel
  */
 export type GlobalCustomField = Prisma.GlobalCustomFieldModel
 /**
+ * Model GlobalCustomFieldValue
+ * 
+ */
+export type GlobalCustomFieldValue = Prisma.GlobalCustomFieldValueModel
+/**
  * Model UserSettings
  * 
  */

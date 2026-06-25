@@ -183,6 +183,7 @@ export type GlobalCustomFieldWhereInput = {
   fieldType?: Prisma.StringFilter<"GlobalCustomField"> | string
   createdAt?: Prisma.DateTimeFilter<"GlobalCustomField"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  values?: Prisma.GlobalCustomFieldValueListRelationFilter
 }
 
 export type GlobalCustomFieldOrderByWithRelationInput = {
@@ -192,6 +193,7 @@ export type GlobalCustomFieldOrderByWithRelationInput = {
   fieldType?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  values?: Prisma.GlobalCustomFieldValueOrderByRelationAggregateInput
 }
 
 export type GlobalCustomFieldWhereUniqueInput = Prisma.AtLeast<{
@@ -204,6 +206,7 @@ export type GlobalCustomFieldWhereUniqueInput = Prisma.AtLeast<{
   fieldType?: Prisma.StringFilter<"GlobalCustomField"> | string
   createdAt?: Prisma.DateTimeFilter<"GlobalCustomField"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  values?: Prisma.GlobalCustomFieldValueListRelationFilter
 }, "id">
 
 export type GlobalCustomFieldOrderByWithAggregationInput = {
@@ -234,6 +237,7 @@ export type GlobalCustomFieldCreateInput = {
   fieldType?: string
   createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutGlobalCustomFieldsInput
+  values?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutFieldInput
 }
 
 export type GlobalCustomFieldUncheckedCreateInput = {
@@ -242,6 +246,7 @@ export type GlobalCustomFieldUncheckedCreateInput = {
   label: string
   fieldType?: string
   createdAt?: Date | string
+  values?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutFieldInput
 }
 
 export type GlobalCustomFieldUpdateInput = {
@@ -250,6 +255,7 @@ export type GlobalCustomFieldUpdateInput = {
   fieldType?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutGlobalCustomFieldsNestedInput
+  values?: Prisma.GlobalCustomFieldValueUpdateManyWithoutFieldNestedInput
 }
 
 export type GlobalCustomFieldUncheckedUpdateInput = {
@@ -258,6 +264,7 @@ export type GlobalCustomFieldUncheckedUpdateInput = {
   label?: Prisma.StringFieldUpdateOperationsInput | string
   fieldType?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  values?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutFieldNestedInput
 }
 
 export type GlobalCustomFieldCreateManyInput = {
@@ -317,6 +324,11 @@ export type GlobalCustomFieldMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
 }
 
+export type GlobalCustomFieldScalarRelationFilter = {
+  is?: Prisma.GlobalCustomFieldWhereInput
+  isNot?: Prisma.GlobalCustomFieldWhereInput
+}
+
 export type GlobalCustomFieldCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.GlobalCustomFieldCreateWithoutUserInput, Prisma.GlobalCustomFieldUncheckedCreateWithoutUserInput> | Prisma.GlobalCustomFieldCreateWithoutUserInput[] | Prisma.GlobalCustomFieldUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.GlobalCustomFieldCreateOrConnectWithoutUserInput | Prisma.GlobalCustomFieldCreateOrConnectWithoutUserInput[]
@@ -359,11 +371,26 @@ export type GlobalCustomFieldUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.GlobalCustomFieldScalarWhereInput | Prisma.GlobalCustomFieldScalarWhereInput[]
 }
 
+export type GlobalCustomFieldCreateNestedOneWithoutValuesInput = {
+  create?: Prisma.XOR<Prisma.GlobalCustomFieldCreateWithoutValuesInput, Prisma.GlobalCustomFieldUncheckedCreateWithoutValuesInput>
+  connectOrCreate?: Prisma.GlobalCustomFieldCreateOrConnectWithoutValuesInput
+  connect?: Prisma.GlobalCustomFieldWhereUniqueInput
+}
+
+export type GlobalCustomFieldUpdateOneRequiredWithoutValuesNestedInput = {
+  create?: Prisma.XOR<Prisma.GlobalCustomFieldCreateWithoutValuesInput, Prisma.GlobalCustomFieldUncheckedCreateWithoutValuesInput>
+  connectOrCreate?: Prisma.GlobalCustomFieldCreateOrConnectWithoutValuesInput
+  upsert?: Prisma.GlobalCustomFieldUpsertWithoutValuesInput
+  connect?: Prisma.GlobalCustomFieldWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GlobalCustomFieldUpdateToOneWithWhereWithoutValuesInput, Prisma.GlobalCustomFieldUpdateWithoutValuesInput>, Prisma.GlobalCustomFieldUncheckedUpdateWithoutValuesInput>
+}
+
 export type GlobalCustomFieldCreateWithoutUserInput = {
   id?: string
   label: string
   fieldType?: string
   createdAt?: Date | string
+  values?: Prisma.GlobalCustomFieldValueCreateNestedManyWithoutFieldInput
 }
 
 export type GlobalCustomFieldUncheckedCreateWithoutUserInput = {
@@ -371,6 +398,7 @@ export type GlobalCustomFieldUncheckedCreateWithoutUserInput = {
   label: string
   fieldType?: string
   createdAt?: Date | string
+  values?: Prisma.GlobalCustomFieldValueUncheckedCreateNestedManyWithoutFieldInput
 }
 
 export type GlobalCustomFieldCreateOrConnectWithoutUserInput = {
@@ -410,6 +438,54 @@ export type GlobalCustomFieldScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"GlobalCustomField"> | Date | string
 }
 
+export type GlobalCustomFieldCreateWithoutValuesInput = {
+  id?: string
+  label: string
+  fieldType?: string
+  createdAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutGlobalCustomFieldsInput
+}
+
+export type GlobalCustomFieldUncheckedCreateWithoutValuesInput = {
+  id?: string
+  userId: string
+  label: string
+  fieldType?: string
+  createdAt?: Date | string
+}
+
+export type GlobalCustomFieldCreateOrConnectWithoutValuesInput = {
+  where: Prisma.GlobalCustomFieldWhereUniqueInput
+  create: Prisma.XOR<Prisma.GlobalCustomFieldCreateWithoutValuesInput, Prisma.GlobalCustomFieldUncheckedCreateWithoutValuesInput>
+}
+
+export type GlobalCustomFieldUpsertWithoutValuesInput = {
+  update: Prisma.XOR<Prisma.GlobalCustomFieldUpdateWithoutValuesInput, Prisma.GlobalCustomFieldUncheckedUpdateWithoutValuesInput>
+  create: Prisma.XOR<Prisma.GlobalCustomFieldCreateWithoutValuesInput, Prisma.GlobalCustomFieldUncheckedCreateWithoutValuesInput>
+  where?: Prisma.GlobalCustomFieldWhereInput
+}
+
+export type GlobalCustomFieldUpdateToOneWithWhereWithoutValuesInput = {
+  where?: Prisma.GlobalCustomFieldWhereInput
+  data: Prisma.XOR<Prisma.GlobalCustomFieldUpdateWithoutValuesInput, Prisma.GlobalCustomFieldUncheckedUpdateWithoutValuesInput>
+}
+
+export type GlobalCustomFieldUpdateWithoutValuesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.StringFieldUpdateOperationsInput | string
+  fieldType?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutGlobalCustomFieldsNestedInput
+}
+
+export type GlobalCustomFieldUncheckedUpdateWithoutValuesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.StringFieldUpdateOperationsInput | string
+  fieldType?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type GlobalCustomFieldCreateManyUserInput = {
   id?: string
   label: string
@@ -422,6 +498,7 @@ export type GlobalCustomFieldUpdateWithoutUserInput = {
   label?: Prisma.StringFieldUpdateOperationsInput | string
   fieldType?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  values?: Prisma.GlobalCustomFieldValueUpdateManyWithoutFieldNestedInput
 }
 
 export type GlobalCustomFieldUncheckedUpdateWithoutUserInput = {
@@ -429,6 +506,7 @@ export type GlobalCustomFieldUncheckedUpdateWithoutUserInput = {
   label?: Prisma.StringFieldUpdateOperationsInput | string
   fieldType?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  values?: Prisma.GlobalCustomFieldValueUncheckedUpdateManyWithoutFieldNestedInput
 }
 
 export type GlobalCustomFieldUncheckedUpdateManyWithoutUserInput = {
@@ -439,6 +517,35 @@ export type GlobalCustomFieldUncheckedUpdateManyWithoutUserInput = {
 }
 
 
+/**
+ * Count Type GlobalCustomFieldCountOutputType
+ */
+
+export type GlobalCustomFieldCountOutputType = {
+  values: number
+}
+
+export type GlobalCustomFieldCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  values?: boolean | GlobalCustomFieldCountOutputTypeCountValuesArgs
+}
+
+/**
+ * GlobalCustomFieldCountOutputType without action
+ */
+export type GlobalCustomFieldCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GlobalCustomFieldCountOutputType
+   */
+  select?: Prisma.GlobalCustomFieldCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * GlobalCustomFieldCountOutputType without action
+ */
+export type GlobalCustomFieldCountOutputTypeCountValuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GlobalCustomFieldValueWhereInput
+}
+
 
 export type GlobalCustomFieldSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -447,6 +554,8 @@ export type GlobalCustomFieldSelect<ExtArgs extends runtime.Types.Extensions.Int
   fieldType?: boolean
   createdAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  values?: boolean | Prisma.GlobalCustomField$valuesArgs<ExtArgs>
+  _count?: boolean | Prisma.GlobalCustomFieldCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["globalCustomField"]>
 
 export type GlobalCustomFieldSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -478,6 +587,8 @@ export type GlobalCustomFieldSelectScalar = {
 export type GlobalCustomFieldOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "label" | "fieldType" | "createdAt", ExtArgs["result"]["globalCustomField"]>
 export type GlobalCustomFieldInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  values?: boolean | Prisma.GlobalCustomField$valuesArgs<ExtArgs>
+  _count?: boolean | Prisma.GlobalCustomFieldCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type GlobalCustomFieldIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -490,6 +601,7 @@ export type $GlobalCustomFieldPayload<ExtArgs extends runtime.Types.Extensions.I
   name: "GlobalCustomField"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    values: Prisma.$GlobalCustomFieldValuePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -892,6 +1004,7 @@ readonly fields: GlobalCustomFieldFieldRefs;
 export interface Prisma__GlobalCustomFieldClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  values<T extends Prisma.GlobalCustomField$valuesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GlobalCustomField$valuesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GlobalCustomFieldValuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1324,6 +1437,30 @@ export type GlobalCustomFieldDeleteManyArgs<ExtArgs extends runtime.Types.Extens
    * Limit how many GlobalCustomFields to delete.
    */
   limit?: number
+}
+
+/**
+ * GlobalCustomField.values
+ */
+export type GlobalCustomField$valuesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GlobalCustomFieldValue
+   */
+  select?: Prisma.GlobalCustomFieldValueSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GlobalCustomFieldValue
+   */
+  omit?: Prisma.GlobalCustomFieldValueOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GlobalCustomFieldValueInclude<ExtArgs> | null
+  where?: Prisma.GlobalCustomFieldValueWhereInput
+  orderBy?: Prisma.GlobalCustomFieldValueOrderByWithRelationInput | Prisma.GlobalCustomFieldValueOrderByWithRelationInput[]
+  cursor?: Prisma.GlobalCustomFieldValueWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GlobalCustomFieldValueScalarFieldEnum | Prisma.GlobalCustomFieldValueScalarFieldEnum[]
 }
 
 /**

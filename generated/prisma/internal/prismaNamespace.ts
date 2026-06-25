@@ -386,6 +386,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   GlobalCustomField: 'GlobalCustomField',
+  GlobalCustomFieldValue: 'GlobalCustomFieldValue',
   UserSettings: 'UserSettings',
   Account: 'Account',
   Session: 'Session',
@@ -411,7 +412,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "globalCustomField" | "userSettings" | "account" | "session" | "person" | "mailingAddress" | "location" | "phoneNumber" | "emailAddress" | "note" | "customAttribute"
+    modelProps: "user" | "globalCustomField" | "globalCustomFieldValue" | "userSettings" | "account" | "session" | "person" | "mailingAddress" | "location" | "phoneNumber" | "emailAddress" | "note" | "customAttribute"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -560,6 +561,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.GlobalCustomFieldCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.GlobalCustomFieldCountAggregateOutputType> | number
+        }
+      }
+    }
+    GlobalCustomFieldValue: {
+      payload: Prisma.$GlobalCustomFieldValuePayload<ExtArgs>
+      fields: Prisma.GlobalCustomFieldValueFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GlobalCustomFieldValueFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GlobalCustomFieldValueFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload>
+        }
+        findFirst: {
+          args: Prisma.GlobalCustomFieldValueFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GlobalCustomFieldValueFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload>
+        }
+        findMany: {
+          args: Prisma.GlobalCustomFieldValueFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload>[]
+        }
+        create: {
+          args: Prisma.GlobalCustomFieldValueCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload>
+        }
+        createMany: {
+          args: Prisma.GlobalCustomFieldValueCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GlobalCustomFieldValueCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload>[]
+        }
+        delete: {
+          args: Prisma.GlobalCustomFieldValueDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload>
+        }
+        update: {
+          args: Prisma.GlobalCustomFieldValueUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload>
+        }
+        deleteMany: {
+          args: Prisma.GlobalCustomFieldValueDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GlobalCustomFieldValueUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GlobalCustomFieldValueUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload>[]
+        }
+        upsert: {
+          args: Prisma.GlobalCustomFieldValueUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GlobalCustomFieldValuePayload>
+        }
+        aggregate: {
+          args: Prisma.GlobalCustomFieldValueAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGlobalCustomFieldValue>
+        }
+        groupBy: {
+          args: Prisma.GlobalCustomFieldValueGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GlobalCustomFieldValueGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GlobalCustomFieldValueCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GlobalCustomFieldValueCountAggregateOutputType> | number
         }
       }
     }
@@ -1365,6 +1440,18 @@ export const GlobalCustomFieldScalarFieldEnum = {
 export type GlobalCustomFieldScalarFieldEnum = (typeof GlobalCustomFieldScalarFieldEnum)[keyof typeof GlobalCustomFieldScalarFieldEnum]
 
 
+export const GlobalCustomFieldValueScalarFieldEnum = {
+  id: 'id',
+  ownerId: 'ownerId',
+  personId: 'personId',
+  fieldId: 'fieldId',
+  value: 'value',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GlobalCustomFieldValueScalarFieldEnum = (typeof GlobalCustomFieldValueScalarFieldEnum)[keyof typeof GlobalCustomFieldValueScalarFieldEnum]
+
+
 export const UserSettingsScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -1697,6 +1784,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   globalCustomField?: Prisma.GlobalCustomFieldOmit
+  globalCustomFieldValue?: Prisma.GlobalCustomFieldValueOmit
   userSettings?: Prisma.UserSettingsOmit
   account?: Prisma.AccountOmit
   session?: Prisma.SessionOmit

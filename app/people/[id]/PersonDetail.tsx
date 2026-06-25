@@ -10,14 +10,16 @@ import type { SerialisedPerson } from "./types";
 
 import { formatBirthday } from "@/utils/formatBirthday";
 import type { DateFormat } from "@/lib/settings";
+import type { GlobalFieldWithValue } from "@/lib/globalCustomFields";
 import styles from "./PersonDetail.module.css";
 
 type Props = {
   person: SerialisedPerson;
   dateFormat: DateFormat;
+  globalFields: GlobalFieldWithValue[];
 };
 
-export default function PersonDetail({ person, dateFormat }: Props) {
+export default function PersonDetail({ person, dateFormat, globalFields }: Props) {
   const [isPending, startTransition] = useTransition();
   const [editIsOpen, editIsOpenSet] = useState(false);
 
@@ -148,7 +150,7 @@ export default function PersonDetail({ person, dateFormat }: Props) {
       <NotesSection personId={person.id} notes={person.notes} />
 
       <hr style={{ border: "none", borderTop: "1px solid var(--color-border)", margin: "16px 0" }} />
-      <CustomAttrSection personId={person.id} customAttributes={person.customAttributes} />
+      <CustomAttrSection personId={person.id} customAttributes={person.customAttributes} globalFields={globalFields} />
 
     </div>
   );

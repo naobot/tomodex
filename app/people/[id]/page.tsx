@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { getPersonForUser } from "@/lib/people";
 import { getUserSettings, DEFAULT_SETTINGS } from "@/lib/settings";
+import { getGlobalFieldsWithValues } from "@/lib/globalCustomFields";
 import PersonDetail from "./PersonDetail";
 import AppShell from "@/components/layout/AppShell";
 import DbErrorToast from "@/components/toast/DbErrorToast";
@@ -16,9 +17,10 @@ export default async function PersonPage({ params }: Props) {
 
   const { id } = await params;
 
-  const [result, settingsResult] = await Promise.all([
+  const [result, settingsResult, globalFieldsResult] = await Promise.all([
     getPersonForUser(id, session.user.id),
     getUserSettings(session.user.id),
+    getGlobalFieldsWithValues(session.user.id, id),
   ]);
 
   if (!result.ok) {
@@ -32,10 +34,11 @@ export default async function PersonPage({ params }: Props) {
   }
 
   const dateFormat = settingsResult.ok ? settingsResult.data.dateFormat : DEFAULT_SETTINGS.dateFormat;
+  const globalFields = globalFieldsResult.ok ? globalFieldsResult.data : [];
 
   return (
     <AppShell>
-      <PersonDetail person={result.data} dateFormat={dateFormat} />
+      <PersonDetail person={result.data} dateFormat={dateFormat} globalFields={globalFields} />
     </AppShell>
   );
 }
