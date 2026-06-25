@@ -191,6 +191,7 @@ export type UserWhereInput = {
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   accounts?: Prisma.AccountListRelationFilter
+  settings?: Prisma.XOR<Prisma.UserSettingsNullableScalarRelationFilter, Prisma.UserSettingsWhereInput> | null
   people?: Prisma.PersonListRelationFilter
   notes?: Prisma.NoteListRelationFilter
   customAttributes?: Prisma.CustomAttributeListRelationFilter
@@ -208,6 +209,7 @@ export type UserOrderByWithRelationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
+  settings?: Prisma.UserSettingsOrderByWithRelationInput
   people?: Prisma.PersonOrderByRelationAggregateInput
   notes?: Prisma.NoteOrderByRelationAggregateInput
   customAttributes?: Prisma.CustomAttributeOrderByRelationAggregateInput
@@ -228,6 +230,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   accounts?: Prisma.AccountListRelationFilter
+  settings?: Prisma.XOR<Prisma.UserSettingsNullableScalarRelationFilter, Prisma.UserSettingsWhereInput> | null
   people?: Prisma.PersonListRelationFilter
   notes?: Prisma.NoteListRelationFilter
   customAttributes?: Prisma.CustomAttributeListRelationFilter
@@ -269,6 +272,7 @@ export type UserCreateInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
   people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
@@ -286,6 +290,7 @@ export type UserUncheckedCreateInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
@@ -303,6 +308,7 @@ export type UserUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
   people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
@@ -320,6 +326,7 @@ export type UserUncheckedUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
@@ -402,6 +409,20 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type UserCreateNestedOneWithoutSettingsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSettingsInput, Prisma.UserUncheckedCreateWithoutSettingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSettingsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSettingsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSettingsInput, Prisma.UserUncheckedCreateWithoutSettingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSettingsInput
+  upsert?: Prisma.UserUpsertWithoutSettingsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSettingsInput, Prisma.UserUpdateWithoutSettingsInput>, Prisma.UserUncheckedUpdateWithoutSettingsInput>
 }
 
 export type UserCreateNestedOneWithoutAccountsInput = {
@@ -516,6 +537,90 @@ export type UserUpdateOneRequiredWithoutCustomAttributesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCustomAttributesInput, Prisma.UserUpdateWithoutCustomAttributesInput>, Prisma.UserUncheckedUpdateWithoutCustomAttributesInput>
 }
 
+export type UserCreateWithoutSettingsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
+  notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
+  customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
+  phoneNumbers?: Prisma.PhoneNumberCreateNestedManyWithoutOwnerInput
+  emailAddresses?: Prisma.EmailAddressCreateNestedManyWithoutOwnerInput
+  mailingAddresses?: Prisma.MailingAddressCreateNestedManyWithoutOwnerInput
+  locations?: Prisma.LocationCreateNestedManyWithoutOwnerInput
+}
+
+export type UserUncheckedCreateWithoutSettingsInput = {
+  id?: string
+  email: string
+  name?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  createdAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
+  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
+  customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
+  phoneNumbers?: Prisma.PhoneNumberUncheckedCreateNestedManyWithoutOwnerInput
+  emailAddresses?: Prisma.EmailAddressUncheckedCreateNestedManyWithoutOwnerInput
+  mailingAddresses?: Prisma.MailingAddressUncheckedCreateNestedManyWithoutOwnerInput
+  locations?: Prisma.LocationUncheckedCreateNestedManyWithoutOwnerInput
+}
+
+export type UserCreateOrConnectWithoutSettingsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSettingsInput, Prisma.UserUncheckedCreateWithoutSettingsInput>
+}
+
+export type UserUpsertWithoutSettingsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSettingsInput, Prisma.UserUncheckedUpdateWithoutSettingsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSettingsInput, Prisma.UserUncheckedCreateWithoutSettingsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSettingsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSettingsInput, Prisma.UserUncheckedUpdateWithoutSettingsInput>
+}
+
+export type UserUpdateWithoutSettingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
+  notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
+  customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
+  phoneNumbers?: Prisma.PhoneNumberUpdateManyWithoutOwnerNestedInput
+  emailAddresses?: Prisma.EmailAddressUpdateManyWithoutOwnerNestedInput
+  mailingAddresses?: Prisma.MailingAddressUpdateManyWithoutOwnerNestedInput
+  locations?: Prisma.LocationUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSettingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
+  notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
+  customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
+  phoneNumbers?: Prisma.PhoneNumberUncheckedUpdateManyWithoutOwnerNestedInput
+  emailAddresses?: Prisma.EmailAddressUncheckedUpdateManyWithoutOwnerNestedInput
+  mailingAddresses?: Prisma.MailingAddressUncheckedUpdateManyWithoutOwnerNestedInput
+  locations?: Prisma.LocationUncheckedUpdateManyWithoutOwnerNestedInput
+}
+
 export type UserCreateWithoutAccountsInput = {
   id?: string
   email: string
@@ -523,6 +628,7 @@ export type UserCreateWithoutAccountsInput = {
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
   people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
@@ -539,6 +645,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   emailVerified?: Date | string | null
   image?: string | null
   createdAt?: Date | string
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
@@ -571,6 +678,7 @@ export type UserUpdateWithoutAccountsInput = {
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
   people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
@@ -587,6 +695,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
@@ -604,6 +713,7 @@ export type UserCreateWithoutPeopleInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
   notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
   phoneNumbers?: Prisma.PhoneNumberCreateNestedManyWithoutOwnerInput
@@ -620,6 +730,7 @@ export type UserUncheckedCreateWithoutPeopleInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
   phoneNumbers?: Prisma.PhoneNumberUncheckedCreateNestedManyWithoutOwnerInput
@@ -652,6 +763,7 @@ export type UserUpdateWithoutPeopleInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
   notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
   phoneNumbers?: Prisma.PhoneNumberUpdateManyWithoutOwnerNestedInput
@@ -668,6 +780,7 @@ export type UserUncheckedUpdateWithoutPeopleInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
   phoneNumbers?: Prisma.PhoneNumberUncheckedUpdateManyWithoutOwnerNestedInput
@@ -684,6 +797,7 @@ export type UserCreateWithoutMailingAddressesInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
   people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
@@ -700,6 +814,7 @@ export type UserUncheckedCreateWithoutMailingAddressesInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
@@ -732,6 +847,7 @@ export type UserUpdateWithoutMailingAddressesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
   people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
@@ -748,6 +864,7 @@ export type UserUncheckedUpdateWithoutMailingAddressesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
@@ -764,6 +881,7 @@ export type UserCreateWithoutLocationsInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
   people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
@@ -780,6 +898,7 @@ export type UserUncheckedCreateWithoutLocationsInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
@@ -812,6 +931,7 @@ export type UserUpdateWithoutLocationsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
   people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
@@ -828,6 +948,7 @@ export type UserUncheckedUpdateWithoutLocationsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
@@ -844,6 +965,7 @@ export type UserCreateWithoutPhoneNumbersInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
   people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
@@ -860,6 +982,7 @@ export type UserUncheckedCreateWithoutPhoneNumbersInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
@@ -892,6 +1015,7 @@ export type UserUpdateWithoutPhoneNumbersInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
   people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
@@ -908,6 +1032,7 @@ export type UserUncheckedUpdateWithoutPhoneNumbersInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
@@ -924,6 +1049,7 @@ export type UserCreateWithoutEmailAddressesInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
   people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
@@ -940,6 +1066,7 @@ export type UserUncheckedCreateWithoutEmailAddressesInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
@@ -972,6 +1099,7 @@ export type UserUpdateWithoutEmailAddressesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
   people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
@@ -988,6 +1116,7 @@ export type UserUncheckedUpdateWithoutEmailAddressesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
@@ -1004,6 +1133,7 @@ export type UserCreateWithoutNotesInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
   people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeCreateNestedManyWithoutOwnerInput
   phoneNumbers?: Prisma.PhoneNumberCreateNestedManyWithoutOwnerInput
@@ -1020,6 +1150,7 @@ export type UserUncheckedCreateWithoutNotesInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
   customAttributes?: Prisma.CustomAttributeUncheckedCreateNestedManyWithoutOwnerInput
   phoneNumbers?: Prisma.PhoneNumberUncheckedCreateNestedManyWithoutOwnerInput
@@ -1052,6 +1183,7 @@ export type UserUpdateWithoutNotesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
   people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUpdateManyWithoutOwnerNestedInput
   phoneNumbers?: Prisma.PhoneNumberUpdateManyWithoutOwnerNestedInput
@@ -1068,6 +1200,7 @@ export type UserUncheckedUpdateWithoutNotesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
   customAttributes?: Prisma.CustomAttributeUncheckedUpdateManyWithoutOwnerNestedInput
   phoneNumbers?: Prisma.PhoneNumberUncheckedUpdateManyWithoutOwnerNestedInput
@@ -1084,6 +1217,7 @@ export type UserCreateWithoutCustomAttributesInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsCreateNestedOneWithoutUserInput
   people?: Prisma.PersonCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteCreateNestedManyWithoutOwnerInput
   phoneNumbers?: Prisma.PhoneNumberCreateNestedManyWithoutOwnerInput
@@ -1100,6 +1234,7 @@ export type UserUncheckedCreateWithoutCustomAttributesInput = {
   image?: string | null
   createdAt?: Date | string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  settings?: Prisma.UserSettingsUncheckedCreateNestedOneWithoutUserInput
   people?: Prisma.PersonUncheckedCreateNestedManyWithoutOwnerInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutOwnerInput
   phoneNumbers?: Prisma.PhoneNumberUncheckedCreateNestedManyWithoutOwnerInput
@@ -1132,6 +1267,7 @@ export type UserUpdateWithoutCustomAttributesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUpdateOneWithoutUserNestedInput
   people?: Prisma.PersonUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUpdateManyWithoutOwnerNestedInput
   phoneNumbers?: Prisma.PhoneNumberUpdateManyWithoutOwnerNestedInput
@@ -1148,6 +1284,7 @@ export type UserUncheckedUpdateWithoutCustomAttributesInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  settings?: Prisma.UserSettingsUncheckedUpdateOneWithoutUserNestedInput
   people?: Prisma.PersonUncheckedUpdateManyWithoutOwnerNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutOwnerNestedInput
   phoneNumbers?: Prisma.PhoneNumberUncheckedUpdateManyWithoutOwnerNestedInput
@@ -1258,6 +1395,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   image?: boolean
   createdAt?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
+  settings?: boolean | Prisma.User$settingsArgs<ExtArgs>
   people?: boolean | Prisma.User$peopleArgs<ExtArgs>
   notes?: boolean | Prisma.User$notesArgs<ExtArgs>
   customAttributes?: boolean | Prisma.User$customAttributesArgs<ExtArgs>
@@ -1298,6 +1436,7 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "emailVerified" | "image" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
+  settings?: boolean | Prisma.User$settingsArgs<ExtArgs>
   people?: boolean | Prisma.User$peopleArgs<ExtArgs>
   notes?: boolean | Prisma.User$notesArgs<ExtArgs>
   customAttributes?: boolean | Prisma.User$customAttributesArgs<ExtArgs>
@@ -1314,6 +1453,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     accounts: Prisma.$AccountPayload<ExtArgs>[]
+    settings: Prisma.$UserSettingsPayload<ExtArgs> | null
     people: Prisma.$PersonPayload<ExtArgs>[]
     notes: Prisma.$NotePayload<ExtArgs>[]
     customAttributes: Prisma.$CustomAttributePayload<ExtArgs>[]
@@ -1724,6 +1864,7 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  settings<T extends Prisma.User$settingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$settingsArgs<ExtArgs>>): Prisma.Prisma__UserSettingsClient<runtime.Types.Result.GetResult<Prisma.$UserSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   people<T extends Prisma.User$peopleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$peopleArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PersonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notes<T extends Prisma.User$notesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   customAttributes<T extends Prisma.User$customAttributesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$customAttributesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomAttributePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2180,6 +2321,25 @@ export type User$accountsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.AccountScalarFieldEnum | Prisma.AccountScalarFieldEnum[]
+}
+
+/**
+ * User.settings
+ */
+export type User$settingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserSettings
+   */
+  select?: Prisma.UserSettingsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserSettings
+   */
+  omit?: Prisma.UserSettingsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserSettingsInclude<ExtArgs> | null
+  where?: Prisma.UserSettingsWhereInput
 }
 
 /**

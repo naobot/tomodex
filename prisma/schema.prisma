@@ -7,6 +7,18 @@ datasource db {
   provider = "postgresql"
 }
 
+enum DateFormat {
+  DD_MONTH_YYYY // 25 June 2026
+  MONTH_DD_YYYY // June 25, 2026
+  DD_MM_YYYY    // 25/06/2026
+  MM_DD_YYYY    // 06/25/2026
+}
+
+enum FriendsOrder {
+  ADDED // by date added (default)
+  ALPHA // alphabetical
+}
+
 model User {
   id            String    @id @default(cuid())
   email         String    @unique
@@ -21,6 +33,7 @@ model User {
   accounts Account[]
   // --------------------------
 
+  settings         UserSettings?
   people           Person[]
   notes            Note[]
   customAttributes CustomAttribute[]
@@ -28,6 +41,15 @@ model User {
   emailAddresses   EmailAddress[]
   mailingAddresses MailingAddress[]
   locations        Location[]
+}
+
+model UserSettings {
+  id           String       @id @default(cuid())
+  userId       String       @unique
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dateFormat   DateFormat   @default(DD_MONTH_YYYY)
+  friendsOrder FriendsOrder @default(ADDED)
+  updatedAt    DateTime     @updatedAt
 }
 
 // --- for NextAuth ---
