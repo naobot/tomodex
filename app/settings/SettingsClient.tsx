@@ -162,7 +162,7 @@ export default function SettingsClient({ settings }: Props) {
   return (
     <div>
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 24 }}>
-        <Link href="/" style={{ fontFamily: "var(--font-pixel)", fontSize: 13, color: "var(--color-text-faint)", lineHeight: 1, textDecoration: "none", userSelect: "none" }}>
+        <Link href="/people" style={{ fontFamily: "var(--font-pixel)", fontSize: 13, color: "var(--color-text-faint)", lineHeight: 1, textDecoration: "none", userSelect: "none" }}>
           ‹
         </Link>
         <span style={{
