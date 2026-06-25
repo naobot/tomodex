@@ -9,17 +9,19 @@ import CustomAttrSection from "./CustomAttrSection";
 import type { SerialisedPerson } from "./types";
 
 import { formatBirthday } from "@/utils/formatBirthday";
+import type { DateFormat } from "@/lib/settings";
 import styles from "./PersonDetail.module.css";
 
 type Props = {
   person: SerialisedPerson;
+  dateFormat: DateFormat;
 };
 
-export default function PersonDetail({ person }: Props) {
+export default function PersonDetail({ person, dateFormat }: Props) {
   const [isPending, startTransition] = useTransition();
   const [editIsOpen, editIsOpenSet] = useState(false);
 
-  const birthday = formatBirthday(person.birthDay, person.birthMonth, person.birthYear);
+  const birthday = formatBirthday(person.birthDay, person.birthMonth, person.birthYear, dateFormat);
   const location = person.location
     ? [person.location.city, person.location.country].filter(Boolean).join(", ")
     : null;
