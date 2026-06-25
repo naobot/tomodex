@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { ReactNode } from "react";
+import Link from "next/link";
 
 function SettingsSection({ title, children }: { title: string; children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,8 +43,11 @@ function SettingsSection({ title, children }: { title: string; children: ReactNo
 
 export default function SettingsClient() {
   return (
-    <div style={{ maxWidth: 540 }}>
-      <div style={{ marginBottom: 24 }}>
+    <div>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 24 }}>
+        <Link href="/" style={{ fontFamily: "var(--font-pixel)", fontSize: 13, color: "var(--color-text-faint)", lineHeight: 1, textDecoration: "none", userSelect: "none" }}>
+          ‹
+        </Link>
         <span style={{
           fontFamily: "var(--font-pixel)",
           fontSize: 11,
